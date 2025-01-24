@@ -1,0 +1,66 @@
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+.footer {
+    margin-top: auto; /* Empuja el footer hacia abajo */
+    background-color: #f1f1f1; /* Color de fondo para el footer */
+    padding: 20px;
+    text-align: center; /* Centra el contenido */
+}
+
+.footer-link {
+    display: inline-block; /* Hace que se comporte como un botón */
+    margin: 0 10px; /* Espaciado entre los enlaces */
+    text-decoration: none; /* Sin subrayado */
+    color: #007bff; /* Color del texto */
+    padding: 10px 15px; /* Espacio dentro del botón */
+    border: 1px solid #007bff; /* Borde del botón */
+    border-radius: 5px; /* Bordes redondeados */
+    transition: background-color 0.3s; /* Transición suave para el fondo */
+}
+
+.footer-link:hover {
+    background-color: #007bff; /* Color de fondo al pasar el mouse */
+    color: white; /* Color del texto al pasar el mouse */
+}
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px; /* Espaciado interno */
+}
+
+.widget {
+    width: 45%; /* Ajusta el ancho según sea necesario */
+}
+
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+        align-items: flex-start; /* Alinear al inicio en pantallas pequeñas */
+    }
+    .widget {
+        width: 100%; /* Ancho completo en pantallas pequeñas */
+    }
+}
+
+.contact-item {
+    display: flex; /* Utiliza flexbox para alinear ícono y texto en la misma línea */
+    align-items: center; /* Alinea verticalmente al centro */
+    margin-bottom: 10px; /* Espacio entre cada contacto */
+}
+
+.icon {
+    margin-right: 10px; /* Espacio entre el ícono y el texto */
+}
+
+.content {
+    margin: 0; /* Elimina márgenes por defecto */
+}

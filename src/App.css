@@ -1,0 +1,92 @@
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+#root {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;  
+}
+
+.content {
+    flex: 1;  
+}
+.container {
+  width: 100%;
+  padding: 0.5rem;
+}
+
+section {
+  padding: 0.5rem 1rem 1rem;
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+
+section h2 {
+  padding: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+/* .nav-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem;
+}
+
+.nav-container .nav-button {
+  margin-left: 0.5rem;
+} */
+
+/* @media (min-width: 768px) {
+  .nav-container .nav-button {
+    margin-left: 1rem;
+  }
+} */
+.scrollbar-hidden {
+    overflow-x: hidden; /* Oculta el scrollbar horizontal */
+}
+
+.slides {
+    scroll-behavior: smooth; /* Desplazamiento suave */
+    scroll-snap-type: x mandatory; /* Establece el tipo de "snap" en el eje x */
+}
+
+.slides li {
+    scroll-snap-align: start; /* Alinea las miniaturas al inicio al hacer scroll */
+}
+
+.react-datepicker__year-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+h2 {
+  color: #92BF4E; 
+}
+
+.main-content {
+  background-color: #F2F2F2;
+  padding-top: 75px; /* Ajusta este valor según la altura de tu navbar */
+}
+
+/* loader */
+.loader {
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid green;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+}
+
+.shadowComplete {
+  padding: 10px;
+  box-shadow: 0px 0px 7px 7px #e8e8e8;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
