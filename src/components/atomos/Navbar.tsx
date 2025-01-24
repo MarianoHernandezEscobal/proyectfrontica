@@ -121,7 +121,7 @@ const Navbar = () => {
     <nav
       ref={navRef}
       className={`fixed top-0 left-0 right-0 z-40 p-2 pr-3 bg-gradient-to-b from-accent-light to-background-neutral transition-all duration-300 ${
-        location.pathname === "/home" && !hasScrolled
+        (location.pathname === "/home" || location.pathname === '' || location.pathname === '/' )&& !hasScrolled
           ? "opacity-0 invisible"
           : "opacity-100 visible"
       }`}
