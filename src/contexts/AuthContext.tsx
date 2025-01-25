@@ -25,7 +25,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
       sessionStorage.setItem("userData", JSON.stringify(userData));
       sessionStorage.getItem("userData");
+
       setUser(userData);
+      const cookieExists = hasCookie("sessionIndicator");
+      console.log('cookieExists', cookieExists);
+      setHasSession(cookieExists);
     } catch (error) {
       console.warn("Error fetching user profile:", error);
       sessionStorage.removeItem("userData");
