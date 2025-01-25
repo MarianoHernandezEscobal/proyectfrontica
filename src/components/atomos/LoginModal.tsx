@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Title from './Title';
 import { FaTimes, FaEye, FaEyeSlash, FaEnvelope, FaLock } from 'react-icons/fa';
 import { useAlert } from '../../contexts/AlertContext';
-import { getUsers, loginUser } from '../../services/users/userService';
+import { loginUser } from '../../services/users/userService';
 import { errorMessages } from '../../utils/errorMessages';
 import { isValidEmail } from '../../utils/validations';
 import CustomButton from './ButtonProfile';
