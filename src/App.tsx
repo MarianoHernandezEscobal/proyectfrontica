@@ -31,11 +31,10 @@ function AppContent() {
   const [navbarHeight, setNavbarHeight] = useState(true);
 
   useEffect(() => {
-    // Cambia dinámicamente el navbarHeight según la ruta
     if (location.pathname === "/home" || location.pathname === "" || location.pathname === "/") {
-      setNavbarHeight(false); // Oculta el espacio del navbar en el home
+      setNavbarHeight(false);
     } else {
-      setNavbarHeight(true); // Espacio normal en otras rutas
+      setNavbarHeight(true);
     }
   }, [location]);
 
