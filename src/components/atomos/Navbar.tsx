@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import LoginRegisterModal from "./Modal";
 import { FaUser, FaChevronDown, FaChevronUp } from "react-icons/fa";
