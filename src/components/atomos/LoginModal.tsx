@@ -7,6 +7,7 @@ import { errorMessages } from '../../utils/errorMessages';
 import { isValidEmail } from '../../utils/validations';
 import CustomButton from './ButtonProfile';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../contexts/AuthContext';
 
 interface LoginModalProps {
   isOpen: boolean;
@@ -17,6 +18,7 @@ interface LoginModalProps {
 const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose, toggleRegistering }) => {
   const { showAlert } = useAlert();
   const navigate = useNavigate();
+  const { fetchUserProfile } = useAuth(); // <-- We'll call this after login
 
   const [formData, setFormData] = useState({
     email: '',
@@ -60,6 +62,7 @@ const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose, toggleRegister
     if (!validateFields()) return;
     try {
       await loginUser(formData.email, formData.password);
+      await fetchUserProfile();
       if (window.location.pathname === '/login') {
         navigate('/');
       } else {

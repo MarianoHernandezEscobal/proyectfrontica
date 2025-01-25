@@ -1,3 +1,4 @@
+// AuthProvider.tsx (simplified)
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { getUsers, logoutUser } from "../services/users/userService";
 import { UserData } from "../utils/types";
@@ -14,17 +15,15 @@ const AuthContext = createContext<AuthContextProps | undefined>(undefined);
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<UserData | null>(null);
-  const [hasSession, setHasSession] = useState(false); 
+  const [hasSession, setHasSession] = useState(false);
 
   const fetchUserProfile = async () => {
     try {
-      // Attempt to get user data from your service
-      const userData = await getUsers();
-      // Store in sessionStorage for quick access
+      const userData = await getUsers(); // e.g. GET /user/profile
       sessionStorage.setItem("userData", JSON.stringify(userData));
       setUser(userData);
     } catch (error) {
-      console.warn("No active user or an error occurred:", error);
+      console.warn("Error fetching user profile:", error);
       sessionStorage.removeItem("userData");
       setUser(null);
     }
@@ -40,11 +39,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   useEffect(() => {
     const cookieExists = hasCookie("sessionIndicator");
     setHasSession(cookieExists);
-    console.log('cookie auth', hasCookie("sessionIndicator"));
 
     const storedUser = sessionStorage.getItem("userData");
-    console.log('user', storedUser);
-
     if (cookieExists) {
       if (storedUser) {
         setUser(JSON.parse(storedUser));
@@ -63,7 +59,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         user,
         isAuthenticated: hasSession && !!user,
         logoutUser: handleLogout,
-        fetchUserProfile,
+        fetchUserProfile
       }}
     >
       {children}
@@ -71,6 +67,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   );
 };
 
+// Custom hook
 export const useAuth = (): AuthContextProps => {
   const context = useContext(AuthContext);
   if (!context) {
