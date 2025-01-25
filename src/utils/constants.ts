@@ -1,1 +1,1 @@
-export const BASE_URL = 'https://4mp22vmq-3000.brs.devtunnels.ms'
+export const BASE_URL = 'https://backend.inmobiliariacostaazul.com';
