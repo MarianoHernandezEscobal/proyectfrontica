@@ -30,12 +30,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   };
 
-  // Handle logout
   const handleLogout = async () => {
     await logoutUser();
     sessionStorage.removeItem("userData");
-    // Optionally, remove the cookie if your backend doesn't already do this
-    // document.cookie = "sessionIndicator=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
     setUser(null);
     setHasSession(false);
   };
@@ -43,8 +40,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   useEffect(() => {
     const cookieExists = hasCookie("sessionIndicator");
     setHasSession(cookieExists);
+    console.log('cookie auth', hasCookie("sessionIndicator"));
 
     const storedUser = sessionStorage.getItem("userData");
+    console.log('user', storedUser);
+
     if (cookieExists) {
       if (storedUser) {
         setUser(JSON.parse(storedUser));

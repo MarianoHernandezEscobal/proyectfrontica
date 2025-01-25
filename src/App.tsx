@@ -45,6 +45,7 @@ function AppContent() {
         <Route path="/" element={<Home />} />
         <Route path="/home" element={<Home />} />
         <Route path="/login" element={<LoginRegisterModal />} />
+        <Route path="/login/*" element={<LoginRegisterModal />} />
         <Route path="/user/make-admin" element={<MakeAdmin />} />
         <Route
           path="/properties/pending-approval"

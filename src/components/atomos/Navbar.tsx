@@ -41,7 +41,11 @@ const Navbar = () => {
   };
 
   const toggleUserMenu = useCallback(() => {
-    if (isLoggedIn) {
+    if (isLoggedIn) 
+      {
+        console.log('isLoggedIn', isLoggedIn);
+        console.log('cookie', hasCookie("sessionIndicator"));
+
       setIsUserMenuOpen((prev) => !prev);
     } else {
       setIsModalOpen(true);

@@ -60,12 +60,10 @@ const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose, toggleRegister
     if (!validateFields()) return;
     try {
       await loginUser(formData.email, formData.password);
-      const user = await getUsers()
-      sessionStorage.setItem('userData', JSON.stringify(user))
       if (window.location.pathname === '/login') {
         navigate('/');
       } else {
-        window.location.reload();
+        // window.location.reload();
       }
       showAlert('success', 'Inicio de sesión exitoso');
       onClose();
