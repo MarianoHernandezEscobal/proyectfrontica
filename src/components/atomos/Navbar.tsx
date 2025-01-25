@@ -47,6 +47,7 @@ const Navbar = () => {
 
   // Toggle user menu or open login modal
   const toggleUserMenu = useCallback(() => {
+    console.log('isAuthenticated', isAuthenticated);
     if (isAuthenticated) {
       setIsUserMenuOpen((prev) => !prev);
     } else {
