@@ -19,8 +19,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const fetchUserProfile = async () => {
     try {
-      const userData = await getUsers(); // e.g. GET /user/profile
+      console.log('fetchUserProfile');
+      const userData = await getUsers();
+      console.log('user', userData);
+
       sessionStorage.setItem("userData", JSON.stringify(userData));
+      sessionStorage.getItem("userData");
       setUser(userData);
     } catch (error) {
       console.warn("Error fetching user profile:", error);
