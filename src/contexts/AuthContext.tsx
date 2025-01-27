@@ -23,7 +23,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       const userData = await getUsers();
       setHasSession(true);
       setUser(userData);
+      console.log('hasSession', hasSession);
       console.log('user', userData);
+      console.log('user', !!user);
+
     } catch (error) {
       console.warn("Error fetching user profile:", error);
       sessionStorage.removeItem("userData");
