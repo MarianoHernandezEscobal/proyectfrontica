@@ -1,5 +1,7 @@
 import React, { useEffect, useRef } from "react";
-import { DEFAULT_CENTER } from "../../utils/constants";
+
+// Coordenadas por defecto centradas en Montevideo, Uruguay
+export const DEFAULT_CENTER = { lat: -34.9011, lng: -56.1645 };
 
 interface GoogleMapSelectorProps {
   formData: { geoCoordinates: { lat: number; lng: number } };
@@ -19,11 +21,20 @@ const GoogleMapSelector: React.FC<GoogleMapSelectorProps> = ({
 
     // Crear el mapa solo si no existe ya
     if (!googleMapRef.current) {
-    const defaultCenter = formData.geoCoordinates.lng !== 0 ? formData.geoCoordinates : DEFAULT_CENTER
+      const defaultCenter = formData.geoCoordinates.lng !== 0 ? formData.geoCoordinates : DEFAULT_CENTER;
+
       googleMapRef.current = new window.google.maps.Map(mapRef.current, {
         center: defaultCenter,
         zoom: 14,
       });
+
+      // Crear un marcador en las coordenadas iniciales
+      if (formData.geoCoordinates.lat !== 0 && formData.geoCoordinates.lng !== 0) {
+        markerRef.current = new window.google.maps.Marker({
+          position: formData.geoCoordinates,
+          map: googleMapRef.current,
+        });
+      }
 
       googleMapRef.current.addListener("click", (event: google.maps.MapMouseEvent) => {
         if (event.latLng) {
@@ -47,7 +58,7 @@ const GoogleMapSelector: React.FC<GoogleMapSelectorProps> = ({
         }
       });
     }
-  }, [onFormChange]);
+  }, [onFormChange, formData.geoCoordinates]);
 
   useEffect(() => {
     if (googleMapRef.current) {
