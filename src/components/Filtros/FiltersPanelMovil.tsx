@@ -60,7 +60,7 @@ const FiltersPanelMovil: React.FC<FiltersPanelProps> = ({ initialFilters, onFilt
             </div>
 
             {showSortMenu && (
-                <div className="p-4 bg-gray-100 border-b">
+                <div className="p-4 bg-gray-100 border-b mx-auto">
                     <SortByPriceButtons
                         currentOrder={filters.sortOrder}
                         onSortChange={(order) => handleFilterChange('sortOrder', order)}
@@ -90,6 +90,7 @@ const FiltersPanelMovil: React.FC<FiltersPanelProps> = ({ initialFilters, onFilt
                         isChecked={filters.filterGarages}
                         onFilterChange={(garages) => handleFilterChange('filterGarages', garages)}
                     />
+                    <br />
                     <FilterByPool
                         isChecked={filters.filterPool}
                         onFilterChange={(pool) => handleFilterChange('filterPool', pool)}

@@ -13,6 +13,7 @@ import { updateUser } from "../services/users/userService";
 import { useNavigate } from "react-router-dom";
 import { useAlert } from "../contexts/AlertContext";
 import { useAuth } from "../contexts/AuthContext";
+import Button from "../components/atomos/Button";
 
 const Profile: React.FC = () => {
   const { user, isAuthenticated } = useAuth();
@@ -36,13 +37,13 @@ const Profile: React.FC = () => {
   const [showPasswordModal, setShowPasswordModal] = useState(false);
 
   useEffect(() => {
-      setFormData({
-        firstName: user?.firstName || "",
-        lastName: user?.lastName || "",
-        email: user?.email || "",
-        phone: user?.phone || "",
-      });
-    
+    setFormData({
+      firstName: user?.firstName || "",
+      lastName: user?.lastName || "",
+      email: user?.email || "",
+      phone: user?.phone || "",
+    });
+
   }, [user]);
 
   if (!isAuthenticated) {
@@ -130,9 +131,8 @@ const Profile: React.FC = () => {
                   name="firstName"
                   value={formData.firstName}
                   onChange={handleChange}
-                  className={`mt-1 px-1 py-2 block w-full rounded-md shadow-sm ${
-                    errors.firstName ? "border-red-500" : "border-gray-300"
-                  } focus:border-indigo-500 focus:ring-indigo-500`}
+                  className={`mt-1 px-1 py-2 block w-full rounded-md shadow-sm ${errors.firstName ? "border-red-500" : "border-gray-300"
+                    } focus:border-indigo-500 focus:ring-indigo-500`}
                 />
                 {errors.firstName && (
                   <p className="mt-2 text-sm text-red-600">
@@ -154,9 +154,8 @@ const Profile: React.FC = () => {
                   name="lastName"
                   value={formData.lastName}
                   onChange={handleChange}
-                  className={`mt-1 block px-1 py-2 w-full rounded-md shadow-sm ${
-                    errors.lastName ? "border-red-500" : "border-gray-300"
-                  } focus:border-indigo-500 focus:ring-indigo-500`}
+                  className={`mt-1 block px-1 py-2 w-full rounded-md shadow-sm ${errors.lastName ? "border-red-500" : "border-gray-300"
+                    } focus:border-indigo-500 focus:ring-indigo-500`}
                 />
                 {errors.lastName && (
                   <p className="mt-2 text-sm text-red-600">
@@ -229,6 +228,12 @@ const Profile: React.FC = () => {
           </div>
 
         </div>
+        <Button
+          onClick={() => window.history.back()}
+          clase="mb-4 bg-primary-light hover:bg-primary-dark text-text-light fixed bottom-4 left-6 z-50"
+        >
+          Volver
+        </Button>
       </div>
     </div>
   );

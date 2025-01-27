@@ -13,10 +13,13 @@ import playa2Gif from "../assets/imgs/playas/playa3.gif";
 import playaMobile1Gif from "../assets/imgs/playas/playa2-mobile.gif";
 import playaMobile2Gif from "../assets/imgs/playas/playa3-mobile.gif";
 import WhatsappButton from "../components/atomos/WhatsappButton";
+import GoogleMapComponent from "../components/atomos/GoogleMap";
+import { useNavigate } from "react-router-dom";
 // import MapaHome from '../components/atomos/MapaHome';
 
 const Home: React.FC = () => {
-  const { home } = useProperties();
+  const { home, properties } = useProperties();
+  const navigate = useNavigate();
 
   // hooks para cambiar las imágenes en parallax
   const [desktopImage, setDesktopImage] = useState(playa1Gif);
@@ -56,7 +59,7 @@ const Home: React.FC = () => {
               <Title text="En venta" />
               <Carousel properties={home.sale.length ? home.sale : []} />
               <div className="py-3">
-                <Button to="/ventas">Ir a propiedades en venta</Button>
+              <Button onClick={() => navigate("/properties?filter=sale")}>Ir a propiedades en venta</Button>
               </div>
               <hr />
             </>
@@ -67,7 +70,7 @@ const Home: React.FC = () => {
               <Title text="En alquiler" />
               <Carousel properties={home.rent.length ? home.rent : []} />
               <div className="py-3">
-                <Button to="/alquileres">Ir a propiedades en alquiler</Button>
+              <Button onClick={() => navigate("/properties?filter=rent")}>Ir a propiedades en alquiler</Button>
               </div>
               <hr />
             </>
@@ -94,7 +97,7 @@ const Home: React.FC = () => {
               <Title text="Propiedades destacadas" />
               <Carousel properties={home.pinned.length ? home.pinned : []} />
               <div className="py-3">
-                <Button to="/destacadas">Ir a propiedades destacadas</Button>
+              <Button onClick={() => navigate("/properties?filter=pinned")}>Ir a propiedades destacadas</Button>
               </div>
               <hr />
             </>
@@ -126,14 +129,13 @@ const Home: React.FC = () => {
             </>
           )}
         </section>
-        {/* <hr />
-                // mapa con todas las propiedades, hay q terminar de setear las apiKey de google en el componente
-                <div className="lg:max-w-[1200px] mx-auto">
-                    <section className="px-0">
-                        <Title text="Propiedades en el mapa" size="large" />
-                        <MapaHome properties={allPropiedades} /> 
-                    </section>
-                 </div> */}
+        <div>
+          {properties.length > 0 &&
+          <GoogleMapComponent properties={properties} />
+    }
+
+
+        </div>
 
 
         <section className="px-0">

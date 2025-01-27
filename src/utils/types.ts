@@ -38,7 +38,7 @@ export interface Property {
   yearBuilt?: string;
   latitud?: number;
   longitud?: number;
-  geoCoordinates?: LatLng | null;
+  geoCoordinates: LatLng;
   contribution?: string;
   pinned?: boolean;
   approved?: boolean;
@@ -103,7 +103,7 @@ export type Filters = {
   filterRooms: number[] | null;
   filterGarages: boolean;
   filterPool: boolean;
-  sortOrder: "asc" | "desc" | null;
+  sortOrder: "asc" | "desc" | "relevant" | null;
 };
 
 export type FiltersPanelProps = {

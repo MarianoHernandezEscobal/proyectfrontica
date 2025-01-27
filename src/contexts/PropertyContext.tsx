@@ -18,7 +18,9 @@ export const PropertyProvider: React.FC<{ children: ReactNode }> = ({ children }
 
     const fetchAllProperties = async (): Promise<void> => {
         try {
+
             const data = await fetchProperties();
+            console.log('fetchAllProperties Contest',data);
             setProperties(data);
         } catch (error) {
             console.error("Error al cargar las propiedades:", error);

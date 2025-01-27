@@ -78,7 +78,7 @@ const PropertyHorizontalCard: React.FC<Property> = ({
     <article className="bg-white rounded-lg max-w-[1090px] shadow-md dark:bg-surface-dark dark:text-gray-800 flex flex-col md:flex-row h-full md:h-[500px] w-full">
       <figure className="w-full relative group overflow-hidden">
         <div
-          className="post_thumbnail bg-center bg-cover w-full  md:h-full rounded-lg md:rounded-l-lg md:rounded-r-none"
+          className="post_thumbnail bg-center bg-cover w-full h-[300px] sm:h-[400px] md:h-full min-h-[200px] md:min-h-[400px] rounded-t-lg md:rounded-l-lg md:rounded-r-none"
           style={{
             backgroundImage: `url('${imageSrc[currentImageIndex] ?? image}')`,
             backgroundSize: "cover",
@@ -93,7 +93,7 @@ const PropertyHorizontalCard: React.FC<Property> = ({
           <img src={imageSrc[currentImageIndex] ?? image} alt="Property" className="hidden" onLoad={handleImageLoad} />
         </div>
         {imageSrc.length > 0 && (
-          <div className="absolute inset-0 flex justify-between items-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+          <div className="absolute inset-0 flex justify-between items-center opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-300">
             <button
               className="bg-black bg-opacity-20 hover:bg-opacity-50 text-white p-2 rounded-full ml-2"
               onClick={handlePrevImage}
@@ -108,24 +108,24 @@ const PropertyHorizontalCard: React.FC<Property> = ({
             </button>
           </div>
         )}
-        <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+        <div className="absolute top-2 right-2 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-300">
           <FavButton onClick={handleFavClick} isFavourite={isFav} className="opacity-100" />
         </div>
-        <div className="absolute top-2 left-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+        <div className="absolute top-2 left-2 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-300">
           <EditButton onClick={handleEdit} />
         </div>
       </figure>
 
-      <div className="w-full md:w-1/2 p-2 flex flex-col justify-between">
+      <div className="w-full md:w-1/2 pl-2 flex flex-col justify-between">
         <div>
           <h3 className="text-xl leading-tight font-bold">
             <span>{title}</span>
             <hr className="m-auto my-4 w-3/4 block md:hidden" />
           </h3>
-          <p className="text-gray-500 text-m">{address}</p>
+          <p className="text-gray-500 text-m pb-4">{address}</p>
           <hr className="m-auto w-3/4 block md:hidden" />
         </div>
-        <div className="text-lg">
+        <div className="text-lg pt-2">
           <h4 className="font-bold">Descripción</h4>
           <p className="text-gray-500">{description}</p>
           <hr className="m-auto mt-4 w-3/4 block md:hidden" />
@@ -182,4 +182,3 @@ const PropertyHorizontalCard: React.FC<Property> = ({
 }
 
 export default PropertyHorizontalCard
-

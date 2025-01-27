@@ -49,9 +49,11 @@ export const Footer: React.FC = () => {
 
     return (
         <footer className={`sticky top-[100vh] p-5 bg-gradient-to-b to-accent-light from-background-neutral text-text-light`}>
+            {/* <footer className="w-full bg-gradient-to-b to-accent-light from-background-neutral text-text-light absolute bottom-0"> */}
+
             <div className="max-w-7xl mx-auto px-4 py-8 text-center sm:text-left">
                 <div className="flex flex-col sm:flex-row justify-between items-center mb-8">
-                    <Link to="/Home" className="mb-4 sm:mb-0" title="Inmobiliaria Costa Azul">
+                    <Link to="/home" className="mb-4 sm:mb-0" title="Inmobiliaria Costa Azul">
                         <img
                             src={logo || "/placeholder.svg"}
                             alt="Inmobiliaria Costa Azul"

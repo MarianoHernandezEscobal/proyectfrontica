@@ -1,7 +1,6 @@
 import React, { useState, useCallback, useEffect } from "react";
 import Button from "./atomos/Button";
 import InputField from "./atomos/InputFieldProps";
-import MockMap from "../assets/MockMapProps";
 import { useNavigate } from "react-router-dom";
 import { PropertyStatus, PropertyTypes, Property } from "../utils/types";
 import Title from "./atomos/Title";
@@ -17,6 +16,7 @@ import { PropertyStatusSelect } from "./atomos/PropertyStatusSelect";
 import ModalTerms from "./atomos/ModalTerms";
 import TextareaField from "./atomos/TextareaField";
 import ImagePreview from "./atomos/ImagesPrewiev";
+import GoogleMapSelector from "./atomos/GoogleMapSelector";
 
 interface PropertyFormProps {
   onAddProperty?: (newProperty: Omit<Property, "id">) => void;
@@ -37,7 +37,7 @@ const inicializarPropiedad = {
   rooms: 0,
   bathrooms: 0,
   address: "",
-  geoCordinates: {
+  geoCoordinates: {
     lat: 0,
     lng: 0,
   },
@@ -59,7 +59,7 @@ const PropertyForm: React.FC<PropertyFormProps> = ({
   const [isModalOpen, setModalOpen] = useState(false);
   const navigate = useNavigate();
   const [formData, setFormData] = useState<Property>(
-    property || inicializarPropiedad
+    property || { ...inicializarPropiedad }
   );
 
   const [newImages, setNewImages] = useState<File[]>([]);
@@ -98,6 +98,14 @@ const PropertyForm: React.FC<PropertyFormProps> = ({
     setNewImages((prevFiles) => [...prevFiles, ...acceptedFiles]);
     setPreviewImages((prevImages) => [...prevImages, ...newImageSrc]);
   }, []);
+
+  const handleMapChange = (lat: number, lng: number) => {
+    setFormData((prev) => ({
+      ...prev,
+      geoCoordinates: { lat, lng },
+    }));
+    console.log(formData);
+  }
 
   const handleDeleteImage = (index: number) => {
     const imageToDelete = previewImages[index];
@@ -367,18 +375,10 @@ const PropertyForm: React.FC<PropertyFormProps> = ({
               type="number"
             />
           </div>
-
-          <MockMap
-            onClick={(latLng) =>
-              setFormData((prev) => ({
-                ...prev,
-                geoCordinates: {
-                  lat: latLng.lat,
-                  lng: latLng.lng,
-                },
-              }))
-            }
-          />
+          <GoogleMapSelector
+          formData={formData}
+          onFormChange={handleMapChange}
+        />
 
           <Button type="submit" clase="w-full text-white">
             {property ? "Actualizar Propiedad" : "Crear Propiedad"}
