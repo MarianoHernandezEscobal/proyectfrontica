@@ -21,6 +21,7 @@ const Recaptcha: React.FC<RecaptchaProps> = ({ onError, setIsChecked }) => {
         sitekey={siteKey}
         onChange={handleChange}
         theme="light"
+        hl="es"
       />
     </div>
   );

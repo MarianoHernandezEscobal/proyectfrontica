@@ -4,12 +4,12 @@ import {
     FaBuilding,
     FaWarehouse,
     FaStore,
-    FaLandmark,
-    FaCubes,
     FaEllipsisH,
     FaChevronDown,
     FaChevronUp,
+    FaTree,
 } from "react-icons/fa";
+import { MdBusiness } from "react-icons/md";
 
 interface FilterButtonsProps {
     onFilterChange: (type: string) => void;
@@ -18,11 +18,12 @@ interface FilterButtonsProps {
 
 const iconMap = {
     Apartamento: <FaBuilding />,
-    Almacen: <FaCubes />,
+    // Almacen: <FaCubes />,
+    Almacen: <FaWarehouse />,
     Casa: <FaHome />,
     Comercio: <FaStore />,
-    Oficina: <FaWarehouse />,
-    Terreno: <FaLandmark />,
+    Oficina: <MdBusiness />,
+    Terreno: <FaTree />,
     Otro: <FaEllipsisH />,
 };
 
@@ -54,18 +55,18 @@ const FilterButtons: React.FC<FilterButtonsProps> = ({ onFilterChange, currentFi
                         ${currentFilters.length === 0 ? "bg-green-600" : "bg-gray-400"} 
                         text-white hover:bg-green-500 focus:outline-none`}
                     >
-                        Todas
+                        Todos
                     </button>
                     {Object.keys(iconMap).map((type) => (
                         <button
                             key={type}
                             onClick={() => onFilterChange(type)}
-                            className={`flex items-center justify-center gap-2 p-2 rounded-md 
+                            className={`flex items-center text-3xl justify-center gap-2 p-2 rounded-md 
                             ${isActive(type) ? "bg-green-600" : "bg-gray-400"} 
                             text-white hover:bg-green-500 focus:outline-none`}
                         >
                             {iconMap[type as keyof typeof iconMap]}
-                            <span className="capitalize">{type}</span>
+                            <span className="capitalize md:text-base sm:text-lg">{type}</span>
                         </button>
                     ))}
                 </div>

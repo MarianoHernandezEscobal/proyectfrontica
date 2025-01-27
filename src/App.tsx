@@ -31,10 +31,11 @@ function AppContent() {
   const [navbarHeight, setNavbarHeight] = useState(true);
 
   useEffect(() => {
-    if (location.pathname === "/home" || location.pathname === "" || location.pathname === "/") {
-      setNavbarHeight(false);
+    // Cambia dinámicamente el navbarHeight según la ruta
+    if (location.pathname === "/home" || location.pathname === "/") {
+      setNavbarHeight(false); // Oculta el espacio del navbar en el home
     } else {
-      setNavbarHeight(true);
+      setNavbarHeight(true); // Espacio normal en otras rutas
     }
   }, [location]);
 
@@ -45,7 +46,6 @@ function AppContent() {
         <Route path="/" element={<Home />} />
         <Route path="/home" element={<Home />} />
         <Route path="/login" element={<LoginRegisterModal />} />
-        <Route path="/login/*" element={<LoginRegisterModal />} />
         <Route path="/user/make-admin" element={<MakeAdmin />} />
         <Route
           path="/properties/pending-approval"
@@ -54,7 +54,7 @@ function AppContent() {
         <Route path="/properties/edit/:id" element={<EditProperty />} />
         <Route
           path="/forgot-password"
-          element={<ForgotPassword isOpen={true} onClose={() => {}} />}
+          element={<ForgotPassword isOpen={true} onClose={() => { }} />}
         />
         <Route path="/reset-password" element={<ResetPassword />} />
         <Route path="/properties" element={<Propiedades />} />

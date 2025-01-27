@@ -17,6 +17,7 @@ import {
   isValidPhoneNumber,
 } from "../../utils/validations";
 import CustomButton from "./ButtonProfile";
+import Title from "./Title";
 
 interface RegisterModalProps {
   isOpen: boolean;
@@ -136,7 +137,8 @@ const RegisterModal: React.FC<RegisterModalProps> = ({
         >
           <FaTimes className="h-6 w-6" />
         </button>
-        <h2 className="text-2xl font-bold mb-6 text-center">Registro</h2>
+        <Title text="Registro" clase="mt-0 pt-0 text-2xl font-bold mb-6 text-center text-text-primary" />
+
         <form onSubmit={handleSubmit} className="space-y-4">
           {/* Nombre */}
           <div className="relative">
@@ -147,9 +149,8 @@ const RegisterModal: React.FC<RegisterModalProps> = ({
               placeholder="Nombre"
               value={formData.firstName}
               onChange={handleChange}
-              className={`w-full pl-10 pr-3 py-2 border rounded-md ${
-                errors.firstName ? "border-red-500" : "border-gray-300"
-              }`}
+              className={`w-full pl-10 pr-3 py-2 border rounded-md ${errors.firstName ? "border-red-500" : "border-gray-300"
+                }`}
               required
             />
             {errors.firstName && (
@@ -166,9 +167,8 @@ const RegisterModal: React.FC<RegisterModalProps> = ({
               placeholder="Apellido"
               value={formData.lastName}
               onChange={handleChange}
-              className={`w-full pl-10 pr-3 py-2 border rounded-md ${
-                errors.lastName ? "border-red-500" : "border-gray-300"
-              }`}
+              className={`w-full pl-10 pr-3 py-2 border rounded-md ${errors.lastName ? "border-red-500" : "border-gray-300"
+                }`}
               required
             />
             {errors.lastName && (
@@ -185,9 +185,8 @@ const RegisterModal: React.FC<RegisterModalProps> = ({
               placeholder="Email"
               value={formData.email}
               onChange={handleChange}
-              className={`w-full pl-10 pr-3 py-2 border rounded-md ${
-                errors.email ? "border-red-500" : "border-gray-300"
-              }`}
+              className={`w-full pl-10 pr-3 py-2 border rounded-md ${errors.email ? "border-red-500" : "border-gray-300"
+                }`}
               required
             />
             {errors.email && (
@@ -204,9 +203,8 @@ const RegisterModal: React.FC<RegisterModalProps> = ({
               placeholder="Contraseña"
               value={formData.password}
               onChange={handleChange}
-              className={`w-full pl-10 pr-10 py-2 border rounded-md ${
-                errors.password ? "border-red-500" : "border-gray-300"
-              }`}
+              className={`w-full pl-10 pr-10 py-2 border rounded-md ${errors.password ? "border-red-500" : "border-gray-300"
+                }`}
               required
             />
             <button
@@ -230,9 +228,8 @@ const RegisterModal: React.FC<RegisterModalProps> = ({
               placeholder="Repetir Contraseña"
               value={formData.repeatPassword}
               onChange={handleChange}
-              className={`w-full pl-10 pr-10 py-2 border rounded-md ${
-                errors.repeatPassword ? "border-red-500" : "border-gray-300"
-              }`}
+              className={`w-full pl-10 pr-10 py-2 border rounded-md ${errors.repeatPassword ? "border-red-500" : "border-gray-300"
+                }`}
               required
             />
             <button
@@ -256,9 +253,8 @@ const RegisterModal: React.FC<RegisterModalProps> = ({
               placeholder="Teléfono"
               value={formData.phone}
               onChange={handleChange}
-              className={`w-full pl-10 pr-3 py-2 border rounded-md ${
-                errors.phone ? "border-red-500" : "border-gray-300"
-              }`}
+              className={`w-full pl-10 pr-3 py-2 border rounded-md ${errors.phone ? "border-red-500" : "border-gray-300"
+                }`}
               required
             />
             {errors.phone && (

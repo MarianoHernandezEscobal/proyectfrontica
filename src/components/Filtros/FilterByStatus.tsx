@@ -59,7 +59,7 @@ const FilterByStatus: React.FC<FilterByStatusButtonsProps> = ({
                                 ${isActive(status) ? "bg-green-600" : "bg-gray-400"} 
                                 text-white hover:bg-green-500 focus:outline-none`}
                             >
-                                <span className="capitalize">{statusLabels[status]}</span>
+                                <span className="capitalize md:text-base sm:text-lg">{statusLabels[status]}</span>
                             </button>
                         );
                     })}

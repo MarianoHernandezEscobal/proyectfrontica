@@ -24,8 +24,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       setHasSession(true);
       setUser(userData);
       console.log('hasSession', hasSession);
-      console.log('user', userData);
       console.log('user', !!user);
+      console.log('user', userData);
 
     } catch (error) {
       console.warn("Error fetching user profile:", error);

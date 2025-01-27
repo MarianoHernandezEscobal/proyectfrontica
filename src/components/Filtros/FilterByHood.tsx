@@ -116,7 +116,7 @@ const FilterByHood: React.FC<FilterByHoodProps> = ({ onFilterChange, currentFilt
                             ${isActive(barrio.label) ? "bg-green-600" : "bg-gray-400"} 
                             text-white hover:bg-green-500 focus:outline-none`}
                         >
-                            <span>{barrio.label}</span>
+                            <span className="md:text-base sm:text-lg">{barrio.label}</span>
                         </button>
                     ))}
                 </div>

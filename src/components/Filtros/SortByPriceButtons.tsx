@@ -15,23 +15,23 @@ const SortByPriceButtons: React.FC<SortByPriceButtonsProps> = ({ onSortChange, c
             <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-2 gap-2 mb-4">
                 <button
                     onClick={() => onSortChange('asc')}
-                    className={`flex items-center justify-center gap-2 p-2 rounded-md 
+                    className={`flex items-center justify-center text-3xl gap-2 p-2 rounded-md 
                 ${isActive('asc') ? 'bg-green-600' : 'bg-gray-400'} 
                 text-white hover:bg-green-500 focus:outline-none`}
                 >
                     <FaSortNumericDown />
 
-                    <span>Ascendente</span>
+                    <span className="md:text-base sm:text-lg">Asce</span>
                 </button>
                 <button
                     onClick={() => onSortChange('desc')}
-                    className={`flex items-center justify-center gap-2 p-2 rounded-md 
+                    className={`flex items-center justify-center text-3xl gap-2 p-2 rounded-md 
                 ${isActive('desc') ? 'bg-green-600' : 'bg-gray-400'} 
                 text-white hover:bg-green-500 focus:outline-none`}
                 >
                     <FaSortNumericDownAlt />
 
-                    <span>Descendente</span>
+                    <span className="md:text-base sm:text-lg">Desc</span>
                 </button>
             </div>
         </div>
