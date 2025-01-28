@@ -1,7 +1,5 @@
 import React, { useEffect, useRef } from "react";
-
-// Coordenadas por defecto centradas en Montevideo, Uruguay
-export const DEFAULT_CENTER = { lat: -34.9011, lng: -56.1645 };
+import { DEFAULT_CENTER } from "../../utils/constants";
 
 interface GoogleMapSelectorProps {
   formData: { geoCoordinates: { lat: number; lng: number } };
