@@ -110,8 +110,8 @@ import {
   FaSwimmingPool,
   FaRulerCombined,
   FaCalendarAlt,
-  FaChevronLeft,
-  FaChevronRight,
+  // FaChevronLeft,
+  // FaChevronRight,
 } from "react-icons/fa";
 
 interface PropertyFeaturesProps {
@@ -137,7 +137,7 @@ const PropertyFeatures: React.FC<PropertyFeaturesProps> = ({ property }) => {
     { icon: FaCalendarAlt, label: "Construido", value: property.yearBuilt },
   ].filter((f) => f.value !== undefined);
 
-  const [currentIndex, setCurrentIndex] = useState(0);
+  // const [currentIndex, setCurrentIndex] = useState(0);
   const [slidesToShow, setSlidesToShow] = useState(1);
   const [isMobile, setIsMobile] = useState(false);
 
@@ -199,7 +199,7 @@ const PropertyFeatures: React.FC<PropertyFeaturesProps> = ({ property }) => {
           <div
             className="flex justify-between transition-transform duration-300"
             style={{
-              transform: `translateX(-${(currentIndex / features.length) * 100}%)`,
+              // transform: `translateX(-${(currentIndex / features.length) * 100}%)`,
               width: `${(100 / slidesToShow) * features.length}%`,
             }}
           >
@@ -226,7 +226,7 @@ const PropertyFeatures: React.FC<PropertyFeaturesProps> = ({ property }) => {
                 key={i}
                 className="flex flex-col items-center justify-center text-center p-4 w-32"
               >
-                <Icon className="text-primary text-3xl mb-2" />
+                <Icon className="text-accent-light text-3xl mb-2" />
                 <span className="text-sm font-medium text-text-primary">{feature.label}</span>
                 <span className="text-sm font-semibold text-text-dark">{feature.value}</span>
               </div>
