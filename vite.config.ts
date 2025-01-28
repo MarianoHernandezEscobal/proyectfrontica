@@ -1,18 +1,11 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 
-// https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
-  server: {
-    proxy: {
-      "/api": {
-        target: "http://test2.inmobiliariacostaazul.com",
-        // target: "https://klsnfms9-3000.brs.devtunnels.ms",
-        changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api/, ""),
-      },
+  build: {
+    rollupOptions: {
+      input: "./index.html",
     },
   },
 });
-
