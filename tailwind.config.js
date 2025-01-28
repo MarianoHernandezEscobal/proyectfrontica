@@ -5,39 +5,39 @@ export default {
     extend: {
       colors: {
         primary: {
-          DEFAULT: "#038C3E",
-          light: "#04A94C",
-          dark: "#026D30",
+          DEFAULT: "#038C3E", // Verde principal
+          light: "#04A94C",   // Verde claro
+          dark: "#026D30",    // Verde oscuro
         },
         secondary: {
-          DEFAULT: "#92BF4E",
-          light: "#A8D45E",
-          dark: "#7CA642",
+          DEFAULT: "#92BF4E", // Verde oliva
+          light: "#A8D45E",   // Verde oliva claro
+          dark: "#7CA642",    // Verde oliva oscuro
         },
         accent: {
-          DEFAULT: "#0477BF",
-          light: "#0590E6",
-          dark: "#035E96",
+          DEFAULT: "#0477BF", // Azul principal
+          light: "#0590E6",   // Azul claro
+          dark: "#035E96",    // Azul oscuro
         },
         background: {
-          light: "#C2D9A0",
-          lighter: "#D1E3B7",
-          neutral: "#F2F2F2",
-          dark: "#E0E0E0",
+          light: "#C2D9A0",   // Fondo verde claro
+          lighter: "#D1E3B7", // Fondo verde más claro
+          neutral: "#F2F2F2", // Fondo neutro (gris claro)
+          dark: "#E0E0E0",    // Fondo gris oscuro
         },
         text: {
-          primary: "#333333",
-          secondary: "#666666",
-          light: "#FFFFFF",
-          dark: "#000000",
+          primary: "#333333", // Texto principal (gris oscuro)
+          secondary: "#666666", // Texto secundario (gris medio)
+          light: "#FFFFFF",    // Texto blanco
+          dark: "#000000",     // Texto negro
         },
         status: {
-          error: "#D32F2F",
-          success: "#4CAF50",
-          warning: "#FFA000",
-          info: "#2196F3",
+          error: "#D32F2F",   // Color de error (rojo)
+          success: "#4CAF50", // Color de éxito (verde)
+          warning: "#FFA000", // Color de advertencia (amarillo)
+          info: "#2196F3",    // Color de información (azul)
         },
-        tertiary: "#F9A825",
+        tertiary: "#F9A825", // Color terciario (amarillo mostaza)
       },
     },
   },

@@ -126,11 +126,10 @@ const Navbar = () => {
   return (
     <nav
       ref={navRef}
-      className={`fixed top-0 left-0 right-0 z-40 p-2 pr-3 bg-gradient-to-b from-accent-light to-background-neutral transition-all duration-300 ${
-        (location.pathname === "/home" || location.pathname === "" || location.pathname === "/") && !hasScrolled
-          ? "opacity-0 invisible"
-          : "opacity-100 visible"
-      }`}
+      className={`fixed top-0 left-0 right-0 z-40 p-2 pr-3 bg-gradient-to-b from-accent-light to-background-neutral transition-all duration-300 ${(location.pathname === "/home" || location.pathname === "" || location.pathname === "/") && !hasScrolled
+        ? "opacity-0 invisible"
+        : "opacity-100 visible"
+        }`}
     >
       <div className="flex justify-between items-center">
         {/* Logo */}
@@ -153,9 +152,8 @@ const Navbar = () => {
           {/* User Menu */}
           <div className="relative" ref={userMenuRef}>
             <button
-              className={`nav-button text-text-light hover:font-bold transition-text duration-300 flex items-center ${
-                isUserMenuOpen ? "text-text-light" : ""
-              }`}
+              className={`nav-button text-text-light hover:font-bold transition-text duration-300 flex items-center ${isUserMenuOpen ? "text-text-light" : ""
+                }`}
               onClick={toggleUserMenu}
               aria-label="Perfil de usuario"
             >
@@ -166,30 +164,30 @@ const Navbar = () => {
 
             {/* Dropdown */}
             {isUserMenuOpen && isAuthenticated && (
-              <div className="absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 z-50">
+              <div className="absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 z-50 bg-background-neutral">
                 {user?.admin
                   ? adminMenuItems.map(({ path, label }) => (
-                      <Link
-                        key={path}
-                        className={`block px-4 py-2 text-sm text-text-primary hover:bg-background-neutral ${isActive(path)}`}
-                        to={path}
-                        onClick={closeMenus}
-                      >
-                        {label}
-                      </Link>
-                    ))
+                    <Link
+                      key={path}
+                      className={`block px-4 py-2 z-50  text-sm text-text-primary hover:bg-accent-dark ${isActive(path)}`}
+                      to={path}
+                      onClick={closeMenus}
+                    >
+                      {label}
+                    </Link>
+                  ))
                   : userMenuItems.map(({ path, label }) => (
-                      <Link
-                        key={path}
-                        className={`block px-4 py-2 text-sm text-text-primary hover:bg-background-neutral ${isActive(path)}`}
-                        to={path}
-                        onClick={closeMenus}
-                      >
-                        {label}
-                      </Link>
-                    ))}
+                    <Link
+                      key={path}
+                      className={`block px-4 py-2  z-50 text-sm text-text-primary hover:bg-accent-dark ${isActive(path)}`}
+                      to={path}
+                      onClick={closeMenus}
+                    >
+                      {label}
+                    </Link>
+                  ))}
                 <button
-                  className="block w-full text-left px-4 py-2 text-sm text-text-primary hover:bg-background-neutral"
+                  className="block w-full text-left px-4 py-2 text-sm text-text-primary hover:bg-accent-dark"
                   onClick={handleLogout}
                 >
                   Cerrar Sesión
@@ -225,9 +223,8 @@ const Navbar = () => {
 
           {/* Mobile User Menu Toggle */}
           <button
-            className={`nav-button transition-text duration-300 text-right hover:font-bold hover:text-text-light flex items-center ${
-              isUserMenuOpen ? "text-text-light" : ""
-            }`}
+            className={`nav-button transition-text duration-300 text-right hover:font-bold hover:accent-dark flex items-center ${isUserMenuOpen ? "text-text-light" : ""
+              }`}
             onClick={toggleUserMenu}
             aria-label="Perfil de usuario"
           >
@@ -241,25 +238,25 @@ const Navbar = () => {
             <>
               {user?.admin
                 ? adminMenuItems.map(({ path, label }) => (
-                    <Link
-                      key={path}
-                      className={`nav-button ${isActive(path)} pl-8`}
-                      to={path}
-                      onClick={closeMenus}
-                    >
-                      {label}
-                    </Link>
-                  ))
+                  <Link
+                    key={path}
+                    className={`nav-button ${isActive(path)} pl-8`}
+                    to={path}
+                    onClick={closeMenus}
+                  >
+                    {label}
+                  </Link>
+                ))
                 : userMenuItems.map(({ path, label }) => (
-                    <Link
-                      key={path}
-                      className={`nav-button ${isActive(path)} pl-8`}
-                      to={path}
-                      onClick={closeMenus}
-                    >
-                      {label}
-                    </Link>
-                  ))}
+                  <Link
+                    key={path}
+                    className={`nav-button ${isActive(path)} pl-8`}
+                    to={path}
+                    onClick={closeMenus}
+                  >
+                    {label}
+                  </Link>
+                ))}
 
               <button className="nav-button hover:bg-accent-light text-left pl-8" onClick={handleLogout}>
                 Cerrar Sesión

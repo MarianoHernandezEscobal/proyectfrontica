@@ -8,10 +8,10 @@ interface CustomButtonProps {
   className?: string;
 }
 
-const CustomButton: React.FC<CustomButtonProps> = ({ 
-  onClick, 
-  type = 'button', 
-  children, 
+const CustomButton: React.FC<CustomButtonProps> = ({
+  onClick,
+  type = 'button',
+  children,
   variant = 'primary',
   className
 }) => {
@@ -20,7 +20,7 @@ const CustomButton: React.FC<CustomButtonProps> = ({
   const variantStyles = {
     primary: "bg-primary text-text-light hover:bg-primary-dark focus:ring-primary-light",
     secondary: "bg-secondary text-text-light hover:bg-secondary-dark focus:ring-secondary-light",
-    outline: "bg-transparent border border-background-dark text-text-primary hover:bg-background-light focus:ring-primary-light"
+    outline: "bg-transparent border border-background-dark text-text-primary hover:bg-accent-light hover:text-white focus:ring-primary-light"
   };
 
   return (

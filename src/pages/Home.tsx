@@ -59,7 +59,7 @@ const Home: React.FC = () => {
               <Title text="En venta" />
               <Carousel properties={home.sale.length ? home.sale : []} />
               <div className="py-3">
-              <Button onClick={() => navigate("/properties?filter=sale")}>Ir a propiedades en venta</Button>
+                <Button onClick={() => navigate("/properties?filter=sale")}>Ir a propiedades en venta</Button>
               </div>
               <hr />
             </>
@@ -70,7 +70,7 @@ const Home: React.FC = () => {
               <Title text="En alquiler" />
               <Carousel properties={home.rent.length ? home.rent : []} />
               <div className="py-3">
-              <Button onClick={() => navigate("/properties?filter=rent")}>Ir a propiedades en alquiler</Button>
+                <Button onClick={() => navigate("/properties?filter=rent")}>Ir a propiedades en alquiler</Button>
               </div>
               <hr />
             </>
@@ -97,7 +97,7 @@ const Home: React.FC = () => {
               <Title text="Propiedades destacadas" />
               <Carousel properties={home.pinned.length ? home.pinned : []} />
               <div className="py-3">
-              <Button onClick={() => navigate("/properties?filter=pinned")}>Ir a propiedades destacadas</Button>
+                <Button onClick={() => navigate("/properties?filter=pinned")}>Ir a propiedades destacadas</Button>
               </div>
               <hr />
             </>
@@ -111,7 +111,7 @@ const Home: React.FC = () => {
                 properties={home.favourites.length ? home.favourites : []}
               />
               <div className="py-3">
-                <Button to="/">Ir a tus propiedades favoritas</Button>
+                <Button to="/properties/favourites">Ir a tus propiedades favoritas</Button>
               </div>
               <hr />
             </>
@@ -123,7 +123,7 @@ const Home: React.FC = () => {
               <Title text="Tus propiedades" size="large" />
               <Carousel properties={home.created.length ? home.created : []} />
               <div className="py-3">
-                <Button to="/">Ir a tus propiedades</Button>
+                <Button to="/properties/created">Ir a tus propiedades</Button>
               </div>
               <hr />
             </>
@@ -131,8 +131,8 @@ const Home: React.FC = () => {
         </section>
         <div>
           {properties.length > 0 &&
-          <GoogleMapComponent properties={properties} />
-    }
+            <GoogleMapComponent properties={properties} />
+          }
 
 
         </div>

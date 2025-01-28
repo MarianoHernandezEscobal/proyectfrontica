@@ -192,9 +192,8 @@ const PropertyForm: React.FC<PropertyFormProps> = ({
             <label className="block text-sm font-medium">Imagenes</label>
             <div
               {...getRootProps()}
-              className={`w-full p-6 md:p-10 border rounded-md ${
-                isDragActive ? "bg-blue-100" : "bg-gray-50"
-              }`}
+              className={`w-full p-6 md:p-10 border rounded-md ${isDragActive ? "bg-blue-100" : "bg-gray-50"
+                }`}
             >
               <input {...getInputProps()} />
               {isDragActive ? (
@@ -318,26 +317,33 @@ const PropertyForm: React.FC<PropertyFormProps> = ({
             />
           </div>
 
-          <div className="grid grid-cols-2 gap-4">
-            <label className="flex items-center">
+          <div className="grid grid-cols-2 gap-4  ">
+            <label className="flex items-center justify-center">
+              <span className="mr-2 text-lg font-bold">Garajes</span>
               <input
                 type="checkbox"
                 name="garages"
                 checked={formData.garages}
                 onChange={handleCheckboxChange}
-                className="mr-2"
+                className="hidden"
               />
-              Garajes
+              <div className={`relative w-14 h-8 rounded-full cursor-pointer ${formData.garages ? 'bg-green-600' : 'bg-gray-400'}`}>
+                <div className={`dot absolute left-1 top-1 w-6 h-6 rounded-full transition ${formData.garages ? 'bg-white transform translate-x-full' : 'bg-gray-300'}`}></div>
+              </div>
             </label>
-            <label className="flex items-center">
+
+            <label className="flex items-center justify-center">
+              <span className="mr-2 text-lg font-bold">Piscina</span>
               <input
                 type="checkbox"
                 name="pool"
                 checked={formData.pool}
                 onChange={handleCheckboxChange}
-                className="mr-2"
+                className="hidden"
               />
-              Piscina
+              <div className={`relative w-14 h-8 rounded-full cursor-pointer ${formData.pool ? 'bg-green-600' : 'bg-gray-400'}`}>
+                <div className={`dot absolute left-1 top-1 w-6 h-6 rounded-full transition ${formData.pool ? 'bg-white transform translate-x-full' : 'bg-gray-300'}`}></div>
+              </div>
             </label>
           </div>
 
@@ -376,9 +382,9 @@ const PropertyForm: React.FC<PropertyFormProps> = ({
             />
           </div>
           <GoogleMapSelector
-          formData={formData}
-          onFormChange={handleMapChange}
-        />
+            formData={formData}
+            onFormChange={handleMapChange}
+          />
 
           <Button type="submit" clase="w-full text-white">
             {property ? "Actualizar Propiedad" : "Crear Propiedad"}

@@ -4,8 +4,9 @@ import {
   fetchFavourites,
 } from "../services/properties/propertyService";
 import { Property } from "../utils/types";
-import PropertyHorizontalCard from "../components/atomos/PropertyHorizontalCard";
+// import PropertyHorizontalCard from "../components/atomos/PropertyHorizontalCard";
 import Button from "../components/atomos/Button";
+import PropertyCard from "../components/atomos/PropertyCard";
 
 export const MisFavoritas = () => {
   const [properties, setProperties] = useState<Property[]>([]);
@@ -28,7 +29,8 @@ export const MisFavoritas = () => {
         {properties.length > 0 ? (
           properties.map((property, index) => (
             <div key={index} className="py-4">
-              <PropertyHorizontalCard {...property} />
+              {/* <PropertyHorizontalCard {...property} /> */}
+              <PropertyCard {...property} />
             </div>
           ))
         ) : (

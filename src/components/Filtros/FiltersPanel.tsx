@@ -56,8 +56,7 @@ const FiltersPanel: React.FC<FiltersPanelProps> = ({ initialFilters, onFiltersCh
         <div className="text-center  ">
             <Title text="Filtros" />
 
-            <hr className="my-2" />
-            <button onClick={handleClearFilters} className="bg-gray-400 rounded-lg text-white font-bold hover:bg-gray-600 p-3 ">Limpiar Filtros</button>
+
             <hr className="my-2" />
             {/* <SortByPriceButtons
                 currentOrder={filters.sortOrder}
@@ -92,6 +91,10 @@ const FiltersPanel: React.FC<FiltersPanelProps> = ({ initialFilters, onFiltersCh
                         onFilterChange={(pool) => handleFilterChange('filterPool', pool)}
                     />
                 </div>
+            </div>
+            <hr className="my-2" />
+            <div className="flex justify-center">
+                <button onClick={handleClearFilters} className="bg-gray-400 rounded-lg text-white font-bold hover:bg-gray-600 p-3 ">Limpiar Filtros</button>
             </div>
         </div>
     );

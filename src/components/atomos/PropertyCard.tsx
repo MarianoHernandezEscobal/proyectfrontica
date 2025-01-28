@@ -24,7 +24,7 @@ const PropertyCard: React.FC<Property> = ({
   const [isLoading, setIsLoading] = useState(false);
   const [isFav, setIsFav] = useState(false);
   const navigate = useNavigate();
-  
+
   useEffect(() => {
     const favourites = JSON.parse(localStorage.getItem("favouritesProperties") || "[]");
     const isFavourite = favourites.some((fav: { id: number }) => +fav.id === +id);
@@ -80,9 +80,9 @@ const PropertyCard: React.FC<Property> = ({
 
   return (
     <div className="w-full h-auto flex justify-center items-center">
-      <article className="bg-white w-full min-h-[300px] h-auto shadow-md rounded-lg overflow-hidden flex flex-col items-stretch">
+      <article className="bg-white w-full min-h-[42rem] h-[42rem] shadow-md rounded-lg overflow-hidden flex flex-col items-stretch">
         {/* Image */}
-        <figure className="relative w-full h-[22rem] bg-gray-200 overflow-hidden rounded-t-lg group">
+        <figure className="relative w-full h-[22rem] max-h-[22rem] min-h-[22rem] bg-gray-200 overflow-hidden rounded-t-lg group">
           {isLoading && imageSrc.length > 1 && (
             <div className="absolute inset-0 flex justify-center items-center bg-white bg-opacity-50">
               <div className="loader"></div>
@@ -120,8 +120,8 @@ const PropertyCard: React.FC<Property> = ({
           </div>
 
           <div className="absolute top-2 left-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-          <EditButton onClick={handleEdit} />
-        </div>
+            <EditButton onClick={handleEdit} />
+          </div>
         </figure>
 
         {/* Contenido */}
@@ -164,7 +164,7 @@ const PropertyCard: React.FC<Property> = ({
                     {replaceStatus(s)}
                   </span>
                 ))}
-              </div>{" "}              
+              </div>{" "}
               {/* Precio destacado */}
               <span className="text-2xl font-bold text-teal-600 hover:font-extrabold transition-font duration-300">
                 U$S {Number(price).toLocaleString("de-DE")}

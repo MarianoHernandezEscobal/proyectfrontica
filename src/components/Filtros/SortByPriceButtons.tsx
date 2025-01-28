@@ -83,11 +83,11 @@ const SortByPriceButtons: React.FC<SortByPriceButtonsProps> = ({ onSortChange, c
     };
 
     return (
-        <div className='text-center font-bold text-lg ui-search-view-options'>
+        <div className='text-center font-bold text-lg ui-search-view-options z-0'>
             <div className="ui-search-view-options__content flex items-center relative ">
                 <div className="ui-search-view-options__title mr-2">Ordenar por:</div>
 
-                <div className="relative z-50">
+                <div className="relative z-10">
                     <button
                         onClick={() => setIsOpen(!isOpen)}
                         className="andes-dropdown andes-dropdown--standalone ui-search-sort-filter__dropdown andes-dropdown--small p-2 border rounded"

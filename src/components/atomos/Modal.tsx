@@ -21,13 +21,13 @@ const LoginRegisterModal: React.FC<LoginRegisterModalProps> = ({
     () =>
       isControlled
         ? () => {
-            externalOnClose?.();
-            setIsRegistering(false);
-          }
+          externalOnClose?.();
+          setIsRegistering(false);
+        }
         : () => {
-            setIsOpen(false);
-            setIsRegistering(false);
-          },
+          setIsOpen(false);
+          setIsRegistering(false);
+        },
     [isControlled, externalOnClose]
   );
 
@@ -42,7 +42,7 @@ const LoginRegisterModal: React.FC<LoginRegisterModalProps> = ({
   if (!modalIsOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 bg-backgorund-neutral">
       {!isRegistering ? (
         <LoginModal
           isOpen={modalIsOpen}

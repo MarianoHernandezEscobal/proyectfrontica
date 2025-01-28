@@ -178,7 +178,7 @@ const Profile: React.FC = () => {
                 name="email"
                 value={formData.email}
                 disabled
-                className="mt-1 block w-full px-1 py-2 rounded-md shadow-sm border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 bg-gray-100"
+                className="mt-1 block w-full px-1 p-2  rounded-md shadow-sm border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 bg-gray-100"
               />
             </div>
 
@@ -214,13 +214,13 @@ const Profile: React.FC = () => {
           <div className="p-6 flex justify-around">
             <CustomButton
               onClick={() => navigate("/properties/created")}
-              variant="secondary"
+              variant="outline"
             >
               Mis propiedades
             </CustomButton>
             <CustomButton
               onClick={() => navigate("/properties/favourites")}
-              variant="secondary"
+              variant="outline"
             >
               Mis favoritas
             </CustomButton>

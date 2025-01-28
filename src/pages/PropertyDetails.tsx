@@ -32,6 +32,7 @@ const PropertyDetails: React.FC = () => {
         if (!id) throw new Error("No se encontró el ID de la propiedad.");
         if (properties.length > 0 && id) {
           const propertyData = properties.find((p) => p.id === parseInt(id));
+          console.log('>>> propertyData', propertyData);
           if (propertyData) {
             setProperty(propertyData);
             setIsRent(
@@ -92,7 +93,7 @@ const PropertyDetails: React.FC = () => {
           )}
         </div>
 
-        <div className="bg-white p-6">
+        <div className="bg-white flex justify-center">
           <PropertyFeatures
             property={{
               rooms: property.rooms,
