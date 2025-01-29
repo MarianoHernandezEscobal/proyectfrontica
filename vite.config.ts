@@ -10,7 +10,7 @@ export default defineConfig({
   root: './', // Ensure the root is correctly set
   build: {
     rollupOptions: {
-      input: './public/index.html', // Explicitly specify the entry point
+      input: './index.html', // Explicitly specify the entry point
     },
   },
 });
