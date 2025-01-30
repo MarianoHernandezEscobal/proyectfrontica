@@ -25,7 +25,6 @@ const FormContacto: React.FC = () => {
   });
 
   const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null);
-  const [isChecked, setIsChecked] = useState(false);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -76,6 +75,8 @@ const FormContacto: React.FC = () => {
         isRent: false,
       });
       alert("Mensaje enviado con éxito.");
+      setFormData({ name: "", email: "", phone: "", message: "" });
+      setRecaptchaToken(null); // Reiniciar reCAPTCHA
     } catch (error) {
       console.error("Error al enviar el mensaje:", error);
       alert("Hubo un problema al enviar el mensaje.");
@@ -137,7 +138,6 @@ const FormContacto: React.FC = () => {
         <div className="flex flex-col justify-center">
           <Recaptcha
             onError={(err) => setErrors((prev) => ({ ...prev, recaptcha: err }))}
-            setIsChecked={setIsChecked}
             setRecaptchaToken={setRecaptchaToken}
           />
           {errors.recaptcha && <span className="text-status-error text-sm">{errors.recaptcha}</span>}
