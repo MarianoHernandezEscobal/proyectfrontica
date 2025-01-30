@@ -7,7 +7,7 @@ export default defineConfig({
     port: 3000,
   },
   publicDir: 'public', // Specify the public directory
-  root: './', // Ensure the root is correctly set
+  root: '/', // Ensure the root is correctly set
   build: {
     rollupOptions: {
       input: './index.html', // Explicitly specify the entry point
