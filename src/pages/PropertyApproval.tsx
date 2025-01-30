@@ -14,7 +14,6 @@ const ApprovePropertiesPage = () => {
     const fetchProperties = async () => {
       try {
         const response = await findToApprove();
-        console.log(response);
         setProperties(response);
       } catch (err) {
         console.error(err);

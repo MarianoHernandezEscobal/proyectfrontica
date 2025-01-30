@@ -57,7 +57,6 @@ const FormContacto: React.FC = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (validateForm()) {
-      console.log("Formulario enviado:", formData);
       sendEmail({
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore

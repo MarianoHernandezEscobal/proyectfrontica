@@ -51,21 +51,6 @@ const Propiedades: React.FC = () => {
 
     }, [location.search]);
 
-    // useEffect(() => {
-    //     const loadProperties = async () => {
-    //         try {
-    //             setFilteredProperties(properties);
-    //         } catch (err) {
-    //             console.log(err);
-    //             setError('Hubo un problema al cargar las propiedades.');
-    //         } finally {
-    //             setLoading(false);
-    //         }
-    //     };
-    //     console.log('Propiedades:', properties);
-
-    //     loadProperties();
-    // }, [properties]);
     useEffect(() => {
         const loadAndFilterProperties = () => {
             setLoading(true);

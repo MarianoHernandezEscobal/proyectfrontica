@@ -32,7 +32,6 @@ const PropertyDetails: React.FC = () => {
         if (!id) throw new Error("No se encontró el ID de la propiedad.");
         if (properties.length > 0 && id) {
           const propertyData = properties.find((p) => p.id === parseInt(id));
-          console.log('>>> propertyData', propertyData);
           if (propertyData) {
             setProperty(propertyData);
             setIsRent(
@@ -109,7 +108,7 @@ const PropertyDetails: React.FC = () => {
 
         <div className="flex bg-white p-4 flex-col md:flex-row gap-6 justify-between">
           <PropertyInfo property={property} />
-          <div className="flex justify-center md:justify-end w-full md:w-1/4">
+          <div className="flex justify-center md:justify-end w-full md:w-2/6">
             <PropertyContactSlider propertyId={property.id} isRent={isRent} />
           </div>
         </div>

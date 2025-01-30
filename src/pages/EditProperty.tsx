@@ -19,7 +19,6 @@ const EditProperty: React.FC = () => {
     const loadProperty = async () => {
       try {
         if (!id) throw new Error("No se encontró el ID de la propiedad.");
-        console.log("properties", properties);
         if (properties.length > 0 && id) {
           const propertyData = properties.find((p) => p.id === parseInt(id));
           if (propertyData) {

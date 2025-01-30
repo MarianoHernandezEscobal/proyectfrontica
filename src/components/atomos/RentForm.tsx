@@ -2,7 +2,9 @@ import React, { useEffect, useState } from "react";
 import { format } from "date-fns";
 import { useAlert } from "../../contexts/AlertContext";
 import { hasCookie } from "../../utils/cookie";
-import { createRent } from "../../services/rent/rentService";
+import { createRent, getRents } from "../../services/rent/rentService";
+import { Rent } from "../../utils/types";
+import CustomDatePicker from "./DateInput";
 
 interface RentalModalProps {
   propertyId: number;
@@ -14,27 +16,64 @@ const RentalModal: React.FC<RentalModalProps> = ({ propertyId }) => {
   const [checkOut, setCheckOut] = useState<Date | null>(null);
   const [message, setMessage] = useState("");
   const [isLogged, setIsLogged] = useState(false);
-  const [status, setStatus] = useState<
-    "idle" | "loading" | "success" | "error"
-  >("idle");
+  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const [rents, setRents] = useState<Rent[]>([]);
+
   const { showAlert } = useAlert();
+
+  useEffect(() => {
+    const fetchRents = async () => {
+      try {
+        const data = await getRents(propertyId);
+        setRents(data);
+      } catch (error) {
+        console.error("Error al obtener las rentas:", error);
+      }
+    };
+    fetchRents();
+  }, [propertyId]);
+
+  useEffect(() => {
+    if (sessionStorage.getItem("userData") && hasCookie("sessionIndicator")) {
+      setIsLogged(true);
+    }
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setStatus("loading");
 
+    if (!checkIn || !checkOut) {
+      showAlert("error", "Por favor, selecciona ambas fechas");
+      setStatus("idle");
+      return;
+    }
+
+    // 2. Validar que checkOut sea posterior a checkIn
+    if (checkOut <= checkIn) {
+      showAlert("error", "La fecha de salida debe ser posterior a la fecha de entrada");
+      setStatus("idle");
+      return;
+    }
+
     try {
       await createRent({
-        email: !isLogged ? email : JSON.parse(sessionStorage.getItem("userData") || "{}").email,
+        email: !isLogged
+          ? email
+          : JSON.parse(sessionStorage.getItem("userData") || "{}").email,
         checkIn: checkIn ? format(checkIn, "yyyy-MM-dd") : "",
         checkOut: checkOut ? format(checkOut, "yyyy-MM-dd") : "",
         message,
         propertyId,
-        user: !isLogged ? undefined : JSON.parse(sessionStorage.getItem("userData") || "{}").id,
+        user: !isLogged
+          ? undefined
+          : JSON.parse(sessionStorage.getItem("userData") || "{}").id,
       });
 
       setStatus("success");
       showAlert("success", "¡Solicitud enviada correctamente!");
+
+      // Reset de campos
       setEmail("");
       setCheckIn(null);
       setCheckOut(null);
@@ -51,16 +90,10 @@ const RentalModal: React.FC<RentalModalProps> = ({ propertyId }) => {
     }
   };
 
-  useEffect(() => {
-    console.log(sessionStorage.getItem("userData"));
-    if (sessionStorage.getItem("userData") && hasCookie("sessionIndicator")) {
-      setIsLogged(true);
-    }
-  }, []);
-
   return (
     <div className="w-full p-4 bg-white rounded-lg">
       <h3 className="text-lg font-bold mb-4">Solicita tu alquiler</h3>
+
       <form onSubmit={handleSubmit} className="space-y-4">
         {!isLogged && (
           <div>
@@ -77,44 +110,26 @@ const RentalModal: React.FC<RentalModalProps> = ({ propertyId }) => {
             />
           </div>
         )}
-        <div className="grid grid-cols-1 sm:grid-cols-2">
-          {/* Fecha de Entrada */}
-          <div className="relative">
-            <input
-              id="checkIn"
-              type="date"
-              value={checkIn ? format(checkIn, "yyyy-MM-dd") : ""}
-              onChange={(e) => setCheckIn(e.target.valueAsDate)}
-              className="block w-full px-4 pt-6 pb-1 border rounded-l-lg focus:outline-none focus:ring-2 focus:ring-blue-500 peer"
-              required
-            />
-            <label
-              htmlFor="checkIn"
-              className="absolute text-sm text-gray-500 duration-300 transform -translate-y-3 scale-75 top-4 z-10 origin-[0] left-4 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-3"
-            >
-              Fecha de Entrada
-            </label>
-          </div>
-
-          {/* Fecha de Salida */}
-          <div className="relative">
-            <input
-              id="checkOut"
-              type="date"
-              value={checkOut ? format(checkOut, "yyyy-MM-dd") : ""}
-              onChange={(e) => setCheckOut(e.target.valueAsDate)}
-              className="block w-full px-4 pt-6 pb-1 border rounded-r-lg focus:outline-none focus:ring-2 focus:ring-blue-500 peer"
-              required
-            />
-            <label
-              htmlFor="checkOut"
-              className="absolute text-sm text-gray-500 duration-300 transform -translate-y-3 scale-75 top-4 z-10 origin-[0] left-4 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-3"
-            >
-              Fecha de Salida
-            </label>
-          </div>
+        
+        {/* Fechas de Entrada y Salida */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <CustomDatePicker
+            selected={checkIn}
+            onChange={(date) => setCheckIn(date)}
+            rents={rents}
+            placeholderText="Fecha de Entrada"
+            className="rounded sm:rounded-l-lg sm:rounded-r-none"
+          />
+          <CustomDatePicker
+            selected={checkOut}
+            onChange={(date) => setCheckOut(date)}
+            rents={rents}
+            placeholderText="Fecha de Salida"
+            className="rounded sm:rounded-r-lg sm:rounded-l-none"
+          />
         </div>
 
+        {/* Mensaje */}
         <div>
           <label htmlFor="message" className="block text-sm font-medium">
             Mensaje
@@ -129,6 +144,7 @@ const RentalModal: React.FC<RentalModalProps> = ({ propertyId }) => {
             required
           />
         </div>
+
         <button
           type="submit"
           className="w-full bg-accent text-white py-2 rounded hover:bg-background-neutral disabled:opacity-50"

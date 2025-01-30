@@ -90,3 +90,9 @@ h2 {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
 }
+
+.highlighted-date {
+  background-color: #ffebee; /* Fondo rojo claro */
+  color: #d32f2f; /* Texto rojo */
+  border-radius: 15%; /* Hace que las fechas se vean como círculos */
+}

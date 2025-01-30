@@ -25,6 +25,9 @@ import { MisFavoritas } from "./pages/MisFavoritas";
 import { MakeAdmin } from "./pages/MakeAdmin";
 import EditProperty from "./pages/EditProperty";
 import { useEffect, useState } from "react";
+import 'react-date-range/dist/styles.css';
+import 'react-date-range/dist/theme/default.css';
+
 
 function AppContent() {
   const location = useLocation();

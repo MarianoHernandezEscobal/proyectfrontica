@@ -18,11 +18,8 @@ const Ventas: React.FC = () => {
                 const properties = await fetchPropertiesByStatus(PropertyStatus.ForSale);
                 setPropiedadesVenta(properties);
 
-                propiedadesVenta.map((property) => {
-                    console.log(property);
-                });
             } catch (err) {
-                console.log(err);
+                console.error(err);
                 setError('Hubo un problema al cargar las propiedades.');
             } finally {
                 setLoading(false);

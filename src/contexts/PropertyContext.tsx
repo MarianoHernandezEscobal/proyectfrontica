@@ -20,7 +20,6 @@ export const PropertyProvider: React.FC<{ children: ReactNode }> = ({ children }
         try {
 
             const data = await fetchProperties();
-            console.log('fetchAllProperties Contest',data);
             setProperties(data);
         } catch (error) {
             console.error("Error al cargar las propiedades:", error);
@@ -39,7 +38,6 @@ export const PropertyProvider: React.FC<{ children: ReactNode }> = ({ children }
             if (data.favourites && data.favourites.length > 0) {
                 localStorage.setItem('favouritesProperties', JSON.stringify(data.favourites));
             }
-            console.log('fetchHome Contest',data);
             setHome(data);
         } catch (error) {
             console.error("Error al cargar las propiedades:", error);

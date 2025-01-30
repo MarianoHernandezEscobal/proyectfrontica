@@ -32,3 +32,25 @@ export const createRent = async (rentData: Rent) => {
     throw new Error(errorMessage);
   }
 };
+
+export const getRents = async (id: number): Promise<Rent[]> => {
+  try {
+    const res = await fetch(`${BASE_URL}/rent/property/${id}`);
+    if (!res.ok) {
+      const errorData = await res.json();
+      throw new Error(errorData.message || "Error desconocido");
+    }
+    const data = await res.json();
+    return data;
+  } catch (error) {
+    let errorMessage = "Error desconocido";
+    if (error instanceof Error) {
+      errorMessage = error.message;
+    } else if (typeof error === "string") {
+      errorMessage = error;
+    }
+
+    console.error("Error al obtener las rentas:", errorMessage);
+    throw new Error(errorMessage);
+  }
+}

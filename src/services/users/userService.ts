@@ -38,7 +38,6 @@ export async function loginUser(email:string, password:string) {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({user:{ email, password }}),
   });
-  console.log('res', res);
   if(res.ok) return;
   if(res.status === 401){
     throw new Error('Email o contraseña incorrectos');
@@ -79,7 +78,6 @@ export const registerUser = async (userData: UserData) => {
     },
     body: JSON.stringify(dataToSend),
   });
-  console.log('res', res);
   if(res.ok) return;
   if(res.status === 400){
     throw new Error('El email ya está en uso');

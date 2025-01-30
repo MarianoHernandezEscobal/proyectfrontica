@@ -11,10 +11,6 @@ export const createProperty = async (propertyData: Omit<Property, 'id'>, files: 
 
   files.forEach((file) => formData.append("files", file));
 
-  for (const pair of formData.entries()) {
-    console.log(`${pair[0]}: ${pair[1]}`);
-  }
-
   const res = await fetch(`${BASE_URL}/property/create`, {
     method: 'POST',
     credentials: 'include',
@@ -39,17 +35,11 @@ export const updateProperty = async (
   formData.append("deletedImages", JSON.stringify(deletedImages));
   newImages.forEach((file) => formData.append("files", file));
 
-  for (const pair of formData.entries()) {
-    console.log(`${pair[0]}: ${pair[1]}`);
-  }
-  console.log("formData", formData);
   const res = await fetch(`${BASE_URL}/property/update`, {
     method: 'PUT',
     credentials: 'include',
     body: formData,
   });
-
-  console.log("res", res);
 
   if (!res.ok) throw new Error('Error al actualizar la propiedad');
   return await res.json();
@@ -58,7 +48,6 @@ export const updateProperty = async (
 
 export const fetchHomeClient = async (): Promise<Home> => {
   try {
-    console.log("fetchHomeClient");
     const res = await fetch(`${BASE_URL}/property/home`, {
       method: 'GET',
       credentials: 'include',
@@ -245,8 +234,6 @@ export const deleteProperty = async (id: number): Promise<boolean> => {
       credentials: 'include',
       headers: { 'Content-Type': 'application/json' },
     });
-
-    console.log(response);
 
     if (response.status === 401) {
       await logoutUser();

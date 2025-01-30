@@ -104,21 +104,16 @@ const PropertyForm: React.FC<PropertyFormProps> = ({
       ...prev,
       geoCoordinates: { lat, lng },
     }));
-    console.log(formData);
   }
 
   const handleDeleteImage = (index: number) => {
     const imageToDelete = previewImages[index];
-    console.log("existingImages", existingImages);
-    console.log("imageToDelete", imageToDelete);
 
     if (existingImages.includes(imageToDelete)) {
       if (!deletedImages.includes(imageToDelete)) {
         setDeletedImages((prev) => [...prev, imageToDelete]);
       }
       setExistingImages((prev) => prev.filter((img) => img !== imageToDelete));
-      console.log("deletedImages", deletedImages);
-
     } else {
       setNewImages((prev) =>
         prev.filter((_, i) => i !== index - existingImages.length)

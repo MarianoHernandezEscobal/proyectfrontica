@@ -19,14 +19,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const fetchUserProfile = async () => {
     try {
-      console.log('fetchUserProfile');
       const userData = await getUsers();
       setHasSession(true);
       setUser(userData);
-      console.log('hasSession', hasSession);
-      console.log('user', !!user);
-      console.log('user', userData);
-
     } catch (error) {
       console.warn("Error fetching user profile:", error);
       sessionStorage.removeItem("userData");

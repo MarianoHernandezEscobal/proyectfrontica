@@ -46,15 +46,15 @@ const PropertyHeader: React.FC<PropertyHeaderProps> = ({ title, price, location,
           </nav>
 
           {/* Header content */}
-          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-            <h1 className="text-2xl sm:text-3xl font-bold text-text-primary">{title}</h1>
-            <div className="flex flex-col items-end">
+          <div className="flex flex-col sm:flex-row justify-between items-center sm:items-start gap-4">
+            <h1 className="text-2xl sm:text-3xl font-bold text-text-primary text-center sm:text-left">{title}</h1>
+            <div className="flex flex-col items-center sm:items-end">
               {status.length > 0 && (
-                <span className="text-sm text-text-secondary">
+                <span className="text-sm text-text-secondary text-center sm:text-right">
                   Propiedades {status.map((s, index) => index < status.length - 1 ? `${replaceStatus(s)}, ` : replaceStatus(s))}
-                  </span>
+                </span>
               )}
-              <p className="text-xl sm:text-2xl font-bold text-accent-light">
+              <p className="text-xl sm:text-2xl font-bold text-accent-light text-center sm:text-right">
                 U$S {price.toLocaleString("es-UY")}
               </p>
             </div>
