@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import FormContacto from '../components/FormContacto';
 import ContactItemsProps from '../components/ContactItemsProps';
-import Gmap from '../components/Gmap';
 import Title from '../components/atomos/Title';
+import GoogleMapComponent from '../components/atomos/GoogleMap';
 
 const Contacto: React.FC = () => {
     useEffect(() => {
@@ -42,7 +42,7 @@ const Contacto: React.FC = () => {
             </div>
 
             <div className="flex justify-center mt-8">
-                <Gmap />
+                <GoogleMapComponent />
             </div>
         </div>
     );

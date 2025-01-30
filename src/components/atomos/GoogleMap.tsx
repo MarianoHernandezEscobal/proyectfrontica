@@ -3,7 +3,7 @@ import { DEFAULT_CENTER } from "../../utils/constants";
 import { Property } from "../../utils/types";
 
 interface GoogleMapComponentProps {
-  properties: Property[];
+  properties?: Property[];
 }
 
 const GoogleMapComponent: React.FC<GoogleMapComponentProps> = ({
@@ -117,7 +117,7 @@ const GoogleMapComponent: React.FC<GoogleMapComponentProps> = ({
       
 
     // Crear marcadores para cada propiedad
-    properties.forEach((property) => {
+    properties?.forEach((property) => {
       if (!property.geoCoordinates) return;
 
       const marker = new window.google.maps.Marker({

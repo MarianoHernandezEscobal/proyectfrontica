@@ -65,6 +65,7 @@ const GoogleMapSelector: React.FC<GoogleMapSelectorProps> = ({ formData, onFormC
       }
     }, [marker, markerCluster])
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return <div ref={mapRef as any} style={{ width: "100%", height: "500px" }} />;
 };
 

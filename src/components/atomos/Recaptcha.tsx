@@ -1,17 +1,23 @@
-import React from 'react';
-import ReCAPTCHA from 'react-google-recaptcha';
-import { RecaptchaProps } from '../../utils/types';
+import React from "react";
+import ReCAPTCHA from "react-google-recaptcha";
 
-const Recaptcha: React.FC<RecaptchaProps> = ({ onError, setIsChecked }) => {
-  const siteKey = '6Leqab0qAAAAAGz3kpY6bzIv_wa2WijnD3OprEIh';
+interface RecaptchaProps {
+  onError: (message: string) => void;
+  setIsChecked: (value: boolean) => void;
+  setRecaptchaToken: (token: string) => void;
+}
 
-  const handleChange = (value: string | null) => {
-    if (value) {
+const Recaptcha: React.FC<RecaptchaProps> = ({ onError, setIsChecked, setRecaptchaToken }) => {
+  const siteKey = "6Leqab0qAAAAAGz3kpY6bzIv_wa2WijnD3OprEIh"; // Clave pública de reCAPTCHA v2
+
+  const handleChange = (token: string | null) => {
+    if (token) {
       setIsChecked(true);
-      onError('');
+      setRecaptchaToken(token); // Guardar el token para el backend
+      onError("");
     } else {
       setIsChecked(false);
-      onError('Por favor completa el reCAPTCHA.');
+      onError("Por favor completa el reCAPTCHA.");
     }
   };
 
