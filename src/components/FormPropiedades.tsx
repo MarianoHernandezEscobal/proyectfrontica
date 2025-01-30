@@ -100,10 +100,10 @@ const PropertyForm: React.FC<PropertyFormProps> = ({
   }, []);
 
   const handleMapChange = (lat: number, lng: number) => {
-    setFormData((prev) => ({
-      ...prev,
-      geoCoordinates: { lat, lng },
-    }));
+    console.log(lat, lng);
+    formData.geoCoordinates = { lat, lng };
+    console.log(formData);
+
   }
 
   const handleDeleteImage = (index: number) => {

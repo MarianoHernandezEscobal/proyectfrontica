@@ -27,6 +27,7 @@ import EditProperty from "./pages/EditProperty";
 import { useEffect, useState } from "react";
 import 'react-date-range/dist/styles.css';
 import 'react-date-range/dist/theme/default.css';
+import { Status, Wrapper } from '@googlemaps/react-wrapper';
 
 
 function AppContent() {
@@ -74,7 +75,10 @@ function AppContent() {
 }
 
 function App() {
+  const render = (status: Status) => (<h1>{status}</h1>)
+
   return (
+    <Wrapper apiKey={"AIzaSyDSNF1jm3xlM-rG8cE4sr4h-yjq4moxFcA"} render={render}>
     <AuthProvider>
       <AlertProvider>
         <PropertyProvider>
@@ -84,6 +88,8 @@ function App() {
         </PropertyProvider>
       </AlertProvider>
     </AuthProvider>
+    </Wrapper>
+
   );
 }
 
