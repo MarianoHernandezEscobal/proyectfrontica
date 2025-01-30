@@ -65,59 +65,6 @@ const GoogleMapSelector: React.FC<GoogleMapSelectorProps> = ({ formData, onFormC
       }
     }, [marker, markerCluster])
 
-      // Si ya hay coordenadas, colocar un marcador en la posición inicial
-    //   if (formData.geoCoordinates.lat !== 0 && formData.geoCoordinates.lng !== 0) {
-    //     const initialMarker = new window.google.maps.Marker({
-    //       position: formData.geoCoordinates,
-    //       map: googleMap,
-    //       icon: {
-    //         url: `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(`
-    //           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" width="48" height="48">
-    //             <path fill="#007BFF" d="M172.268 501.67C26.97 291.031 0 269.413 0 192 0 85.961 85.961 0 192 0s192 85.961 192 192c0 77.413-26.97 99.031-172.268 309.67-9.535 13.774-29.93 13.773-39.464 0z"/>
-    //             <circle cx="192" cy="192" r="50" fill="#FFFFFF"/>
-    //           </svg>
-    //         `)}`,
-    //         scaledSize: new window.google.maps.Size(48, 48),
-    //         anchor: new window.google.maps.Point(24, 48),
-    //       },
-    //     });
-    //     setMarker(initialMarker);
-    //   }
-
-//       // Evento de clic para seleccionar ubicación
-//       googleMap.addListener("click", (event: google.maps.MapMouseEvent) => {
-//         if (event.latLng) {
-//           const lat = event.latLng.lat();
-//           const lng = event.latLng.lng();
-
-//           markerCluster.clearMarkers();
-
-//             // Si no existe, lo creamos y lo almacenamos en el estado
-//             const newMarker = new window.google.maps.Marker({
-//               position: { lat, lng },
-//               map: googleMap,
-//               icon: {
-//                 url: `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(`
-//                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" width="48" height="48">
-//                     <path fill="#007BFF" d="M172.268 501.67C26.97 291.031 0 269.413 0 192 0 85.961 85.961 0 192 0s192 85.961 192 192c0 77.413-26.97 99.031-172.268 309.67-9.535 13.774-29.93 13.773-39.464 0z"/>
-//                     <circle cx="192" cy="192" r="50" fill="#FFFFFF"/>
-//                   </svg>
-//                 `)}`,
-//                 scaledSize: new window.google.maps.Size(48, 48),
-//                 anchor: new window.google.maps.Point(24, 48),
-//               },
-//             });
-//             setMarker(newMarker);
-          
-
-//           // Actualizar los datos del formulario con la nueva ubicación
-
-//           onFormChange(lat, lng);
-//         }
-//       });
-//     }
-//   }, [map, marker, formData.geoCoordinates, onFormChange]);
-
   return <div ref={mapRef as any} style={{ width: "100%", height: "500px" }} />;
 };
 

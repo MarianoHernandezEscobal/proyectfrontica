@@ -10,6 +10,7 @@ import { useDropzone } from "react-dropzone";
 import {
   createProperty,
   updateProperty,
+  deleteProperty
 } from "../services/properties/propertyService";
 import { Barrios } from "../assets/barrios";
 import { PropertyStatusSelect } from "./atomos/PropertyStatusSelect";
@@ -21,6 +22,7 @@ import GoogleMapSelector from "./atomos/GoogleMapSelector";
 interface PropertyFormProps {
   onAddProperty?: (newProperty: Omit<Property, "id">) => void;
   onUpdateProperty?: (updatedProperty: Property) => void;
+  onDeleteProperty?: (propertyId: number) => void;
   property?: Property;
 }
 
@@ -54,6 +56,7 @@ const inicializarPropiedad = {
 const PropertyForm: React.FC<PropertyFormProps> = ({
   onAddProperty,
   onUpdateProperty,
+  onDeleteProperty,
   property,
 }) => {
   const [isModalOpen, setModalOpen] = useState(false);
@@ -105,6 +108,22 @@ const PropertyForm: React.FC<PropertyFormProps> = ({
     console.log(formData);
 
   }
+
+  const handleDelete = async () => {
+    if (!property) return;
+    const confirmDelete = window.confirm("¿Seguro que deseas eliminar esta propiedad?");
+    if (!confirmDelete) return;
+
+    try {
+      await deleteProperty(property.id); // 🔥 Llamamos al servicio para eliminar
+      if (onDeleteProperty) {
+        onDeleteProperty(property.id);
+      }
+      navigate("/properties"); // Redirigir después de borrar
+    } catch (error) {
+      console.error("Error al eliminar la propiedad:", error);
+    }
+  };
 
   const handleDeleteImage = (index: number) => {
     const imageToDelete = previewImages[index];
@@ -384,6 +403,14 @@ const PropertyForm: React.FC<PropertyFormProps> = ({
           <Button type="submit" clase="w-full text-white">
             {property ? "Actualizar Propiedad" : "Crear Propiedad"}
           </Button>
+          {property && (
+            <Button
+              type="button"
+              clase="w-full text-white bg-red-600 mt-4"
+              onClick={handleDelete}
+            >
+              Eliminar Propiedad
+            </Button>)}
         </form>
 
         <div className="space-y-8 mt-10 rounded-md">
