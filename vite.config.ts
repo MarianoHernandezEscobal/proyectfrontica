@@ -1,16 +1,16 @@
-import { defineConfig } from 'vite';
-import react from '@vitejs/plugin-react';
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
 
 export default defineConfig({
   plugins: [react()],
-  server: {
-    port: 3000,
-  },
-  publicDir: 'public', // Specify the public directory
-  root: './', // Ensure the root is correctly set
   build: {
+    outDir: "dist",
     rollupOptions: {
-      input: './index.html', // Explicitly specify the entry point
+      input: "index.html",
+      output: {
+        entryFileNames: "main.js",
+      },
     },
   },
 });
+
