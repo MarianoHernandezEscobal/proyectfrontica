@@ -96,7 +96,8 @@ const Navbar = () => {
     (path: string) =>
       location.pathname === path
         ? "text-text-light font-extrabold"
-        : " hover:font-extrabold hover:text-text-light",
+        : " hover: hover:text-accent-light",
+    // : " hover:font-extrabold hover: hover:text-accent-light",
     [location.pathname]
   );
 
@@ -133,7 +134,7 @@ const Navbar = () => {
       <div className="flex justify-between items-center">
         {/* Logo */}
         <Link to="/home">
-          <img src={logo} alt="Logo" width="120" height="50" className="mr-4" />
+          <img src={logo} alt="Logo" width="120" height="50" className="mr-4 invert mix-blend-multiply" />
         </Link>
 
         {/* Desktop Navigation */}
@@ -141,7 +142,7 @@ const Navbar = () => {
           {navLinks.map(({ path, label }) => (
             <Link
               key={path}
-              className={`nav-button text-text-light ${isActive(path)} hover:font-bold`}
+              className={`nav-button text-accent-dark  hover:text-accent-light ${isActive(path)}`}
               to={path}
             >
               {label}
@@ -151,7 +152,7 @@ const Navbar = () => {
           {/* User Menu */}
           <div className="relative" ref={userMenuRef}>
             <button
-              className={`nav-button text-text-light hover:font-bold transition-text duration-300 flex items-center ${isUserMenuOpen ? "text-text-light" : ""
+              className={`nav-button text-accent-dark hover:font-bold transition-text duration-300 flex items-center ${isUserMenuOpen ? "text-accent-dark" : ""
                 }`}
               onClick={toggleUserMenu}
               aria-label="Perfil de usuario"
@@ -198,7 +199,7 @@ const Navbar = () => {
 
         {/* Mobile Navigation Button */}
         <button
-          className="md:hidden nav-button text-2xl text-text-light"
+          className="md:hidden nav-button text-2xl text-accent-dark"
           onClick={() => setIsNavOpen((prev) => !prev)}
           aria-label="Toggle navigation menu"
         >

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import SortByPriceButtons from './SortByPriceButtons';
-import FilterButtons from './FilterByType';
+import FilterByType from './FilterByType';
 import FilterByStatus from './FilterByStatus';
 import FilterByHood from './FilterByHood';
 import FilterByRooms from './FilterByRooms';
@@ -16,8 +16,69 @@ const FiltersPanelMovil: React.FC<FiltersPanelProps> = ({ initialFilters, onFilt
     const [showSortMenu, setShowSortMenu] = useState(false);
     const [showFilterMenu, setShowFilterMenu] = useState(false);
 
+    // const handleFilterChange = <T extends keyof Filters>(key: T, value: Filters[T]) => {
+    //     const updatedFilters = { ...filters, [key]: value };
+    //     setFilters(updatedFilters);
+    //     onFiltersChange(updatedFilters);
+    // };
     const handleFilterChange = <T extends keyof Filters>(key: T, value: Filters[T]) => {
-        const updatedFilters = { ...filters, [key]: value };
+        let updatedValue: Filters[T] = value;
+
+        if (key === "filterTypes") {
+            if (value === "allTypes") {
+                updatedValue = [] as Filters[T]; // Manejo especial para "allTypes"
+            } else {
+                const currentArray = (filters.filterTypes ?? []) as string[];
+
+                updatedValue = (currentArray.includes(value as string)
+                    ? currentArray.filter(item => item !== value)
+                    : [...currentArray, value]) as Filters[T];
+            }
+        } else if (key === "filterStatus") {
+            if (value === "allStatus") { // Manejo especial para "allStatus"
+                updatedValue = [] as Filters[T]; // Limpia la selección de estados
+            } else if (Array.isArray(filters[key])) {
+                const currentArray = (filters[key] ?? []) as string[];
+                updatedValue = (currentArray.includes(value as string)
+                    ? currentArray.filter(item => item !== value)
+                    : [...currentArray, value]) as Filters[T];
+            }
+        }
+        else if (key === "filterHood") {   // Manejo especial para filterHood
+            if (value === "" || value === "Cualquiera") {
+                updatedValue = [] as Filters[T]; // Limpia la selección de barrios
+            } else if (Array.isArray(filters[key])) {
+                const currentArray = (filters[key] ?? []) as string[];
+                updatedValue = (currentArray.includes(value as string)
+                    ? currentArray.filter(item => item !== value)
+                    : [...currentArray, value]) as Filters[T];
+            }
+            else if (key === "filterrooms") {   // Manejo especial para filterRooms
+                if (value === "NoAplica") {
+                    updatedValue = [] as Filters[T];
+                } else if (Array.isArray(filters[key])) {
+                    const currentArray = (filters[key] ?? []) as string[];
+                    updatedValue = (currentArray.includes(value as string)
+                        ? currentArray.filter(item => item !== value)
+                        : [...currentArray, value]) as Filters[T];
+                }
+            }
+            // Otros filtros que sean arrays
+        } else if (Array.isArray(filters[key])) {
+            const currentArray = (filters[key] ?? []) as string[];
+
+            updatedValue = (currentArray.includes(value as string)
+                ? currentArray.filter(item => item !== value)
+                : [...currentArray, value]) as Filters[T];
+        } else {
+            updatedValue = value;
+        }
+
+        const updatedFilters = {
+            ...filters,
+            [key]: updatedValue,
+        };
+
         setFilters(updatedFilters);
         onFiltersChange(updatedFilters);
     };
@@ -70,17 +131,45 @@ const FiltersPanelMovil: React.FC<FiltersPanelProps> = ({ initialFilters, onFilt
 
             {showFilterMenu && (
                 <div className="p-4 bg-gray-100">
-                    <FilterButtons
+                    {/* <FilterByType
                         currentFilters={filters.filterTypes}
                         onFilterChange={(types) => handleFilterChange('filterTypes', [types])}
+                    /> */}
+                    <FilterByType
+                        currentFilters={filters.filterTypes}
+                        onFilterChange={(type) => {
+                            setFilters((prevFilters) => {
+                                const newFilterTypes = type === "allTypes"
+                                    ? []
+                                    : prevFilters.filterTypes.includes(type)
+                                        ? prevFilters.filterTypes.filter(t => t !== type)
+                                        : [...prevFilters.filterTypes, type];
+                                const updatedFilters = { ...prevFilters, filterTypes: newFilterTypes };
+                                // Propaga el cambio al componente padre:
+                                onFiltersChange(updatedFilters);
+                                return updatedFilters;
+                            });
+                        }}
                     />
-                    <FilterByStatus
+                    {/* <FilterByStatus
                         currentFilters={filters.filterStatus}
                         onFilterChange={(status) => handleFilterChange('filterStatus', [status])}
                     />
                     <FilterByHood
                         currentFilters={filters.filterHood}
                         onFilterChange={(hoods) => handleFilterChange('filterHood', [hoods])}
+                    />
+                    <FilterByRooms
+                        currentFilters={filters.filterRooms}
+                        onFilterChange={(rooms) => handleFilterChange('filterRooms', rooms)}
+                    /> */}
+                    <FilterByStatus
+                        currentFilters={filters.filterStatus}
+                        onFilterChange={(status) => handleFilterChange('filterStatus', status)}
+                    />
+                    <FilterByHood
+                        currentFilters={filters.filterHood}
+                        onFilterChange={(hood) => handleFilterChange('filterHood', hood)}
                     />
                     <FilterByRooms
                         currentFilters={filters.filterRooms}

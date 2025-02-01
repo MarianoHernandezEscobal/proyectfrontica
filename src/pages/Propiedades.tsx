@@ -16,6 +16,7 @@ const Propiedades: React.FC = () => {
     const [filteredProperties, setFilteredProperties] = useState<Property[]>([]);
     const { properties } = useProperties();
 
+
     const location = useLocation();
 
     const [filters, setFilters] = useState<Filters>({
@@ -73,22 +74,31 @@ const Propiedades: React.FC = () => {
 
     useEffect(() => {
         const applyFilters = () => {
+            // console.log("Filtro de barrios:", filters.filterHood);
+
             let filtered = [...properties];
 
             if (filters.filterTypes.length > 0) {
                 filtered = filtered.filter(p => filters.filterTypes.includes(p.type));
             }
-            // if (filters.filterStatus.length > 0) {
-            //     filtered = filtered.filter(p => p.status.map(s => filters.filterStatus.includes(s)).includes(true));
-            // }
+
             if (filters.filterStatus.length > 0) {
                 filtered = filtered.filter(p =>
                     p.status.some(s => filters.filterStatus.includes(s))
                 );
             }
+
             if (filters.filterHood.length > 0) {
-                filtered = filtered.filter(p => p.neighborhood && filters.filterHood.includes(p.neighborhood));
+                filtered = filtered.filter(p => {
+                    if (!p.neighborhood) return false;
+                    const propertyHood = p.neighborhood.trim().toLowerCase();
+                    console.log("Neighborhood de propiedad:", p.neighborhood);
+                    return filters.filterHood.some(
+                        filtro => filtro.trim().toLowerCase() === propertyHood
+                    );
+                });
             }
+
             if (filters.filterRooms) {
                 filtered = filtered.filter(p => filters.filterRooms!.includes(p.rooms ? p.rooms : 0));
             }
@@ -111,70 +121,6 @@ const Propiedades: React.FC = () => {
         applyFilters();
     }, [filters, properties]);
 
-    // return (
-    //     <div className="p-4 h-full">
-    //         <div className="grid grid-rows-[auto,1fr] grid-cols-1 gap-4 h-full">
-    //             <div className="flex flex-col md:flex-row items-center justify-center md:pl-2">
-    //                 <Title text="Todas las Propiedades" size='large' />
-    //             </div>
-    //             <div className='flex justify-between'>
-    //                 <p className="mt-3 pt-1 lg:pl-5 md:mt-0 md:ml-4 text-text-secondary">
-    //                     Se están mostrando <span className="text-primary-light">{filteredProperties.length}</span> propiedades
-    //                 </p>
-    //                 <p className="hidden md:block mt-3 pt-1 lg:pl-5 md:mt-0 md:ml-4 text-text-secondary text-right">
-    //                     <SortByPriceButtons
-    //                         currentOrder={filters.sortOrder}
-    //                         onSortChange={(order) => setFilters({ ...filters, sortOrder: order })}
-    //                     />
-    //                 </p>
-    //             </div>
-    //             <hr />
-    //             <div className="flex flex-col md:flex-row gap-4">
-    //                 <aside className="hidden mt-4 md:block md:w-1/4 w-full p-4 min-h-full rounded-lg sticky top-5 z-20">
-    //                     <div className='text-center'>
-    //                         <FiltersPanel
-    //                             initialFilters={filters}
-    //                             onFiltersChange={(updatedFilters) => setFilters(updatedFilters)}
-    //                         />
-    //                     </div>
-    //                 </aside>
-
-    //                 <div className="flex-1">
-    //                     <div className="flex flex-col md:hidden mb-4 text-center">
-    //                         <FiltersPanelMovil
-    //                             initialFilters={filters}
-    //                             onFiltersChange={(updatedFilters) => setFilters(updatedFilters)}
-    //                         />
-    //                     </div>
-
-    //                     {loading ? (
-    //                         <p className="text-primary">Cargando propiedades...</p>
-    //                     ) : error ? (
-    //                         <p className="text-status-error">{error}</p>
-    //                     ) : (
-    //                         <div>
-    //                             {filteredProperties.length > 0 ? (
-    //                                 filteredProperties.map((property, index) => (
-    //                                     <div key={index} className="py-4">
-    //                                         <PropertyHorizontalCard {...property} />
-    //                                     </div>
-    //                                 ))
-    //                             ) : (
-    //                                 <Title text="Lo sentimos, pero no hay propiedades para mostrar de ese tipo" />
-    //                             )}
-    //                         </div>
-    //                     )}
-    //                     <Button
-    //                         onClick={() => window.history.back()}
-    //                         clase="mb-4 bg-primary-light hover:bg-primary-dark text-text-light fixed bottom-4 left-6 z-50"
-    //                     >
-    //                         Volver
-    //                     </Button>
-    //                 </div>
-    //             </div>
-    //         </div>
-    //     </div>
-    // );
     return (
         <div className="p-4 h-full">
             <div className="grid grid-rows-[auto,1fr] grid-cols-1 gap-4 h-full">

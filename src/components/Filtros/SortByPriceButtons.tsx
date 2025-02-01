@@ -43,14 +43,14 @@ import React, { useState } from 'react';
 import { FaSortNumericDownAlt, FaSortNumericDown, FaStar } from 'react-icons/fa';
 
 interface SortByPriceButtonsProps {
-    onSortChange: (order: 'asc' | 'desc' | 'relevant') => void;
-    currentOrder: 'asc' | 'desc' | 'relevant' | null;
+    onSortChange: (order: 'asc' | 'desc' | 'pinned') => void;
+    currentOrder: 'asc' | 'desc' | 'pinned' | null;
 }
 
 const SortByPriceButtons: React.FC<SortByPriceButtonsProps> = ({ onSortChange, currentOrder }) => {
     const [isOpen, setIsOpen] = useState(false);
 
-    const handleSortChange = (order: 'asc' | 'desc' | 'relevant') => {
+    const handleSortChange = (order: 'asc' | 'desc' | 'pinned') => {
         onSortChange(order);
         setIsOpen(false); // Cerrar el menú después de seleccionar
     };

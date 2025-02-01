@@ -7,6 +7,7 @@ import FavButton from "./HeartButton"
 import { addFavourite, removeFavourite } from "../../services/properties/propertyService"
 import EditButton from "./EditButton"
 import { useNavigate } from "react-router-dom"
+import { Barrios } from "../../assets/barrios"
 
 const PropertyHorizontalCard: React.FC<Property> = ({
   id,
@@ -72,10 +73,32 @@ const PropertyHorizontalCard: React.FC<Property> = ({
 
     setIsFav((prev) => !prev)
   }
-  const image = "https://placehold.co/300x300"
+  const image = "https://placehold.co/500x500"
 
+  const replaceType = (type: string): string => {
+    switch (type) {
+      case "apartment":
+        return "Apartamento";
+      case "house":
+        return "Casa";
+      case "office":
+        return "Oficina";
+      case "warehouse":
+        return "Almacén";
+      case "store":
+        return "Comercio";
+      case "land":
+        return "Terreno";
+      default:
+        return "Otro";
+    }
+  };
+  const replaceBarrio = (barrio: string | undefined): string => {
+    const found = Barrios.find((b) => b.value === barrio);
+    return found ? found.label : "No especificado";
+  };
   return (
-    <article className="bg-white rounded-lg max-w-[1090px] shadow-md dark:bg-surface-dark dark:text-gray-800 flex flex-col md:flex-row h-full md:h-[500px] w-full">
+    <article className="bg-white rounded-lg  shadow-md dark:bg-surface-dark dark:text-gray-800 flex flex-col md:flex-row h-full md:h-[500px] w-full">
       <figure className="w-full relative group overflow-hidden">
         <div
           className="post_thumbnail bg-center bg-cover w-full h-[300px] sm:h-[400px] md:h-full min-h-[200px] md:min-h-[400px] rounded-t-lg md:rounded-l-lg md:rounded-r-none"
@@ -136,7 +159,7 @@ const PropertyHorizontalCard: React.FC<Property> = ({
         <div className="flex flex-col pb-4 mb-4 w-full space-y-3 flex-grow px-4">
           <div className="flex flex-row justify-between items-center w-full">
             <span className="font-bold">Tipo:</span>
-            <span className="capitalize text-right sm:text-left">{type}</span>
+            <span className="capitalize text-right sm:text-left">{replaceType(type)}</span>
           </div>
           <div className="flex flex-row justify-between items-center w-full">
             <span className="font-bold">Estado:</span>
@@ -150,8 +173,8 @@ const PropertyHorizontalCard: React.FC<Property> = ({
           </div>
           <div className="flex flex-row justify-between items-center w-full">
             <span className="font-bold">Barrio:</span>
-            <span className="text-cyan-700 font-bold text-right sm:text-left">
-              {neighborhood ? neighborhood : "No especificado"}
+            <span className="capitalize text-cyan-700 font-bold text-right sm:text-left">
+              {replaceBarrio(neighborhood)}
             </span>
           </div>
         </div>

@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-// import SortByPriceButtons from './SortByPriceButtons';
-import FilterButtons from './FilterByType';
+import FilterByType from './FilterByType';
 import FilterByStatus from './FilterByStatus';
 import FilterByHood from './FilterByHood';
 import FilterByRooms from './FilterByRooms';
@@ -15,17 +14,53 @@ const FiltersPanel: React.FC<FiltersPanelProps> = ({ initialFilters, onFiltersCh
     const handleFilterChange = <T extends keyof Filters>(key: T, value: Filters[T]) => {
         let updatedValue: Filters[T] = value;
 
-        // If the filter should be an array, make sure we're appending to it correctly
-        // if (Array.isArray(filters[key])) {
-        //     //eslint-disable-next-line 
-        //     updatedValue = Array.isArray(value) ? [...filters[key], ...(value as any)] : [value];
-        // }
-        if (Array.isArray(filters[key])) {
-            //eslint-disable-next-line 
-            updatedValue = Array.isArray(value) ? ([...(filters[key] as any[]), ...(value as any)] as Filters[T]) : ([value] as Filters[T]);
-        }
+        if (key === "filterTypes") {
+            if (value === "allTypes") {
+                updatedValue = [] as Filters[T]; // Manejo especial para "allTypes"
+            } else {
+                const currentArray = (filters.filterTypes ?? []) as string[];
 
-        if (key === 'filterGarages' && typeof value === 'boolean') {
+                updatedValue = (currentArray.includes(value as string)
+                    ? currentArray.filter(item => item !== value)
+                    : [...currentArray, value]) as Filters[T];
+            }
+        } else if (key === "filterStatus") {
+            if (value === "allStatus") { // Manejo especial para "allStatus"
+                updatedValue = [] as Filters[T]; // Limpia la selección de estados
+            } else if (Array.isArray(filters[key])) {
+                const currentArray = (filters[key] ?? []) as string[];
+                updatedValue = (currentArray.includes(value as string)
+                    ? currentArray.filter(item => item !== value)
+                    : [...currentArray, value]) as Filters[T];
+            }
+        }
+        else if (key === "filterHood") {   // Manejo especial para filterHood
+            if (value === "" || value === "Cualquiera") {
+                updatedValue = [] as Filters[T]; // Limpia la selección de barrios
+            } else if (Array.isArray(filters[key])) {
+                const currentArray = (filters[key] ?? []) as string[];
+                updatedValue = (currentArray.includes(value as string)
+                    ? currentArray.filter(item => item !== value)
+                    : [...currentArray, value]) as Filters[T];
+            }
+            else if (key === "filterrooms") {   // Manejo especial para filterRooms
+                if (value === "NoAplica") {
+                    updatedValue = [] as Filters[T];
+                } else if (Array.isArray(filters[key])) {
+                    const currentArray = (filters[key] ?? []) as string[];
+                    updatedValue = (currentArray.includes(value as string)
+                        ? currentArray.filter(item => item !== value)
+                        : [...currentArray, value]) as Filters[T];
+                }
+            }
+            // Otros filtros que sean arrays
+        } else if (Array.isArray(filters[key])) {
+            const currentArray = (filters[key] ?? []) as string[];
+
+            updatedValue = (currentArray.includes(value as string)
+                ? currentArray.filter(item => item !== value)
+                : [...currentArray, value]) as Filters[T];
+        } else {
             updatedValue = value;
         }
 
@@ -37,6 +72,8 @@ const FiltersPanel: React.FC<FiltersPanelProps> = ({ initialFilters, onFiltersCh
         setFilters(updatedFilters);
         onFiltersChange(updatedFilters);
     };
+
+
 
     const handleClearFilters = () => {
         const clearedFilters: Filters = {
@@ -58,23 +95,31 @@ const FiltersPanel: React.FC<FiltersPanelProps> = ({ initialFilters, onFiltersCh
 
 
             <hr className="my-2" />
-            {/* <SortByPriceButtons
-                currentOrder={filters.sortOrder}
-                onSortChange={(order) => handleFilterChange('sortOrder', order)}
-            /> */}
             <div className="text-center border-r border-gray-400 p-4">
-
-                <FilterButtons
+                <FilterByType
                     currentFilters={filters.filterTypes}
-                    onFilterChange={(types) => handleFilterChange('filterTypes', [types])}
+                    onFilterChange={(type) => {
+                        setFilters((prevFilters) => {
+                            const newFilterTypes = type === "allTypes"
+                                ? []
+                                : prevFilters.filterTypes.includes(type)
+                                    ? prevFilters.filterTypes.filter(t => t !== type)
+                                    : [...prevFilters.filterTypes, type];
+                            const updatedFilters = { ...prevFilters, filterTypes: newFilterTypes };
+                            // Propaga el cambio al componente padre:
+                            onFiltersChange(updatedFilters);
+                            return updatedFilters;
+                        });
+                    }}
                 />
+
                 <FilterByStatus
                     currentFilters={filters.filterStatus}
-                    onFilterChange={(status) => handleFilterChange('filterStatus', [status])}
+                    onFilterChange={(status) => handleFilterChange('filterStatus', status)}
                 />
                 <FilterByHood
                     currentFilters={filters.filterHood}
-                    onFilterChange={(hoods) => handleFilterChange('filterHood', [hoods])}
+                    onFilterChange={(hood) => handleFilterChange('filterHood', hood)}
                 />
                 <FilterByRooms
                     currentFilters={filters.filterRooms}
