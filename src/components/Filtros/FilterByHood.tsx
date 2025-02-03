@@ -11,7 +11,7 @@ const FilterByHood: React.FC<FilterByHoodProps> = ({ onFilterChange, currentFilt
     const [isExpanded, setIsExpanded] = useState(false);
 
     const isActive = (neighborhood: string) => {
-        // Verifica si el barrio es "Cualquiera" y si el valor de currentFilters es vacío o "Cualquiera"
+
         if (neighborhood === "Cualquiera") {
             return currentFilters.length === 0 || currentFilters.includes("Cualquiera");
         }
@@ -55,9 +55,9 @@ const FilterByHood: React.FC<FilterByHoodProps> = ({ onFilterChange, currentFilt
                     {Barrios.filter(barrio => barrio.label !== "Cualquiera").map((barrio) => (
                         <div
                             key={barrio.label}
-                            onClick={() => handleItemClick(barrio.label)}
+                            onClick={() => handleItemClick(barrio.value)}
                             className={`flex items-center gap-2 p-1 cursor-pointer 
-                            ${isActive(barrio.label) ? "text-green-600" : "text-gray-600"} 
+                            ${isActive(barrio.value) ? "text-green-600" : "text-gray-600"} 
                             hover:text-green-500`}
                         >
                             <span className="md:text-base sm:text-lg">{barrio.label}</span>

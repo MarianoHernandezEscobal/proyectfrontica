@@ -68,16 +68,60 @@ const Propiedades: React.FC = () => {
             setFilteredProperties(filtered);
             setLoading(false);
         };
-
+        console.log(">>> ", properties)
         loadAndFilterProperties();
     }, [properties, filters]);
 
+    // useEffect(() => {
+    //     const applyFilters = () => {
+    //         let filtered = [...properties];
+
+    //         if (filters.filterTypes.length > 0) {
+    //             filtered = filtered.filter(p => filters.filterTypes.includes(p.type));
+    //         }
+
+    //         if (filters.filterStatus.length > 0) {
+    //             filtered = filtered.filter(p =>
+    //                 p.status.some(s => filters.filterStatus.includes(s))
+    //             );
+    //         }
+
+    //         if (filters.filterHood.length > 0) {
+    //             filtered = filtered.filter(p => {
+    //                 if (!p.neighborhood) return false;
+    //                 const propertyHood = p.neighborhood.trim().toLowerCase();
+    //                 return filters.filterHood.some(
+    //                     filtro => filtro.trim().toLowerCase() === propertyHood
+    //                 );
+    //             });
+    //         }
+
+    //         if (filters.filterRooms) {
+    //             filtered = filtered.filter(p => filters.filterRooms!.includes(p.rooms ? p.rooms : 0));
+    //         }
+    //         if (filters.filterGarages) {
+    //             filtered = filtered.filter(p => p.garage);
+    //         }
+    //         if (filters.filterPool) {
+    //             filtered = filtered.filter(p => p.pool);
+    //         }
+    //         if (filters.sortOrder) {
+    //             filtered.sort((a, b) =>
+    //                 filters.sortOrder === 'asc'
+    //                     ? Number(a.price) - Number(b.price)
+    //                     : Number(b.price) - Number(a.price)
+    //             );
+    //         }
+    //         setFilteredProperties(filtered);
+    //     };
+
+    //     applyFilters();
+    // }, [filters, properties]);
     useEffect(() => {
         const applyFilters = () => {
-            // console.log("Filtro de barrios:", filters.filterHood);
-
             let filtered = [...properties];
 
+            // Aplicar filtros sin ordenar
             if (filters.filterTypes.length > 0) {
                 filtered = filtered.filter(p => filters.filterTypes.includes(p.type));
             }
@@ -92,7 +136,6 @@ const Propiedades: React.FC = () => {
                 filtered = filtered.filter(p => {
                     if (!p.neighborhood) return false;
                     const propertyHood = p.neighborhood.trim().toLowerCase();
-                    console.log("Neighborhood de propiedad:", p.neighborhood);
                     return filters.filterHood.some(
                         filtro => filtro.trim().toLowerCase() === propertyHood
                     );
@@ -103,23 +146,30 @@ const Propiedades: React.FC = () => {
                 filtered = filtered.filter(p => filters.filterRooms!.includes(p.rooms ? p.rooms : 0));
             }
             if (filters.filterGarages) {
-                filtered = filtered.filter(p => p.garages);
+                filtered = filtered.filter(p => p.garage);
             }
             if (filters.filterPool) {
                 filtered = filtered.filter(p => p.pool);
             }
-            if (filters.sortOrder) {
-                filtered.sort((a, b) =>
-                    filters.sortOrder === 'asc'
-                        ? Number(a.price) - Number(b.price)
-                        : Number(b.price) - Number(a.price)
-                );
-            }
+
             setFilteredProperties(filtered);
         };
 
         applyFilters();
-    }, [filters, properties]);
+    }, [filters, properties]); // Este useEffect aplica los filtros pero no el orden
+
+    useEffect(() => {
+        // Este useEffect solo maneja el orden
+        if (filters.sortOrder) {
+            setFilteredProperties((prevProperties) =>
+                [...prevProperties].sort((a, b) =>
+                    filters.sortOrder === 'asc'
+                        ? Number(a.price) - Number(b.price)
+                        : Number(b.price) - Number(a.price)
+                )
+            );
+        }
+    }, [filters.sortOrder]); // Solo cambia el orden cuando sortOrder cambia
 
     return (
         <div className="p-4 h-full">

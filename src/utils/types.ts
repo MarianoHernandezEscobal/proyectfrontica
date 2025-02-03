@@ -30,7 +30,7 @@ export interface Property {
   type: PropertyTypes;
   rooms?: number;
   bathrooms?: number;
-  garages?: boolean;
+  garage?: boolean;
   pool?: boolean;
   neighborhood?: string;
   area?: number;

@@ -45,7 +45,7 @@ const inicializarPropiedad = {
   },
   neighborhood: "",
   yearBuilt: "0",
-  garages: false,
+  garage: false,
   pool: false,
   contribution: "0",
   imageSrc: [],
@@ -336,13 +336,13 @@ const PropertyForm: React.FC<PropertyFormProps> = ({
               <span className="mr-2 text-lg font-bold">Garajes</span>
               <input
                 type="checkbox"
-                name="garages"
-                checked={formData.garages}
+                name="garage"
+                checked={formData.garage}
                 onChange={handleCheckboxChange}
                 className="hidden"
               />
-              <div className={`relative w-14 h-8 rounded-full cursor-pointer ${formData.garages ? 'bg-green-600' : 'bg-gray-400'}`}>
-                <div className={`dot absolute left-1 top-1 w-6 h-6 rounded-full transition ${formData.garages ? 'bg-white transform translate-x-full' : 'bg-gray-300'}`}></div>
+              <div className={`relative w-14 h-8 rounded-full cursor-pointer ${formData.garage ? 'bg-green-600' : 'bg-gray-400'}`}>
+                <div className={`dot absolute left-1 top-1 w-6 h-6 rounded-full transition ${formData.garage ? 'bg-white transform translate-x-full' : 'bg-gray-300'}`}></div>
               </div>
             </label>
 

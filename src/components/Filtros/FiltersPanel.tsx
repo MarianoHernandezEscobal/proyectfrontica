@@ -11,12 +11,37 @@ import Title from '../atomos/Title';
 const FiltersPanel: React.FC<FiltersPanelProps> = ({ initialFilters, onFiltersChange }) => {
     const [filters, setFilters] = useState<Filters>(initialFilters);
 
+    const handleRoomChange = (room: number | "NoAplica") => {
+        let updatedFilters: number[] | null;
+
+        if (room === "NoAplica") {
+            updatedFilters = null; // "No Aplica"
+        } else {
+            const currentArray = filters.filterRooms ?? [];
+
+            updatedFilters = currentArray.includes(room)
+                ? currentArray.filter((r) => r !== room)  // Desmarcar habitación
+                : [...currentArray, room];  // Marcar habitación
+        }
+
+        setFilters(prevFilters => {
+            const updatedFiltersState = {
+                ...prevFilters,
+                filterRooms: updatedFilters,
+            };
+            onFiltersChange(updatedFiltersState);
+            return updatedFiltersState;
+        });
+    };
+
     const handleFilterChange = <T extends keyof Filters>(key: T, value: Filters[T]) => {
         let updatedValue: Filters[T] = value;
 
-        if (key === "filterTypes") {
+        if (key === "filterTypes") { // Manejo especial para "allTypes"
+            // @ts-expect-error value puede ser "allTypes"  
             if (value === "allTypes") {
-                updatedValue = [] as Filters[T]; // Manejo especial para "allTypes"
+                // @ts-expect-error value puede ser Filter[T]
+                updatedValue = [] as Filters[T];
             } else {
                 const currentArray = (filters.filterTypes ?? []) as string[];
 
@@ -24,9 +49,22 @@ const FiltersPanel: React.FC<FiltersPanelProps> = ({ initialFilters, onFiltersCh
                     ? currentArray.filter(item => item !== value)
                     : [...currentArray, value]) as Filters[T];
             }
-        } else if (key === "filterStatus") {
-            if (value === "allStatus") { // Manejo especial para "allStatus"
-                updatedValue = [] as Filters[T]; // Limpia la selección de estados
+        } else if (key === "filterStatus") { // Manejo especial para "allStatus"
+            // @ts-expect-error value puede ser "allStatus"  
+            if (value === "allStatus") {
+                // @ts-expect-error value puede ser Filter[T]
+                updatedValue = [] as Filters[T];
+            } else if (Array.isArray(filters[key])) {
+                const currentArray = (filters[key] ?? []) as string[];
+                updatedValue = (currentArray.includes(value as string)
+                    ? currentArray.filter(item => item !== value)
+                    : [...currentArray, value]) as Filters[T];
+            }
+        } else if (key === "filterHood") {   // Manejo especial para filterHood
+            // @ts-expect-error value puede ser "Cualquiera"  
+            if (value === "" || value === "Cualquiera") {
+                // @ts-expect-error value puede ser Filter[T]
+                updatedValue = [] as Filters[T];
             } else if (Array.isArray(filters[key])) {
                 const currentArray = (filters[key] ?? []) as string[];
                 updatedValue = (currentArray.includes(value as string)
@@ -34,27 +72,14 @@ const FiltersPanel: React.FC<FiltersPanelProps> = ({ initialFilters, onFiltersCh
                     : [...currentArray, value]) as Filters[T];
             }
         }
-        else if (key === "filterHood") {   // Manejo especial para filterHood
-            if (value === "" || value === "Cualquiera") {
-                updatedValue = [] as Filters[T]; // Limpia la selección de barrios
-            } else if (Array.isArray(filters[key])) {
-                const currentArray = (filters[key] ?? []) as string[];
-                updatedValue = (currentArray.includes(value as string)
-                    ? currentArray.filter(item => item !== value)
-                    : [...currentArray, value]) as Filters[T];
-            }
-            else if (key === "filterrooms") {   // Manejo especial para filterRooms
-                if (value === "NoAplica") {
-                    updatedValue = [] as Filters[T];
-                } else if (Array.isArray(filters[key])) {
-                    const currentArray = (filters[key] ?? []) as string[];
-                    updatedValue = (currentArray.includes(value as string)
-                        ? currentArray.filter(item => item !== value)
-                        : [...currentArray, value]) as Filters[T];
-                }
-            }
-            // Otros filtros que sean arrays
-        } else if (Array.isArray(filters[key])) {
+        else if (key === "filterGarages") {
+            updatedValue = value;
+        }
+        else if (key === "filterPool") {
+            updatedValue = value;
+        }
+        // Otros filtros que sean arrays
+        else if (Array.isArray(filters[key])) {
             const currentArray = (filters[key] ?? []) as string[];
 
             updatedValue = (currentArray.includes(value as string)
@@ -115,21 +140,25 @@ const FiltersPanel: React.FC<FiltersPanelProps> = ({ initialFilters, onFiltersCh
 
                 <FilterByStatus
                     currentFilters={filters.filterStatus}
+                    //@ts-expect-error hood status"
                     onFilterChange={(status) => handleFilterChange('filterStatus', status)}
                 />
                 <FilterByHood
                     currentFilters={filters.filterHood}
+                    //@ts-expect-error hood blabla"
                     onFilterChange={(hood) => handleFilterChange('filterHood', hood)}
                 />
                 <FilterByRooms
                     currentFilters={filters.filterRooms}
+                    //@ts-expect-error rooms blabla"
                     onFilterChange={(rooms) => handleFilterChange('filterRooms', rooms)}
+                    handleRoomChange={handleRoomChange}  // Pasa la función al componente hijo
                 />
                 <div className="flex gap-8 justify-center mt-2">
 
                     <FilterByGarages
                         isChecked={filters.filterGarages}
-                        onFilterChange={(garages) => handleFilterChange('filterGarages', garages)}
+                        onFilterChange={(garage) => handleFilterChange('filterGarages', garage)}
                     />
                     <FilterByPool
                         isChecked={filters.filterPool}

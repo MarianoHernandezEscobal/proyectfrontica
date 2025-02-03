@@ -97,7 +97,7 @@ const PropertyDetails: React.FC = () => {
             property={{
               rooms: property.rooms,
               bathrooms: property.bathrooms,
-              garages: property.garages,
+              garage: property.garage,
               pool: property.pool,
               area: property.area,
               lotSize: property.lotSize,

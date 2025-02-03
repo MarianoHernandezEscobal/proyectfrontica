@@ -93,9 +93,9 @@ const FormBusqueda: React.FC = () => {
           </div>
 
           <div className="space-y-2">
-            <label htmlFor="garages" className="block text-sm font-medium text-gray-700">Garages</label>
+            <label htmlFor="garage" className="block text-sm font-medium text-gray-700">Garages</label>
             <select
-              id="garages"
+              id="garage"
               defaultValue=""
               className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
             >
