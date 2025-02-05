@@ -1,9 +1,9 @@
 
 import React, { useEffect, useState } from 'react';
-import { Barrios } from '../assets/barrios';
-import { useProperties } from '../contexts/PropertyContext';
-import Title from './atomos/Title';
-import PropertyHorizontalCard from './atomos/PropertyHorizontalCard';
+// import { Barrios } from '../assets/barrios';
+// import { useProperties } from '../contexts/PropertyContext';
+// import Title from './atomos/Title';
+// import PropertyHorizontalCard from './atomos/PropertyHorizontalCard';
 import FilterByGarages from './Filtros/FilterByGarages';
 import FilterByPool from './Filtros/FilterByPool';
 import FilterByType from './Filtros/FilterByType';
@@ -16,7 +16,7 @@ import FilterByRooms from './Filtros/FilterByRooms';
 const FormBusqueda: React.FC<FiltersPanelProps> = ({ initialFilters, onFiltersChange }) => {
 
   const [showMoreOptions, setShowMoreOptions] = useState(false);
-  const { properties } = useProperties();
+  // const { properties } = useProperties();
   const [filters, setFilters] = useState<Filters>(initialFilters);
 
   const toggleMoreOptions = () => setShowMoreOptions(!showMoreOptions);
