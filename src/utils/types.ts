@@ -103,6 +103,7 @@ export type Filters = {
   filterRooms: number[] | null;
   filterGarages: boolean;
   filterPool: boolean;
+  filterTitle: string;
   sortOrder: "asc" | "desc" | "pinned" | null;
 };
 

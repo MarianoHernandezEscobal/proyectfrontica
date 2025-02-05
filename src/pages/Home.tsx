@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Banner from "../components/atomos/Banner";
 import Button from "../components/atomos/Button";
-import FormBusqueda from "../components/FormBusqueda";
 import Carousel from "../components/CarouselPropiedades";
 import Title from "../components/atomos/Title";
 import Garantias from "../components/Garantias";
@@ -15,11 +14,32 @@ import playaMobile2Gif from "../assets/imgs/playas/playa3-mobile.gif";
 import WhatsappButton from "../components/atomos/WhatsappButton";
 import GoogleMapComponent from "../components/atomos/GoogleMap";
 import { useNavigate } from "react-router-dom";
+
+import { Filters, Property } from "../utils/types";
+import PropiedadesBusqueda from "./PropiedadesBusqueda";
+
 // import MapaHome from '../components/atomos/MapaHome';
 
 const Home: React.FC = () => {
   const { home, properties } = useProperties();
   const navigate = useNavigate();
+
+  // const [loading, setLoading] = useState(true);
+  // const [error] = useState<string | null>(null);
+  const [filteredProperties, setFilteredProperties] = useState<Property[]>([]);
+  const [filters, setFilters] = useState<Filters>({
+    filterTypes: [],
+    filterStatus: [],
+    filterHood: [],
+    filterRooms: null,
+    filterGarages: false,
+    filterPool: false,
+    filterTitle: '',
+    sortOrder: null,
+  });
+
+  // solo para evitar errores
+  console.error(filteredProperties, setFilters)
 
   // hooks para cambiar las imágenes en parallax
   const [desktopImage, setDesktopImage] = useState(playa1Gif);
@@ -42,6 +62,47 @@ const Home: React.FC = () => {
     window.scrollTo(0, 0);
   }, []);
 
+  useEffect(() => {
+    const applyFilters = () => {
+      let filtered = [...properties];
+
+      // Aplicar filtros sin ordenar
+      if (filters.filterTypes.length > 0) {
+        filtered = filtered.filter(p => filters.filterTypes.includes(p.type));
+      }
+
+      if (filters.filterStatus.length > 0) {
+        filtered = filtered.filter(p =>
+          p.status.some(s => filters.filterStatus.includes(s))
+        );
+      }
+
+      if (filters.filterHood.length > 0) {
+        filtered = filtered.filter(p => {
+          if (!p.neighborhood) return false;
+          const propertyHood = p.neighborhood.trim().toLowerCase();
+          return filters.filterHood.some(
+            filtro => filtro.trim().toLowerCase() === propertyHood
+          );
+        });
+      }
+
+      if (filters.filterRooms) {
+        filtered = filtered.filter(p => filters.filterRooms!.includes(p.rooms ? p.rooms : 0));
+      }
+      if (filters.filterGarages) {
+        filtered = filtered.filter(p => p.garage);
+      }
+      if (filters.filterPool) {
+        filtered = filtered.filter(p => p.pool);
+      }
+
+      setFilteredProperties(filtered);
+    };
+
+    applyFilters();
+  }, [filters, properties]);
+
   return (
     <div className="space-y-8  max-w-full">
       <div className="relative mx-auto">
@@ -49,9 +110,11 @@ const Home: React.FC = () => {
       </div>
 
       <div className="lg:max-w-[75%] mx-auto">
-        <section>
-          <FormBusqueda />
-        </section>
+        <div className="mx-auto">
+          <section className="w-full">
+            <PropiedadesBusqueda />
+          </section>
+        </div>
         <hr />
         <section className="px-0">
           {home.sale && home.sale.length > 0 && (

@@ -43,7 +43,6 @@ const FiltersPanelMovil: React.FC<FiltersPanelProps> = ({ initialFilters, onFilt
         let updatedValue: Filters[T] = value;
 
         if (key === "filterTypes") { // Manejo especial para "allTypes"
-            // @ts-expect-error value puede ser "allTypes"  
             if (value === "allTypes") {
                 // @ts-expect-error value puede ser Filter[T]
                 updatedValue = [] as Filters[T];
@@ -55,7 +54,6 @@ const FiltersPanelMovil: React.FC<FiltersPanelProps> = ({ initialFilters, onFilt
                     : [...currentArray, value]) as Filters[T];
             }
         } else if (key === "filterStatus") { // Manejo especial para "allStatus"
-            // @ts-expect-error value puede ser "allStatus"  
             if (value === "allStatus") {
                 // @ts-expect-error value puede ser Filter[T]
                 updatedValue = [] as Filters[T];
@@ -66,7 +64,6 @@ const FiltersPanelMovil: React.FC<FiltersPanelProps> = ({ initialFilters, onFilt
                     : [...currentArray, value]) as Filters[T];
             }
         } else if (key === "filterHood") {   // Manejo especial para filterHood
-            // @ts-expect-error value puede ser "Cualquiera"  
             if (value === "" || value === "Cualquiera") {
                 // @ts-expect-error value puede ser Filter[T]
                 updatedValue = [] as Filters[T];
@@ -111,6 +108,7 @@ const FiltersPanelMovil: React.FC<FiltersPanelProps> = ({ initialFilters, onFilt
             filterRooms: null,
             filterGarages: false,
             filterPool: false,
+            filterTitle: '',
             sortOrder: null,
         };
         setFilters(clearedFilters);

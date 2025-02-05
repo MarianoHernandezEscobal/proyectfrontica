@@ -1,15 +1,16 @@
 import React, { useState } from 'react';
-import FilterByType from './FilterByType';
-import FilterByStatus from './FilterByStatus';
-import FilterByHood from './FilterByHood';
-import FilterByRooms from './FilterByRooms';
+import FilterByTypeBusqueda from './FilterByTypeBusqueda';
+import FilterByStatusBusqueda from './FilterByStatusBusqueda';
+import FilterByHoodBusqueda from './FilterByHoodBusqueda';
+import FilterByRoomsBusqueda from './FilterByRoomsBusqueda';
 import FilterByGarages from './FilterByGarages';
 import FilterByPool from './FilterByPool';
 import { Filters, FiltersPanelProps } from '../../utils/types';
-import Title from '../atomos/Title';
+// import Title from '../atomos/Title';
 
-const FiltersPanel: React.FC<FiltersPanelProps> = ({ initialFilters, onFiltersChange }) => {
+const FiltersBusqueda: React.FC<FiltersPanelProps> = ({ initialFilters, onFiltersChange }) => {
     const [filters, setFilters] = useState<Filters>(initialFilters);
+    // const [showAdditionalFilters, setShowAdditionalFilters] = useState(false);
 
     const handleRoomChange = (room: number | "NoAplica") => {
         let updatedFilters: number[] | null;
@@ -111,64 +112,43 @@ const FiltersPanel: React.FC<FiltersPanelProps> = ({ initialFilters, onFiltersCh
         onFiltersChange(clearedFilters);
     };
 
+
     return (
-        <div className="text-center  ">
-            <Title text="Filtros" />
+        <div className="text-center space-y-4">
+            {/* Primera línea de filtros */}
+            <div className="flex flex-wrap items-center justify-center gap-4 p-4 border-b border-gray-300">
+                <FilterByTypeBusqueda currentFilters={filters.filterTypes}
+                    //@ts-expect-error types blabla"
+                    onFilterChange={(type) => handleFilterChange('filterTypes', type)} />
+                <FilterByStatusBusqueda currentFilters={filters.filterStatus}
+                    //@ts-expect-error types blabla"
+                    onFilterChange={(status) => handleFilterChange('filterStatus', status)} />
+                <FilterByHoodBusqueda currentFilters={filters.filterHood}
+                    //@ts-expect-error types blabla"
+                    onFilterChange={(hood) => handleFilterChange('filterHood', hood)} />
 
-
-            <hr className="my-2" />
-            <div className="text-center border-r border-gray-400 p-4">
-                <FilterByType
-                    currentFilters={filters.filterTypes}
-                    onFilterChange={(type) => {
-                        setFilters((prevFilters) => {
-                            const newFilterTypes = type === "allTypes"
-                                ? []
-                                : prevFilters.filterTypes.includes(type)
-                                    ? prevFilters.filterTypes.filter(t => t !== type)
-                                    : [...prevFilters.filterTypes, type];
-                            const updatedFilters = { ...prevFilters, filterTypes: newFilterTypes };
-                            onFiltersChange(updatedFilters);
-                            return updatedFilters;
-                        });
-                    }}
-                />
-
-                <FilterByStatus
-                    currentFilters={filters.filterStatus}
-                    //@ts-expect-error hood status"
-                    onFilterChange={(status) => handleFilterChange('filterStatus', status)}
-                />
-                <FilterByHood
-                    currentFilters={filters.filterHood}
-                    //@ts-expect-error hood blabla"
-                    onFilterChange={(hood) => handleFilterChange('filterHood', hood)}
-                />
-                <FilterByRooms
+                <FilterByRoomsBusqueda
                     currentFilters={filters.filterRooms}
                     //@ts-expect-error rooms blabla"
                     onFilterChange={(rooms) => handleFilterChange('filterRooms', rooms)}
                     handleRoomChange={handleRoomChange}
                 />
-                <div className="flex gap-8 justify-center mt-2">
 
-                    <FilterByGarages
-                        isChecked={filters.filterGarages}
-                        onFilterChange={(garage) => handleFilterChange('filterGarages', garage)}
-                    />
-                    <FilterByPool
-                        isChecked={filters.filterPool}
-                        onFilterChange={(pool) => handleFilterChange('filterPool', pool)}
-                    />
-                </div>
+                <FilterByGarages isChecked={filters.filterGarages} onFilterChange={(garage) => handleFilterChange('filterGarages', garage)} />
+                <FilterByPool isChecked={filters.filterPool} onFilterChange={(pool) => handleFilterChange('filterPool', pool)} />
             </div>
-            <hr className="my-2" />
-            <div className="flex justify-center">
-                <button onClick={handleClearFilters} className="bg-gray-400 rounded-lg text-white font-bold hover:bg-gray-600 p-3 ">Limpiar Filtros</button>
+            {/* )} */}
+
+            <div className="flex justify-end p-4">
+                <button
+                    onClick={handleClearFilters}
+                    className="bg-gray-400 rounded-lg text-white font-bold hover:bg-gray-600 px-4 py-2"
+                >
+                    Limpiar filtros
+                </button>
             </div>
         </div>
     );
 };
 
-export default FiltersPanel;
-
+export default FiltersBusqueda;

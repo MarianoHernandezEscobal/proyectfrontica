@@ -2,22 +2,25 @@ import React, { useEffect, useState } from 'react';
 import PropertyHorizontalCard from '../components/atomos/PropertyHorizontalCard';
 import Title from '../components/atomos/Title';
 import { Filters, Property } from '../utils/types';
-import FiltersPanel from '../components/Filtros/FiltersPanel';
+import FiltersBusqueda from '../components/Filtros/FiltersBusqueda';
 import { useProperties } from '../contexts/PropertyContext';
-import FiltersPanelMovil from '../components/Filtros/FiltersPanelMovil';
 import Button from '../components/atomos/Button';
-import SortByPriceButtons from '../components/Filtros/SortByPriceButtons';
+import { useNavigate } from 'react-router-dom';
+// import FiltersPanelMovil from '../components/Filtros/FiltersPanelMovil';
+// import Button from '../components/atomos/Button';
+// import SortByPriceButtons from '../components/Filtros/SortByPriceButtons';
 
-import { useLocation } from 'react-router-dom';
+// import { useLocation } from 'react-router-dom';
 
-const Propiedades: React.FC = () => {
+const PropiedadesBusqueda: React.FC = () => {
     const [loading, setLoading] = useState(true);
     const [error] = useState<string | null>(null);
     const [filteredProperties, setFilteredProperties] = useState<Property[]>([]);
     const { properties } = useProperties();
+    const navigate = useNavigate();
 
 
-    const location = useLocation();
+    // const location = useLocation();
 
     const [filters, setFilters] = useState<Filters>({
         filterTypes: [],
@@ -30,28 +33,28 @@ const Propiedades: React.FC = () => {
         sortOrder: null,
     });
 
-    useEffect(() => {
-        const queryParams = new URLSearchParams(location.search);
-        const filter = queryParams.get('filter');
+    // useEffect(() => {
+    //     const queryParams = new URLSearchParams(location.search);
+    //     const filter = queryParams.get('filter');
 
-        if (filter === 'sale') {
-            setFilters((prevFilters) => ({
-                ...prevFilters,
-                filterStatus: ['for_sale'],
-            }));
-        } else if (filter === 'rent') {
-            setFilters((prevFilters) => ({
-                ...prevFilters,
-                filterStatus: ['for_rent'],
-            }));
-        } else if (filter === 'pinned') {
-            setFilters((prevFilters) => ({
-                ...prevFilters,
-                pinned: true,
-            }));
-        }
+    //     if (filter === 'sale') {
+    //         setFilters((prevFilters) => ({
+    //             ...prevFilters,
+    //             filterStatus: ['for_sale'],
+    //         }));
+    //     } else if (filter === 'rent') {
+    //         setFilters((prevFilters) => ({
+    //             ...prevFilters,
+    //             filterStatus: ['for_rent'],
+    //         }));
+    //     } else if (filter === 'pinned') {
+    //         setFilters((prevFilters) => ({
+    //             ...prevFilters,
+    //             pinned: true,
+    //         }));
+    //     }
 
-    }, [location.search]);
+    // }, [location.search]);
 
     useEffect(() => {
         const loadAndFilterProperties = () => {
@@ -69,9 +72,9 @@ const Propiedades: React.FC = () => {
             setFilteredProperties(filtered);
             setLoading(false);
         };
-        console.log(">>> ", properties)
         loadAndFilterProperties();
     }, [properties, filters]);
+
 
     // useEffect(() => {
     //     const applyFilters = () => {
@@ -106,23 +109,31 @@ const Propiedades: React.FC = () => {
     //         if (filters.filterPool) {
     //             filtered = filtered.filter(p => p.pool);
     //         }
-    //         if (filters.sortOrder) {
-    //             filtered.sort((a, b) =>
-    //                 filters.sortOrder === 'asc'
-    //                     ? Number(a.price) - Number(b.price)
-    //                     : Number(b.price) - Number(a.price)
-    //             );
-    //         }
+
     //         setFilteredProperties(filtered);
     //     };
 
     //     applyFilters();
     // }, [filters, properties]);
+
     useEffect(() => {
         const applyFilters = () => {
+            if (
+                filters.filterTypes.length === 0 &&
+                filters.filterStatus.length === 0 &&
+                filters.filterHood.length === 0 &&
+                filters.filterRooms === null &&
+                !filters.filterGarages &&
+                !filters.filterPool &&
+                !filters.filterTitle
+            ) {
+                setFilteredProperties([]); // No mostrar propiedades si no hay filtros activos
+                return;
+            }
+
+            setLoading(true);
             let filtered = [...properties];
 
-            // Aplicar filtros sin ordenar
             if (filters.filterTypes.length > 0) {
                 filtered = filtered.filter(p => filters.filterTypes.includes(p.type));
             }
@@ -154,59 +165,22 @@ const Propiedades: React.FC = () => {
             }
 
             setFilteredProperties(filtered);
+            setLoading(false);
         };
 
         applyFilters();
-    }, [filters, properties]); // Este useEffect aplica los filtros pero no el orden
-
-    useEffect(() => {
-        // Este useEffect solo maneja el orden
-        if (filters.sortOrder) {
-            setFilteredProperties((prevProperties) =>
-                [...prevProperties].sort((a, b) =>
-                    filters.sortOrder === 'asc'
-                        ? Number(a.price) - Number(b.price)
-                        : Number(b.price) - Number(a.price)
-                )
-            );
-        }
-    }, [filters.sortOrder]); // Solo cambia el orden cuando sortOrder cambia
+    }, [filters, properties]);
 
     return (
-        <div className="p-4 h-full">
-            <div className="grid grid-rows-[auto,1fr] grid-cols-1 gap-4 h-full">
-                <div className="flex flex-col md:flex-row items-center justify-center md:pl-2">
-                    <Title text="Propiedades" size='large' />
-                </div>
-                <div className='flex justify-between'>
-                    <p className="mt-3 pt-1 lg:pl-5 md:mt-0 md:ml-4 text-text-secondary">
-                        Se están mostrando <span className="text-primary-light">{filteredProperties.length}</span> propiedades
-                    </p>
-                    <p className="hidden md:block mt-3 pt-1 lg:pl-5 md:mt-0 md:ml-4 text-text-secondary text-right">
-                        <SortByPriceButtons
-                            currentOrder={filters.sortOrder}
-                            onSortChange={(order) => setFilters({ ...filters, sortOrder: order })}
-                        />
-                    </p>
-                </div>
-                <hr />
-                <div className="flex flex-col md:flex-row gap-4">
-                    <aside className="hidden mt-4 md:block md:w-1/4 w-full p-4 min-h-full rounded-lg sticky top-5 z-20 h-[calc(100vh-5rem)] overflow-y-auto"> {/* Altura fija y scroll */}
-                        <div className='text-center'>
-                            <FiltersPanel
-                                initialFilters={filters}
-                                onFiltersChange={(updatedFilters) => setFilters(updatedFilters)}
-                            />
-                        </div>
-                    </aside>
+        <div className="">
+            <div className="">
 
-                    <div className="flex-1 h-[calc(100vh-5rem)] overflow-y-auto"> {/* Altura fija y scroll */}
-                        <div className="flex flex-col md:hidden mb-4 text-center">
-                            <FiltersPanelMovil
-                                initialFilters={filters}
-                                onFiltersChange={(updatedFilters) => setFilters(updatedFilters)}
-                            />
-                        </div>
+                <div className="">
+                    <div className='text-center'>
+                        <FiltersBusqueda
+                            initialFilters={filters}
+                            onFiltersChange={(updatedFilters) => setFilters(updatedFilters)}
+                        />
 
                         {loading ? (
                             <p className="text-primary">Cargando propiedades...</p>
@@ -221,16 +195,13 @@ const Propiedades: React.FC = () => {
                                         </div>
                                     ))
                                 ) : (
-                                    <Title text="Lo sentimos, pero no hay propiedades para mostrar de ese tipo" />
+                                    <Title text="Utiliza los filtros para buscar propiedades" />
                                 )}
                             </div>
                         )}
-                        <Button
-                            onClick={() => window.history.back()}
-                            clase="mb-4 bg-primary-light hover:bg-primary-dark text-text-light fixed bottom-4 left-6 z-50"
-                        >
-                            Volver
-                        </Button>
+                        <div className="py-3">
+                            <Button onClick={() => navigate("/properties")}>Ir a propiedades</Button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -238,4 +209,4 @@ const Propiedades: React.FC = () => {
     );
 };
 
-export default Propiedades;
+export default PropiedadesBusqueda;
