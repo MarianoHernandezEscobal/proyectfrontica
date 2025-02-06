@@ -2,7 +2,6 @@ import React, { useState } from "react";
 // @ts-expect-error asdasd
 import Modal from "react-modal"; // Importando el modal
 import { FaChevronDown } from "react-icons/fa";
-import Title from "../atomos/Title";
 
 // Establecer el elemento raíz para el modal
 Modal.setAppElement("#root");
@@ -48,7 +47,6 @@ const FilterByRoomsBusqueda: React.FC<FilterByRoomsProps> = ({
                 contentLabel="Seleccionar Habitaciones"
             >
                 <div className="bg-white p-4 rounded shadow-lg max-h-[80vh] overflow-y-auto">
-                    <Title text="Seleccionar Habitaciones" />
                     <div className="flex flex-col mb-4">
                         <div
                             onClick={() => handleRoomChange("NoAplica")} // "No Aplica"

@@ -79,11 +79,17 @@ export interface AgentProps {
 }
 
 export enum PropertyTypes {
-  HOUSE = 'house',
-  APARTMENT = 'apartment',
-  LAND = 'land',
-  OFFICE = 'office',
-  STORE = 'store',
+  HOUSE = "house",
+  APARTMENT = "apartment",
+  LAND = "land",
+  OFFICE = "office",
+  STORE = "store",
+  // HOUSE = "casa",
+  // APARTMENT = "apartamento",
+  // LAND = "terreno",
+  // OFFICE = "oficina",
+  // STORE = "almacen",
+  OTHER = "otros",
 }
 
 export enum PropertyStatus {

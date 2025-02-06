@@ -164,6 +164,12 @@ const PropiedadesBusqueda: React.FC = () => {
                 filtered = filtered.filter(p => p.pool);
             }
 
+            if (filters.filterTitle.trim() !== '') {
+                filtered = filtered.filter(p =>
+                    p.title.toLowerCase().includes(filters.filterTitle.toLowerCase())
+                );
+            }
+
             setFilteredProperties(filtered);
             setLoading(false);
         };

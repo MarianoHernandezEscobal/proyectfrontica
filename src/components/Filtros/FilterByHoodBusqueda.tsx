@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import Modal from "react-modal";
 import { Barrios } from "../../assets/barrios";
 import { FaChevronDown } from "react-icons/fa";
-import Title from "../atomos/Title";
 
 // Establecer el elemento raíz para el modal
 Modal.setAppElement("#root");
@@ -57,8 +56,6 @@ const FilterByHoodBusqueda: React.FC<FilterByHoodProps> = ({ onFilterChange, cur
                 contentLabel="Seleccionar Barrio"
             >
                 <div className="bg-white p-4 rounded shadow-lg max-h-[80vh] overflow-y-auto">
-                    <Title text="Seleccionar Barrio" />
-
                     <div className="flex flex-col mb-4">
                         <div
                             onClick={() => handleItemClick("Cualquiera")}

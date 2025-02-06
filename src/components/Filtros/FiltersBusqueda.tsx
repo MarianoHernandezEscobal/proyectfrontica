@@ -5,6 +5,7 @@ import FilterByHoodBusqueda from './FilterByHoodBusqueda';
 import FilterByRoomsBusqueda from './FilterByRoomsBusqueda';
 import FilterByGarages from './FilterByGarages';
 import FilterByPool from './FilterByPool';
+import FilterByTitleBusqueda from "./FilterByTitleBusqueda";
 import { Filters, FiltersPanelProps } from '../../utils/types';
 // import Title from '../atomos/Title';
 
@@ -38,7 +39,9 @@ const FiltersBusqueda: React.FC<FiltersPanelProps> = ({ initialFilters, onFilter
     const handleFilterChange = <T extends keyof Filters>(key: T, value: Filters[T]) => {
         let updatedValue: Filters[T] = value;
 
-        if (key === "filterTypes") { // Manejo especial para "allTypes"
+        if (key === "filterTitle") {
+            updatedValue = value;
+        } else if (key === "filterTypes") { // Manejo especial para "allTypes"
             if (value === "allTypes") {
                 // @ts-expect-error value puede ser Filter[T]
                 updatedValue = [] as Filters[T];
@@ -86,7 +89,7 @@ const FiltersBusqueda: React.FC<FiltersPanelProps> = ({ initialFilters, onFilter
         } else {
             updatedValue = value;
         }
-
+        console.log(">>> ", updatedValue)
         const updatedFilters = {
             ...filters,
             [key]: updatedValue,
@@ -136,6 +139,11 @@ const FiltersBusqueda: React.FC<FiltersPanelProps> = ({ initialFilters, onFilter
 
                 <FilterByGarages isChecked={filters.filterGarages} onFilterChange={(garage) => handleFilterChange('filterGarages', garage)} />
                 <FilterByPool isChecked={filters.filterPool} onFilterChange={(pool) => handleFilterChange('filterPool', pool)} />
+                <hr />
+                <FilterByTitleBusqueda
+                    currentFilter={filters.filterTitle}
+                    onFilterChange={(title) => handleFilterChange("filterTitle", title)}
+                />
             </div>
             {/* )} */}
 

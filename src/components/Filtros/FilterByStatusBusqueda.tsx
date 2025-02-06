@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import Modal from "react-modal";
 import { FaChevronDown } from "react-icons/fa";
 import { PropertyStatus } from "../../utils/types";
-import Title from "../atomos/Title";
 
 // Establecer el elemento raíz para el modal
 Modal.setAppElement("#root");
@@ -54,7 +53,6 @@ const FilterByStatusBusqueda: React.FC<FilterByStatusButtonsProps> = ({
                 contentLabel="Seleccionar Estado"
             >
                 <div className="bg-white p-4 rounded shadow-lg max-h-[80vh] overflow-y-auto">
-                    <Title text="Seleccionar Estado" />
                     <div className="flex flex-col ">
                         <div
                             onClick={() => {

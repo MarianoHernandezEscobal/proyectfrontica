@@ -8,6 +8,7 @@ import { addFavourite, removeFavourite } from "../../services/properties/propert
 import EditButton from "./EditButton"
 import { useNavigate } from "react-router-dom"
 import { Barrios } from "../../assets/barrios"
+import { useAuth } from "../../contexts/AuthContext";
 
 const PropertyHorizontalCard: React.FC<Property> = ({
   id,
@@ -25,6 +26,7 @@ const PropertyHorizontalCard: React.FC<Property> = ({
 }) => {
   const [isFav, setIsFav] = useState(false)
   const navigate = useNavigate()
+  const { isAuthenticated, user } = useAuth();
 
   const handleEdit = async (e: React.MouseEvent) => {
     e.preventDefault()
@@ -131,12 +133,17 @@ const PropertyHorizontalCard: React.FC<Property> = ({
             </button>
           </div>
         )}
-        <div className="absolute top-2 right-2 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-300">
-          <FavButton onClick={handleFavClick} isFavourite={isFav} className="opacity-100" />
-        </div>
-        <div className="absolute top-2 left-2 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-300">
-          <EditButton onClick={handleEdit} />
-        </div>
+        {isAuthenticated && (
+          <div className="absolute top-2 right-2 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-300">
+            <FavButton onClick={handleFavClick} isFavourite={isFav} className="opacity-100" />
+          </div>
+        )}
+        {isAuthenticated && user?.admin && (
+
+          <div className="absolute top-2 left-2 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-300">
+            <EditButton onClick={handleEdit} />
+          </div>
+        )}
       </figure>
 
       <div className="w-full md:w-1/2 pl-2 flex flex-col justify-between">
