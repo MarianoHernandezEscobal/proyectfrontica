@@ -11,6 +11,7 @@ import WhatsappButton from "../components/atomos/WhatsappButton";
 import PropertyContactSlider from "../components/atomos/PropertiContactSlider";
 import { fetchProperty } from "../services/properties/propertyService";
 import { useAlert } from "../contexts/AlertContext";
+import GoogleMapComponent from "../components/atomos/GoogleMap";
 
 const PropertyDetails: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -115,15 +116,10 @@ const PropertyDetails: React.FC = () => {
 
         <div className="mt-8">
           <h2 className="text-2xl font-bold text-text-primary mb-4 text-center">Ubicación en el mapa</h2>
-          <div className="flex justify-center">
-            <iframe
-              src={`https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d26221.553173625896!2d-${property.geoCoordinates?.lng}!3d-${property.geoCoordinates?.lat}!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x959ff9ef8a098c7b%3A0xc8f665ead8bd8256!2s15300%20Costa%20Azul%2C%20Canelones%20Department!5e0!3m2!1sen!2suy!4v1730582767438!5m2!1sen!2suy`}
-              width="600"
-              height="450"
-              loading="lazy"
-              style={{ border: 0 }}
-              allowFullScreen
-            ></iframe>
+          <div>
+              {property.geoCoordinates &&
+                <GoogleMapComponent properties={[property]} geoCoordinates={property.geoCoordinates} />
+              }
           </div>
         </div>
 

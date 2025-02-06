@@ -4,10 +4,12 @@ import { Property } from "../../utils/types";
 
 interface GoogleMapComponentProps {
   properties?: Property[];
+  geoCoordinates?: google.maps.LatLngLiteral;
 }
 
 const GoogleMapComponent: React.FC<GoogleMapComponentProps> = ({
   properties,
+  geoCoordinates
 }) => {
   const mapRef = useRef<HTMLDivElement>(null);
   const [map, setMap] = useState<google.maps.Map | null>(null);
@@ -19,7 +21,7 @@ const GoogleMapComponent: React.FC<GoogleMapComponentProps> = ({
     if (mapRef.current && !map) {
       setMap(
         new window.google.maps.Map(mapRef.current, {
-          center: DEFAULT_CENTER,
+          center: geoCoordinates || DEFAULT_CENTER ,
           zoom: 14,
         })
       );
