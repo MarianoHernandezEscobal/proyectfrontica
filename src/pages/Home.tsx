@@ -53,6 +53,8 @@ const Home: React.FC = () => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
+    console.info(filteredProperties, setFilters);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
