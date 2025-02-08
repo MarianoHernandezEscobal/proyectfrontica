@@ -36,6 +36,7 @@ const EditProperty: React.FC = () => {
       }
     };
     loadProperty();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id, properties]);
 
   const onUpdateProperty = (updatedProperty: Property) => {
@@ -60,7 +61,6 @@ const EditProperty: React.FC = () => {
       />
 
       <div className="lg:max-w-[1300px] mx-auto">
-        {/* Pasamos la propiedad a editar al formulario */}
         <PropertyForm
           property={propertyToEdit}
           onUpdateProperty={onUpdateProperty}

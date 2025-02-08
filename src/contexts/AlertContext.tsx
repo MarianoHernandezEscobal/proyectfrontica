@@ -11,10 +11,8 @@ export const AlertProvider: React.FC<{ children: ReactNode }> = ({ children }) =
   const [currentAlert, setCurrentAlert] = useState<{ type: AlertType; message: string } | null>(null);
 
   const showAlert = (type: AlertType, message: string) => {
-    // Reemplaza la alerta actual con la nueva
     setCurrentAlert({ type, message });
 
-    // Configura el tiempo para que desaparezca
     setTimeout(() => {
       setCurrentAlert(null);
     }, 2000);
@@ -29,7 +27,7 @@ export const AlertProvider: React.FC<{ children: ReactNode }> = ({ children }) =
     </AlertContext.Provider>
   );
 };
-
+/* eslint-disable react-refresh/only-export-components */
 export const useAlert = () => {
   const context = useContext(AlertContext);
   if (!context) {

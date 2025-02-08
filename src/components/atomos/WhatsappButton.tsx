@@ -32,7 +32,7 @@ const WhatsappButton: React.FC<WhatsappButtonProps> = ({
             };
         }
         setIsVisible(true);
-
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const message: string = urlMessage

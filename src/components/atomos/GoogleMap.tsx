@@ -14,29 +14,22 @@ const GoogleMapComponent: React.FC<GoogleMapComponentProps> = ({
   const mapRef = useRef<HTMLDivElement>(null);
   const [map, setMap] = useState<google.maps.Map | null>(null);
 
-  /**
-   * 1. Crear e inicializar el mapa (solo la primera vez que el componente se monta).
-   */
   useEffect(() => {
     if (mapRef.current && !map) {
       setMap(
         new window.google.maps.Map(mapRef.current, {
-          center: geoCoordinates || DEFAULT_CENTER ,
+          center: geoCoordinates || DEFAULT_CENTER,
           zoom: 14,
         })
       );
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [map]);
 
-  /**
-   * 2. Cuando ya tenemos el mapa disponible, añadimos marcadores:
-   *    - Marcador central (Inmobiliaria)
-   *    - Marcadores para cada propiedad (con su InfoWindow).
-   */
+
   useEffect(() => {
     if (!map) return;
 
-    // Ícono para el marcador central
     const centerMarkerIcon = {
       url: `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(`
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" width="48" height="48">
@@ -47,7 +40,6 @@ const GoogleMapComponent: React.FC<GoogleMapComponentProps> = ({
       anchor: new window.google.maps.Point(24, 48),
     };
 
-    // Crear marcador central (por ejemplo, sede de la inmobiliaria)
     const centerMarker = new window.google.maps.Marker({
       position: DEFAULT_CENTER,
       map,
@@ -55,9 +47,8 @@ const GoogleMapComponent: React.FC<GoogleMapComponentProps> = ({
       icon: centerMarkerIcon,
     });
 
-    // InfoWindow de bienvenida
     const welcomeInfoWindow = new window.google.maps.InfoWindow({
-        content: `
+      content: `
           <div 
             style="
               max-width: 250px; 
@@ -90,20 +81,17 @@ const GoogleMapComponent: React.FC<GoogleMapComponentProps> = ({
             </p>
           </div>
         `,
-      });
-      
+    });
 
-    // Abrir la ventana al cargar
+
     welcomeInfoWindow.open(map, centerMarker);
 
-    // Volver a abrir si se hace clic en el marcador
     centerMarker.addListener("click", () => {
       welcomeInfoWindow.open(map, centerMarker);
     });
 
-    // Ícono para las propiedades
     const houseMarkerIcon = {
-        url: `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(`
+      url: `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(`
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" width="48" height="48">
             <!-- Base del marcador (gota) -->
             <path fill="#28a745" d="M172.268 501.67C26.97 291.031 0 269.413 0 192 0 85.961 85.961 0 192 0s192 85.961 192 192c0 77.413-26.97 99.031-172.268 309.67-9.535 13.774-29.93 13.773-39.464 0z"/>
@@ -113,12 +101,11 @@ const GoogleMapComponent: React.FC<GoogleMapComponentProps> = ({
                   fill="#FFFFFF" stroke="#FFFFFF" stroke-width="10"/>
           </svg>
         `)}`,
-        scaledSize: new window.google.maps.Size(48, 48), // Tamaño del icono
-        anchor: new window.google.maps.Point(24, 48), // Ajuste para que el marcador toque el mapa correctamente
-      };
-      
+      scaledSize: new window.google.maps.Size(48, 48), // Tamaño del icono
+      anchor: new window.google.maps.Point(24, 48), // Ajuste para que el marcador toque el mapa correctamente
+    };
 
-    // Crear marcadores para cada propiedad
+
     properties?.forEach((property) => {
       if (!property.geoCoordinates) return;
 
@@ -129,7 +116,6 @@ const GoogleMapComponent: React.FC<GoogleMapComponentProps> = ({
         icon: houseMarkerIcon,
       });
 
-      // InfoWindow con datos de la propiedad
       const infoWindow = new window.google.maps.InfoWindow({
         content: `
           <div style="max-width: 200px; font-family: Arial, sans-serif; text-align: center;">
@@ -156,7 +142,6 @@ const GoogleMapComponent: React.FC<GoogleMapComponentProps> = ({
         `,
       });
 
-      // Mostrar InfoWindow al hacer clic
       marker.addListener("click", () => {
         infoWindow.open(map, marker);
       });

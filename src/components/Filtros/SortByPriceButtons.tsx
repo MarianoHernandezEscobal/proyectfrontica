@@ -11,10 +11,9 @@ const SortByPriceButtons: React.FC<SortByPriceButtonsProps> = ({ onSortChange, c
 
     const handleSortChange = (order: 'asc' | 'desc' | 'pinned') => {
         onSortChange(order);
-        setIsOpen(false); // Cerrar el menú después de seleccionar
+        setIsOpen(false);
     };
 
-    // Función para obtener el icono y el texto correspondiente
     const getSelectedOption = () => {
         switch (currentOrder) {
             case 'asc':

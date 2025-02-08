@@ -1,15 +1,14 @@
 import React, { useState } from "react";
 // @ts-expect-error asdasd
-import Modal from "react-modal"; // Importando el modal
+import Modal from "react-modal";
 import { FaChevronDown } from "react-icons/fa";
 
-// Establecer el elemento raíz para el modal
 Modal.setAppElement("#root");
 
 type FilterByRoomsProps = {
     currentFilters: number[] | null;
     onFilterChange: (rooms: number[] | string) => void;
-    handleRoomChange: (room: number | "NoAplica") => void; // Prop para manejar el cambio de habitación
+    handleRoomChange: (room: number | "NoAplica") => void;
 };
 
 const FilterByRoomsBusqueda: React.FC<FilterByRoomsProps> = ({
@@ -17,12 +16,10 @@ const FilterByRoomsBusqueda: React.FC<FilterByRoomsProps> = ({
     handleRoomChange,
 }) => {
     const roomOptions = [1, 2, 3, 4];
-    const [isModalOpen, setIsModalOpen] = useState(false); // Estado para el modal
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
-    // Función para verificar si la habitación está activa
     const isActive = (room: number) => currentFilters?.includes(room);
 
-    // Función para alternar la apertura del modal
     const toggleModal = () => {
         setIsModalOpen((prev) => !prev);
     };
@@ -40,8 +37,8 @@ const FilterByRoomsBusqueda: React.FC<FilterByRoomsProps> = ({
             </div>
             <Modal
                 isOpen={isModalOpen}
-                onRequestClose={toggleModal} // Cierra el modal al presionar Esc o hacer clic fuera
-                shouldCloseOnOverlayClick={true} // Cierra el modal al hacer clic en el fondo
+                onRequestClose={toggleModal}
+                shouldCloseOnOverlayClick={true}
                 className="fixed inset-0 flex items-center justify-center z-50"
                 overlayClassName="fixed inset-0 bg-black bg-opacity-50"
                 contentLabel="Seleccionar Habitaciones"
@@ -49,7 +46,7 @@ const FilterByRoomsBusqueda: React.FC<FilterByRoomsProps> = ({
                 <div className="bg-white p-4 rounded shadow-lg max-h-[80vh] overflow-y-auto">
                     <div className="flex flex-col mb-4">
                         <div
-                            onClick={() => handleRoomChange("NoAplica")} // "No Aplica"
+                            onClick={() => handleRoomChange("NoAplica")}
                             className={`flex items-center gap-2 p-1 cursor-pointer 
                             ${currentFilters === null ? "text-green-600" : "text-gray-600"} 
                             hover:text-green-500`}
@@ -61,7 +58,7 @@ const FilterByRoomsBusqueda: React.FC<FilterByRoomsProps> = ({
                                 key={room}
                                 onClick={() => {
                                     handleRoomChange(room);
-                                    toggleModal(); // Cierra el modal después de seleccionar
+                                    toggleModal();
                                 }}
                                 className={`flex items-center gap-2 p-1 cursor-pointer 
                                 ${isActive(room) ? "text-green-600" : "text-gray-600"} 

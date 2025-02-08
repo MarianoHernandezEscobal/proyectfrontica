@@ -18,15 +18,12 @@ import { useNavigate } from "react-router-dom";
 import { Filters, Property } from "../utils/types";
 import PropiedadesBusqueda from "./PropiedadesBusqueda";
 
-// import MapaHome from '../components/atomos/MapaHome';
-
 const Home: React.FC = () => {
   const { home, properties } = useProperties();
   const navigate = useNavigate();
-
-  // const [loading, setLoading] = useState(true);
-  // const [error] = useState<string | null>(null);
+  /* eslint-disable-next-line @typescript-eslint/no-unused-vars */
   const [filteredProperties, setFilteredProperties] = useState<Property[]>([]);
+  /* eslint-disable-next-line @typescript-eslint/no-unused-vars */
   const [filters, setFilters] = useState<Filters>({
     filterTypes: [],
     filterStatus: [],
@@ -38,10 +35,6 @@ const Home: React.FC = () => {
     sortOrder: null,
   });
 
-  // solo para evitar errores
-  console.error(filteredProperties, setFilters)
-
-  // hooks para cambiar las imágenes en parallax
   const [desktopImage, setDesktopImage] = useState(playa1Gif);
   const [mobileImage, setMobileImage] = useState(playaMobile1Gif);
 
@@ -66,7 +59,6 @@ const Home: React.FC = () => {
     const applyFilters = () => {
       let filtered = [...properties];
 
-      // Aplicar filtros sin ordenar
       if (filters.filterTypes.length > 0) {
         filtered = filtered.filter(p => filters.filterTypes.includes(p.type));
       }
@@ -140,14 +132,11 @@ const Home: React.FC = () => {
           )}
         </section>
 
-        {/* Efecto Parallax */}
         <section className="relative h-[500px] md:h-[500px] overflow-hidden">
-          {/* Fondo para escritorio */}
           <div
             className="hidden md:block absolute inset-0 bg-cover bg-center bg-fixed"
             style={{ backgroundImage: `url(${desktopImage})` }}
           ></div>
-          {/* Fondo para móviles */}
           <div
             className="block md:hidden absolute inset-0 bg-cover bg-center bg-fixed h-[1000px]"
             style={{ backgroundImage: `url(${mobileImage})` }}

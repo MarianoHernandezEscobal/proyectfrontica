@@ -69,60 +69,14 @@ const Propiedades: React.FC = () => {
             setFilteredProperties(filtered);
             setLoading(false);
         };
-        console.log(">>> ", properties)
         loadAndFilterProperties();
     }, [properties, filters]);
 
-    // useEffect(() => {
-    //     const applyFilters = () => {
-    //         let filtered = [...properties];
 
-    //         if (filters.filterTypes.length > 0) {
-    //             filtered = filtered.filter(p => filters.filterTypes.includes(p.type));
-    //         }
-
-    //         if (filters.filterStatus.length > 0) {
-    //             filtered = filtered.filter(p =>
-    //                 p.status.some(s => filters.filterStatus.includes(s))
-    //             );
-    //         }
-
-    //         if (filters.filterHood.length > 0) {
-    //             filtered = filtered.filter(p => {
-    //                 if (!p.neighborhood) return false;
-    //                 const propertyHood = p.neighborhood.trim().toLowerCase();
-    //                 return filters.filterHood.some(
-    //                     filtro => filtro.trim().toLowerCase() === propertyHood
-    //                 );
-    //             });
-    //         }
-
-    //         if (filters.filterRooms) {
-    //             filtered = filtered.filter(p => filters.filterRooms!.includes(p.rooms ? p.rooms : 0));
-    //         }
-    //         if (filters.filterGarages) {
-    //             filtered = filtered.filter(p => p.garage);
-    //         }
-    //         if (filters.filterPool) {
-    //             filtered = filtered.filter(p => p.pool);
-    //         }
-    //         if (filters.sortOrder) {
-    //             filtered.sort((a, b) =>
-    //                 filters.sortOrder === 'asc'
-    //                     ? Number(a.price) - Number(b.price)
-    //                     : Number(b.price) - Number(a.price)
-    //             );
-    //         }
-    //         setFilteredProperties(filtered);
-    //     };
-
-    //     applyFilters();
-    // }, [filters, properties]);
     useEffect(() => {
         const applyFilters = () => {
             let filtered = [...properties];
 
-            // Aplicar filtros sin ordenar
             if (filters.filterTypes.length > 0) {
                 filtered = filtered.filter(p => filters.filterTypes.includes(p.type));
             }
@@ -157,10 +111,9 @@ const Propiedades: React.FC = () => {
         };
 
         applyFilters();
-    }, [filters, properties]); // Este useEffect aplica los filtros pero no el orden
+    }, [filters, properties]);
 
     useEffect(() => {
-        // Este useEffect solo maneja el orden
         if (filters.sortOrder) {
             setFilteredProperties((prevProperties) =>
                 [...prevProperties].sort((a, b) =>
@@ -170,7 +123,7 @@ const Propiedades: React.FC = () => {
                 )
             );
         }
-    }, [filters.sortOrder]); // Solo cambia el orden cuando sortOrder cambia
+    }, [filters.sortOrder]);
 
     return (
         <div className="p-4 h-full">
@@ -191,7 +144,7 @@ const Propiedades: React.FC = () => {
                 </div>
                 <hr />
                 <div className="flex flex-col md:flex-row gap-4">
-                    <aside className="hidden mt-4 md:block md:w-1/4 w-full p-4 min-h-full rounded-lg sticky top-5 z-20 h-[calc(100vh-5rem)] overflow-y-auto"> {/* Altura fija y scroll */}
+                    <aside className="hidden mt-4 md:block md:w-1/4 w-full p-4 min-h-full rounded-lg sticky top-5 z-20 h-[calc(100vh-5rem)] overflow-y-auto">
                         <div className='text-center'>
                             <FiltersPanel
                                 initialFilters={filters}
@@ -200,7 +153,7 @@ const Propiedades: React.FC = () => {
                         </div>
                     </aside>
 
-                    <div className="flex-1 h-[calc(100vh-5rem)] overflow-y-auto"> {/* Altura fija y scroll */}
+                    <div className="flex-1 h-[calc(100vh-5rem)] overflow-y-auto">
                         <div className="flex flex-col md:hidden mb-4 text-center">
                             <FiltersPanelMovil
                                 initialFilters={filters}

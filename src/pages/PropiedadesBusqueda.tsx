@@ -6,11 +6,6 @@ import FiltersBusqueda from '../components/Filtros/FiltersBusqueda';
 import { useProperties } from '../contexts/PropertyContext';
 import Button from '../components/atomos/Button';
 import { useNavigate } from 'react-router-dom';
-// import FiltersPanelMovil from '../components/Filtros/FiltersPanelMovil';
-// import Button from '../components/atomos/Button';
-// import SortByPriceButtons from '../components/Filtros/SortByPriceButtons';
-
-// import { useLocation } from 'react-router-dom';
 
 const PropiedadesBusqueda: React.FC = () => {
     const [loading, setLoading] = useState(true);
@@ -18,9 +13,6 @@ const PropiedadesBusqueda: React.FC = () => {
     const [filteredProperties, setFilteredProperties] = useState<Property[]>([]);
     const { properties } = useProperties();
     const navigate = useNavigate();
-
-
-    // const location = useLocation();
 
     const [filters, setFilters] = useState<Filters>({
         filterTypes: [],
@@ -33,28 +25,6 @@ const PropiedadesBusqueda: React.FC = () => {
         sortOrder: null,
     });
 
-    // useEffect(() => {
-    //     const queryParams = new URLSearchParams(location.search);
-    //     const filter = queryParams.get('filter');
-
-    //     if (filter === 'sale') {
-    //         setFilters((prevFilters) => ({
-    //             ...prevFilters,
-    //             filterStatus: ['for_sale'],
-    //         }));
-    //     } else if (filter === 'rent') {
-    //         setFilters((prevFilters) => ({
-    //             ...prevFilters,
-    //             filterStatus: ['for_rent'],
-    //         }));
-    //     } else if (filter === 'pinned') {
-    //         setFilters((prevFilters) => ({
-    //             ...prevFilters,
-    //             pinned: true,
-    //         }));
-    //     }
-
-    // }, [location.search]);
 
     useEffect(() => {
         const loadAndFilterProperties = () => {
@@ -75,47 +45,6 @@ const PropiedadesBusqueda: React.FC = () => {
         loadAndFilterProperties();
     }, [properties, filters]);
 
-
-    // useEffect(() => {
-    //     const applyFilters = () => {
-    //         let filtered = [...properties];
-
-    //         if (filters.filterTypes.length > 0) {
-    //             filtered = filtered.filter(p => filters.filterTypes.includes(p.type));
-    //         }
-
-    //         if (filters.filterStatus.length > 0) {
-    //             filtered = filtered.filter(p =>
-    //                 p.status.some(s => filters.filterStatus.includes(s))
-    //             );
-    //         }
-
-    //         if (filters.filterHood.length > 0) {
-    //             filtered = filtered.filter(p => {
-    //                 if (!p.neighborhood) return false;
-    //                 const propertyHood = p.neighborhood.trim().toLowerCase();
-    //                 return filters.filterHood.some(
-    //                     filtro => filtro.trim().toLowerCase() === propertyHood
-    //                 );
-    //             });
-    //         }
-
-    //         if (filters.filterRooms) {
-    //             filtered = filtered.filter(p => filters.filterRooms!.includes(p.rooms ? p.rooms : 0));
-    //         }
-    //         if (filters.filterGarages) {
-    //             filtered = filtered.filter(p => p.garage);
-    //         }
-    //         if (filters.filterPool) {
-    //             filtered = filtered.filter(p => p.pool);
-    //         }
-
-    //         setFilteredProperties(filtered);
-    //     };
-
-    //     applyFilters();
-    // }, [filters, properties]);
-
     useEffect(() => {
         const applyFilters = () => {
             if (
@@ -127,7 +56,7 @@ const PropiedadesBusqueda: React.FC = () => {
                 !filters.filterPool &&
                 !filters.filterTitle
             ) {
-                setFilteredProperties([]); // No mostrar propiedades si no hay filtros activos
+                setFilteredProperties([]);
                 return;
             }
 

@@ -13,7 +13,6 @@ const agentsData: AgentProps[] = [
         email: 'consultas@inmobiliariacostaazul.com',
         propertiesListed: 2,
         imageUrl: Marcela
-        // profileUrl: 'https://www.inmobiliariacostaazul.com/agente/alquileres/',
     },
     {
         name: 'Gerardo Hernández',
@@ -22,7 +21,6 @@ const agentsData: AgentProps[] = [
         email: 'gerardo@inmobiliaricostaazul.com',
         propertiesListed: 86,
         imageUrl: Gerardo,
-        // profileUrl: 'https://www.inmobiliariacostaazul.com/agente/gerardo-hernandez/',
     },
 ];
 
@@ -42,11 +40,6 @@ const Nosotros: React.FC = () => {
                             <div className="w-24 h-24 rounded-full bg-gray-200 flex-shrink-0"></div>
                         )}
                         <div className="flex flex-col items-center md:items-start text-center md:text-left flex-1">
-                            {/* <h3 className="text-xl font-semibold text-gray-800">
-                                <a href={agent.profileUrl} target="_blank" rel="noopener noreferrer">
-                                    {agent.name}
-                                </a>
-                            </h3> */}
 
                             <p className="text-gray-500 mb-1 flex items-center">
                                 <FaBuilding className="mr-2 text-blue-400" />

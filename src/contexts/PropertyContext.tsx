@@ -55,7 +55,7 @@ export const PropertyProvider: React.FC<{ children: ReactNode }> = ({ children }
         </PropertyContext.Provider>
     );
 };
-
+/* eslint-disable react-refresh/only-export-components */
 export const useProperties = (): PropertyContextType => {
     const context = useContext(PropertyContext);
     if (!context) {

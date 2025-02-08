@@ -2,11 +2,9 @@ import React, { useState } from "react";
 import Button from "./atomos/Button";
 import TextareaField from "./atomos/TextareaField";
 import { isValidEmail, isValidPhoneNumber } from "../utils/validations";
-import Recaptcha from "./atomos/Recaptcha";
 import { errorMessages } from "../utils/errorMessages";
 import { sendEmail } from "../services/mail/mailService";
 import InputPhone from "./atomos/InputPhone";
-import { validateRecaptcha } from "../services/recaptcha/recaptchaService";
 
 const FormContacto: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -21,10 +19,8 @@ const FormContacto: React.FC = () => {
     email: "",
     phone: "",
     message: "",
-    recaptcha: "",
   });
 
-  const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -40,7 +36,6 @@ const FormContacto: React.FC = () => {
       email: formData.email ? "" : errorMessages.email.required,
       message: formData.message ? "" : errorMessages.message.required,
       phone: formData.phone ? "" : errorMessages.phone.required,
-      recaptcha: recaptchaToken ? "" : errorMessages.recaptcha.required,
     };
 
     if (formData.email && !isValidEmail(formData.email)) {
@@ -59,12 +54,6 @@ const FormContacto: React.FC = () => {
 
     if (!validateForm()) return;
 
-    const recaptchaResponse = await validateRecaptcha(recaptchaToken);
-    if (!recaptchaResponse.success) {
-      setErrors((prev) => ({ ...prev, recaptcha: recaptchaResponse.message || "Error en reCAPTCHA." }));
-      return;
-    }
-
     try {
       await sendEmail({
         name: formData.name,
@@ -76,7 +65,6 @@ const FormContacto: React.FC = () => {
       });
       alert("Mensaje enviado con éxito.");
       setFormData({ name: "", email: "", phone: "", message: "" });
-      setRecaptchaToken(null); // Reiniciar reCAPTCHA
     } catch (error) {
       console.error("Error al enviar el mensaje:", error);
       alert("Hubo un problema al enviar el mensaje.");
@@ -136,11 +124,7 @@ const FormContacto: React.FC = () => {
         </div>
 
         <div className="flex flex-col justify-center">
-          <Recaptcha
-            onError={(err) => setErrors((prev) => ({ ...prev, recaptcha: err }))}
-            setRecaptchaToken={setRecaptchaToken}
-          />
-          {errors.recaptcha && <span className="text-status-error text-sm">{errors.recaptcha}</span>}
+
         </div>
 
         <Button type="submit" clase="bg-primary-light hover:bg-primary-dark text-text-light font-bold py-2 px-4 rounded">

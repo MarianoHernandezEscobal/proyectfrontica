@@ -46,11 +46,6 @@ const ContactDetails: React.FC = () => {
                 content="consultas@inmobiliariacostaazul.com"
                 link="mailto:consultas@inmobiliariacostaazul.com"
             />
-            {/* <ContactItem
-                icon={<FaMapMarkerAlt className="text-green-400 mb-2 " />}
-                label="Dirección"
-                content="Profesor Yaneo esq. Zapicán en Costa Azul, La Paloma, Rocha"
-            /> */}
             <a
                 href="https://www.google.com/maps/place/Real+Estate+Costa+Azul/@-34.6345552,-54.1634234,17z/data=!3m1!4b1!4m6!3m5!1s0x95749c887837af5d:0xc00eb1ee62df83f8!8m2!3d-34.6345552!4d-54.1608485!16s%2Fg%2F1pp2w_lp7?entry=ttu&g_ep=EgoyMDI0MDkxOC4xIKXMDSoASAFQAw%3D%3D"
                 target="_blank"

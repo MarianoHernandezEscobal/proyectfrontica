@@ -37,6 +37,7 @@ const PropertyHorizontalCard: React.FC<Property> = ({
     const favourites = JSON.parse(localStorage.getItem("favouritesProperties") || "[]")
     const isFavourite = favourites.some((fav: { id: number }) => +fav.id === +id)
     setIsFav(isFavourite)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
@@ -62,12 +63,10 @@ const PropertyHorizontalCard: React.FC<Property> = ({
     const favourites = JSON.parse(localStorage.getItem("favouritesProperties") || "[]")
 
     if (isFav) {
-      // Remove from favorites
       const updatedFavourites = favourites.filter((fav: { id: number }) => fav.id !== id)
       localStorage.setItem("favouritesProperties", JSON.stringify(updatedFavourites))
       await removeFavourite(id)
     } else {
-      // Add to favorites
       const updatedFavourites = [...favourites, { id }]
       localStorage.setItem("favouritesProperties", JSON.stringify(updatedFavourites))
       await addFavourite(id)

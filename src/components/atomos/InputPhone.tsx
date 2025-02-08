@@ -32,7 +32,6 @@ const InputPhone: React.FC<InputPhoneProps> = ({ phone, inputClassName, handleCh
         <div className="absolute inset-y-0 right-0 flex items-center pointer-events-auto pr-3">
           <div className="group relative">
             <FaInfoCircle className="h-5 w-5 text-accent-light cursor-pointer" />
-            {/* <FaInfoCircle className="h-5 w-5 text-text-secondary cursor-pointer" /> */}
 
             <div className="absolute hidden group-hover:block right-0 bottom-full mb-2 w-48 bg-background-neutral text-black text-xs rounded py-1 px-2 shadow-lg">
               {errorMessages.phone.formatos}

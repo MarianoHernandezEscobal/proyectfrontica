@@ -7,23 +7,21 @@ import FilterByGarages from './FilterByGarages';
 import FilterByPool from './FilterByPool';
 import FilterByTitleBusqueda from "./FilterByTitleBusqueda";
 import { Filters, FiltersPanelProps } from '../../utils/types';
-// import Title from '../atomos/Title';
 
 const FiltersBusqueda: React.FC<FiltersPanelProps> = ({ initialFilters, onFiltersChange }) => {
     const [filters, setFilters] = useState<Filters>(initialFilters);
-    // const [showAdditionalFilters, setShowAdditionalFilters] = useState(false);
 
     const handleRoomChange = (room: number | "NoAplica") => {
         let updatedFilters: number[] | null;
 
         if (room === "NoAplica") {
-            updatedFilters = null; // "No Aplica"
+            updatedFilters = null;
         } else {
             const currentArray = filters.filterRooms ?? [];
 
             updatedFilters = currentArray.includes(room)
-                ? currentArray.filter((r) => r !== room)  // Desmarcar habitación
-                : [...currentArray, room];  // Marcar habitación
+                ? currentArray.filter((r) => r !== room)
+                : [...currentArray, room];
         }
 
         setFilters(prevFilters => {
@@ -41,7 +39,7 @@ const FiltersBusqueda: React.FC<FiltersPanelProps> = ({ initialFilters, onFilter
 
         if (key === "filterTitle") {
             updatedValue = value;
-        } else if (key === "filterTypes") { // Manejo especial para "allTypes"
+        } else if (key === "filterTypes") {
             if (value === "allTypes") {
                 // @ts-expect-error value puede ser Filter[T]
                 updatedValue = [] as Filters[T];
@@ -52,7 +50,7 @@ const FiltersBusqueda: React.FC<FiltersPanelProps> = ({ initialFilters, onFilter
                     ? currentArray.filter(item => item !== value)
                     : [...currentArray, value]) as Filters[T];
             }
-        } else if (key === "filterStatus") { // Manejo especial para "allStatus"
+        } else if (key === "filterStatus") {
             if (value === "allStatus") {
                 // @ts-expect-error value puede ser Filter[T]
                 updatedValue = [] as Filters[T];
@@ -62,7 +60,7 @@ const FiltersBusqueda: React.FC<FiltersPanelProps> = ({ initialFilters, onFilter
                     ? currentArray.filter(item => item !== value)
                     : [...currentArray, value]) as Filters[T];
             }
-        } else if (key === "filterHood") {   // Manejo especial para filterHood
+        } else if (key === "filterHood") {
             if (value === "" || value === "Cualquiera") {
                 // @ts-expect-error value puede ser Filter[T]
                 updatedValue = [] as Filters[T];
@@ -79,7 +77,6 @@ const FiltersBusqueda: React.FC<FiltersPanelProps> = ({ initialFilters, onFilter
         else if (key === "filterPool") {
             updatedValue = value;
         }
-        // Otros filtros que sean arrays
         else if (Array.isArray(filters[key])) {
             const currentArray = (filters[key] ?? []) as string[];
 
@@ -89,7 +86,6 @@ const FiltersBusqueda: React.FC<FiltersPanelProps> = ({ initialFilters, onFilter
         } else {
             updatedValue = value;
         }
-        console.log(">>> ", updatedValue)
         const updatedFilters = {
             ...filters,
             [key]: updatedValue,
@@ -118,7 +114,6 @@ const FiltersBusqueda: React.FC<FiltersPanelProps> = ({ initialFilters, onFilter
 
     return (
         <div className="text-center space-y-4">
-            {/* Primera línea de filtros */}
             <div className="flex flex-wrap items-center justify-center gap-4 p-4 border-b border-gray-300">
                 <FilterByTypeBusqueda currentFilters={filters.filterTypes}
                     //@ts-expect-error types blabla"

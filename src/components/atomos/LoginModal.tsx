@@ -65,8 +65,6 @@ const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose, toggleRegister
       await fetchUserProfile();
       if (window.location.pathname === '/login') {
         navigate('/');
-      } else {
-        // window.location.reload();
       }
       showAlert('success', 'Inicio de sesión exitoso');
       onClose();
@@ -137,9 +135,8 @@ const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose, toggleRegister
               value={formData.email}
               onChange={handleChange}
               required
-              className={`w-full pl-10 pr-3 py-2 border rounded-md focus:outline-none focus:ring-1 ${
-                errors.email ? 'border-status-error focus:ring-status-error' : 'border-background-dark focus:ring-primary-light'
-              }`}
+              className={`w-full pl-10 pr-3 py-2 border rounded-md focus:outline-none focus:ring-1 ${errors.email ? 'border-status-error focus:ring-status-error' : 'border-background-dark focus:ring-primary-light'
+                }`}
             />
           </div>
           {errors.email && <p className="text-status-error text-xs">{errors.email}</p>}
@@ -154,9 +151,8 @@ const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose, toggleRegister
               value={formData.password}
               onChange={handleChange}
               required
-              className={`w-full pl-10 pr-10 py-2 border rounded-md focus:outline-none focus:ring-1 ${
-                errors.password ? 'border-status-error focus:ring-status-error' : 'border-background-dark focus:ring-primary-light'
-              }`}
+              className={`w-full pl-10 pr-10 py-2 border rounded-md focus:outline-none focus:ring-1 ${errors.password ? 'border-status-error focus:ring-status-error' : 'border-background-dark focus:ring-primary-light'
+                }`}
             />
             <button
               type="button"
@@ -168,7 +164,7 @@ const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose, toggleRegister
           </div>
           {errors.password && <p className="text-status-error text-xs">{errors.password}</p>}
 
-          <CustomButton type="submit" variant="primary" onClick={() => {}} className='w-full'>
+          <CustomButton type="submit" variant="primary" onClick={() => { }} className='w-full'>
             Iniciar Sesión
           </CustomButton>
         </form>

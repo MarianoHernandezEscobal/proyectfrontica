@@ -24,7 +24,6 @@ const FilterByHood: React.FC<FilterByHoodProps> = ({ onFilterChange, currentFilt
 
     const handleItemClick = (neighborhood: string) => {
         if (neighborhood === "Cualquiera" && currentFilters.includes("Cualquiera")) {
-            // Si "Cualquiera" ya está seleccionado, lo deseleccionamos.
             onFilterChange("");
         } else {
             onFilterChange(neighborhood);
@@ -32,7 +31,7 @@ const FilterByHood: React.FC<FilterByHoodProps> = ({ onFilterChange, currentFilt
     };
 
     return (
-        <div className="text-left"> {/* Alineación a la izquierda */}
+        <div className="text-left">
             <div className="flex items-center justify-between mb-4">
                 <p className="text-lg font-bold">Barrio</p>
                 <button

@@ -6,35 +6,30 @@ import { HiMenuAlt3 } from "react-icons/hi";
 
 import logo from "../../assets/imgs/logo.png";
 import { useAlert } from "../../contexts/AlertContext";
-import { useAuth } from "../../contexts/AuthContext"; // <-- Import from AuthContext
+import { useAuth } from "../../contexts/AuthContext";
 
 const Navbar = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  // Local UI states
   const [isNavOpen, setIsNavOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [hasScrolled, setHasScrolled] = useState(false);
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
 
-  // Refs
   const navRef = useRef<HTMLDivElement>(null);
   const userMenuRef = useRef<HTMLDivElement>(null);
 
-  // Contexts
   const { showAlert } = useAlert();
-  const { user, isAuthenticated, logoutUser } = useAuth(); // <-- AuthContext
+  const { user, isAuthenticated, logoutUser } = useAuth();
 
-  // Close the modal
   const handleModalClose = useCallback(() => {
     setIsModalOpen(false);
   }, []);
 
-  // Logout
   const handleLogout = async () => {
     try {
-      await logoutUser(); // <-- Calls logout from AuthContext
+      await logoutUser();
       setIsNavOpen(false);
       setIsUserMenuOpen(false);
       showAlert("info", "Sesión cerrada correctamente");
@@ -45,7 +40,6 @@ const Navbar = () => {
     }
   };
 
-  // Toggle user menu or open login modal
   const toggleUserMenu = useCallback(() => {
     if (isAuthenticated) {
       setIsUserMenuOpen((prev) => !prev);
@@ -54,13 +48,11 @@ const Navbar = () => {
     }
   }, [isAuthenticated]);
 
-  // Close all menus
   const closeMenus = useCallback(() => {
     setIsNavOpen(false);
     setIsUserMenuOpen(false);
   }, []);
 
-  // Close menus if user clicks outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -86,22 +78,18 @@ const Navbar = () => {
     };
   }, [closeMenus]);
 
-  // Close menus on route change
   useEffect(() => {
     closeMenus();
   }, [location, closeMenus]);
 
-  // Utility to determine if a link is active
   const isActive = useCallback(
     (path: string) =>
       location.pathname === path
         ? "text-text-light font-extrabold"
         : " hover: hover:text-accent-light",
-    // : " hover:font-extrabold hover: hover:text-accent-light",
     [location.pathname]
   );
 
-  // Nav links
   const navLinks = [
     { path: "/home", label: "Inicio" },
     { path: "/properties", label: "Propiedades" },
@@ -109,14 +97,12 @@ const Navbar = () => {
     { path: "/properties/create", label: "Publicar Propiedad" },
   ];
 
-  // Items in the user dropdown
   const userMenuItems = [
     { path: "/profile", label: "Perfil" },
     { path: "/properties/created", label: "Mis Propiedades" },
     { path: "/properties/favourites", label: "Mis Favoritas" },
   ];
 
-  // Extra items if user is admin
   const adminMenuItems = [
     ...userMenuItems,
     { path: "/properties/pending-approval", label: "Pendiente de aprobación" },
@@ -132,12 +118,10 @@ const Navbar = () => {
         }`}
     >
       <div className="flex justify-between items-center">
-        {/* Logo */}
         <Link to="/home">
           <img src={logo} alt="Logo" width="120" height="50" className="mr-4 invert mix-blend-multiply" />
         </Link>
 
-        {/* Desktop Navigation */}
         <div className="hidden md:flex gap-3 items-center">
           {navLinks.map(({ path, label }) => (
             <Link
@@ -149,7 +133,6 @@ const Navbar = () => {
             </Link>
           ))}
 
-          {/* User Menu */}
           <div className="relative" ref={userMenuRef}>
             <button
               className={`nav-button text-accent-dark hover:font-bold transition-text duration-300 flex items-center ${isUserMenuOpen ? "text-accent-dark" : ""
@@ -162,7 +145,6 @@ const Navbar = () => {
               {isUserMenuOpen ? <FaChevronUp className="ml-2" /> : <FaChevronDown className="ml-2" />}
             </button>
 
-            {/* Dropdown */}
             {isUserMenuOpen && isAuthenticated && (
               <div className="absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 z-50 bg-background-neutral">
                 {user?.admin
@@ -197,7 +179,6 @@ const Navbar = () => {
           </div>
         </div>
 
-        {/* Mobile Navigation Button */}
         <button
           className="md:hidden nav-button text-2xl text-accent-dark"
           onClick={() => setIsNavOpen((prev) => !prev)}
@@ -207,7 +188,6 @@ const Navbar = () => {
         </button>
       </div>
 
-      {/* Mobile Nav Links */}
       {isNavOpen && (
         <div className="md:hidden flex flex-col gap-3 mt-3 text-right justify-end items-end p-4 rounded-md">
           {navLinks.map(({ path, label }) => (
@@ -221,7 +201,6 @@ const Navbar = () => {
             </Link>
           ))}
 
-          {/* Mobile User Menu Toggle */}
           <button
             className={`nav-button transition-text duration-300 text-right hover:font-bold hover:accent-dark flex items-center ${isUserMenuOpen ? "text-text-light" : ""
               }`}
@@ -233,7 +212,6 @@ const Navbar = () => {
             <FaChevronDown className="ml-2" />
           </button>
 
-          {/* Mobile Dropdown for Authenticated Users */}
           {isAuthenticated && isUserMenuOpen && (
             <>
               {user?.admin
@@ -266,7 +244,6 @@ const Navbar = () => {
         </div>
       )}
 
-      {/* Modal for Login/Register */}
       <LoginRegisterModal isOpen={isModalOpen} onClose={handleModalClose} />
     </nav>
   );

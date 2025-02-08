@@ -1,7 +1,6 @@
 
 import { useEffect, useState } from 'react';
 import Title from '../components/atomos/Title'
-// import PropertyHorizontalCard from '../components/atomos/PropertyHorizontalCard';
 import { Property } from '../utils/types';
 import { fetchCreated } from '../services/properties/propertyService';
 import Button from '../components/atomos/Button';
@@ -19,6 +18,7 @@ export const MisPropiedades = () => {
     };
 
     loadProperties();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -29,7 +29,6 @@ export const MisPropiedades = () => {
         {properties.length > 0 ? (
           properties.map((property, index) => (
             <div key={index} className="py-4">
-              {/* <PropertyHorizontalCard {...property} /> */}
               <PropertyCard {...property} />
 
             </div>

@@ -61,13 +61,6 @@ export interface TextareaFieldProps {
   maxLength?: number;
   rows?: number;
 }
-
-export interface RecaptchaProps {
-  onError: (error: string) => void;
-  isChecked: boolean;
-  setIsChecked: (checked: boolean) => void;
-}
-
 export interface AgentProps {
   name: string;
   oficina: string;
@@ -75,7 +68,6 @@ export interface AgentProps {
   email: string;
   propertiesListed: number;
   imageUrl?: string;
-  // profileUrl: string;
 }
 
 export enum PropertyTypes {
@@ -84,11 +76,6 @@ export enum PropertyTypes {
   LAND = "land",
   OFFICE = "office",
   STORE = "store",
-  // HOUSE = "casa",
-  // APARTMENT = "apartamento",
-  // LAND = "terreno",
-  // OFFICE = "oficina",
-  // STORE = "almacen",
   OTHER = "otros",
 }
 

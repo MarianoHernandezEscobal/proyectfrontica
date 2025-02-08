@@ -140,7 +140,6 @@ const RegisterModal: React.FC<RegisterModalProps> = ({
         <Title text="Registro" clase="mt-0 pt-0 text-2xl font-bold mb-6 text-center text-text-primary" />
 
         <form onSubmit={handleSubmit} className="space-y-4">
-          {/* Nombre */}
           <div className="relative">
             <FaUser className="absolute top-3 left-3 text-gray-400" />
             <input
@@ -158,7 +157,6 @@ const RegisterModal: React.FC<RegisterModalProps> = ({
             )}
           </div>
 
-          {/* Apellido */}
           <div className="relative">
             <FaUser className="absolute top-3 left-3 text-gray-400" />
             <input
@@ -176,7 +174,6 @@ const RegisterModal: React.FC<RegisterModalProps> = ({
             )}
           </div>
 
-          {/* Email */}
           <div className="relative">
             <FaEnvelope className="absolute top-3 left-3 text-gray-400" />
             <input
@@ -194,7 +191,6 @@ const RegisterModal: React.FC<RegisterModalProps> = ({
             )}
           </div>
 
-          {/* Contraseña */}
           <div className="relative">
             <FaLock className="absolute top-3 left-3 text-gray-400" />
             <input
@@ -219,7 +215,6 @@ const RegisterModal: React.FC<RegisterModalProps> = ({
             )}
           </div>
 
-          {/* Repetir Contraseña */}
           <div className="relative">
             <FaLock className="absolute top-3 left-3 text-gray-400" />
             <input
@@ -244,7 +239,6 @@ const RegisterModal: React.FC<RegisterModalProps> = ({
             )}
           </div>
 
-          {/* Teléfono */}
           <div className="relative">
             <FaPhone className="absolute top-3 left-3 text-gray-400" />
             <input

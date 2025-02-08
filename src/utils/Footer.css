@@ -13,33 +13,33 @@ body {
 .container {
     display: flex;
     justify-content: space-between;
-    padding: 20px; /* Espaciado interno */
+    padding: 20px; 
 }
 
 .widget {
-    width: 45%; /* Ajusta el ancho según sea necesario */
+    width: 45%;  
 }
 
 @media (max-width: 768px) {
     .container {
         flex-direction: column;
-        align-items: flex-start; /* Alinear al inicio en pantallas pequeñas */
+        align-items: flex-start; 
     }
     .widget {
-        width: 100%; /* Ancho completo en pantallas pequeñas */
+        width: 100%; 
     }
 }
 
 .contact-item {
-    display: flex; /* Utiliza flexbox para alinear ícono y texto en la misma línea */
-    align-items: center; /* Alinea verticalmente al centro */
-    margin-bottom: 10px; /* Espacio entre cada contacto */
+    display: flex;  
+    align-items: center;  
+    margin-bottom: 10px; 
 }
 
 .icon {
-    margin-right: 10px; /* Espacio entre el ícono y el texto */
+    margin-right: 10px; 
 }
 
 .content {
-    margin: 0; /* Elimina márgenes por defecto */
+    margin: 0;  
 }

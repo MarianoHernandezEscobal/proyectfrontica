@@ -1,5 +1,3 @@
-// components/MapaHome.tsx
-// import React, { useEffect, useState } from 'react';
 import { GoogleMap, Marker, useLoadScript } from '@react-google-maps/api';
 import { Property } from '../../utils/types';
 

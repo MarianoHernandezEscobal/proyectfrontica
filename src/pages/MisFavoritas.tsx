@@ -4,7 +4,6 @@ import {
   fetchFavourites,
 } from "../services/properties/propertyService";
 import { Property } from "../utils/types";
-// import PropertyHorizontalCard from "../components/atomos/PropertyHorizontalCard";
 import Button from "../components/atomos/Button";
 import PropertyCard from "../components/atomos/PropertyCard";
 
@@ -20,6 +19,7 @@ export const MisFavoritas = () => {
     };
 
     loadProperties();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
     <div className="my-12 flex flex-col min-h-screen">
@@ -29,7 +29,6 @@ export const MisFavoritas = () => {
         {properties.length > 0 ? (
           properties.map((property, index) => (
             <div key={index} className="py-4">
-              {/* <PropertyHorizontalCard {...property} /> */}
               <PropertyCard {...property} />
             </div>
           ))

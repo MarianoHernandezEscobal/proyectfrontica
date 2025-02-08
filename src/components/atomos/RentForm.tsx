@@ -49,7 +49,6 @@ const RentalModal: React.FC<RentalModalProps> = ({ propertyId }) => {
       return;
     }
 
-    // 2. Validar que checkOut sea posterior a checkIn
     if (checkOut <= checkIn) {
       showAlert("error", "La fecha de salida debe ser posterior a la fecha de entrada");
       setStatus("idle");
@@ -73,7 +72,6 @@ const RentalModal: React.FC<RentalModalProps> = ({ propertyId }) => {
       setStatus("success");
       showAlert("success", "¡Solicitud enviada correctamente!");
 
-      // Reset de campos
       setEmail("");
       setCheckIn(null);
       setCheckOut(null);
@@ -110,8 +108,7 @@ const RentalModal: React.FC<RentalModalProps> = ({ propertyId }) => {
             />
           </div>
         )}
-        
-        {/* Fechas de Entrada y Salida */}
+
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <CustomDatePicker
             selected={checkIn}
@@ -129,7 +126,6 @@ const RentalModal: React.FC<RentalModalProps> = ({ propertyId }) => {
           />
         </div>
 
-        {/* Mensaje */}
         <div>
           <label htmlFor="message" className="block text-sm font-medium">
             Mensaje

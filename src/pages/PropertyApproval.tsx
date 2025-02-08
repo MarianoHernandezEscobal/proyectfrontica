@@ -9,7 +9,6 @@ const ApprovePropertiesPage = () => {
   const [properties, setProperties] = useState<Property[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  // Fetch properties from the API
   useEffect(() => {
     const fetchProperties = async () => {
       try {

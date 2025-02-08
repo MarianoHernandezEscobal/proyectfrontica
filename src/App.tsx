@@ -35,11 +35,10 @@ function AppContent() {
   const [navbarHeight, setNavbarHeight] = useState(true);
 
   useEffect(() => {
-    // Cambia dinámicamente el navbarHeight según la ruta
     if (location.pathname === "/home" || location.pathname === "/") {
-      setNavbarHeight(false); // Oculta el espacio del navbar en el home
+      setNavbarHeight(false);
     } else {
-      setNavbarHeight(true); // Espacio normal en otras rutas
+      setNavbarHeight(true);
     }
   }, [location]);
 
@@ -79,15 +78,15 @@ function App() {
 
   return (
     <Wrapper apiKey={"AIzaSyDSNF1jm3xlM-rG8cE4sr4h-yjq4moxFcA"} render={render}>
-    <AuthProvider>
-      <AlertProvider>
-        <PropertyProvider>
-          <Router>
-            <AppContent />
-          </Router>
-        </PropertyProvider>
-      </AlertProvider>
-    </AuthProvider>
+      <AuthProvider>
+        <AlertProvider>
+          <PropertyProvider>
+            <Router>
+              <AppContent />
+            </Router>
+          </PropertyProvider>
+        </AlertProvider>
+      </AuthProvider>
     </Wrapper>
 
   );

@@ -103,10 +103,7 @@ const PropertyForm: React.FC<PropertyFormProps> = ({
   }, []);
 
   const handleMapChange = (lat: number, lng: number) => {
-    console.log(lat, lng);
     formData.geoCoordinates = { lat, lng };
-    console.log(formData);
-
   }
 
   const handleDelete = async () => {
@@ -115,11 +112,11 @@ const PropertyForm: React.FC<PropertyFormProps> = ({
     if (!confirmDelete) return;
 
     try {
-      await deleteProperty(property.id); // 🔥 Llamamos al servicio para eliminar
+      await deleteProperty(property.id);
       if (onDeleteProperty) {
         onDeleteProperty(property.id);
       }
-      navigate("/properties"); // Redirigir después de borrar
+      navigate("/properties");
     } catch (error) {
       console.error("Error al eliminar la propiedad:", error);
     }
@@ -181,7 +178,6 @@ const PropertyForm: React.FC<PropertyFormProps> = ({
 
   return (
     <div className="md:p-4 space-y-6">
-      {/* Contenedor dividido en dos columnas */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         <form
           onSubmit={handleSubmit}

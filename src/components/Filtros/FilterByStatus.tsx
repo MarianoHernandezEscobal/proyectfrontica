@@ -29,7 +29,7 @@ const FilterByStatus: React.FC<FilterByStatusButtonsProps> = ({
     };
 
     return (
-        <div className="text-left"> {/* Cambiado a texto alineado a la izquierda */}
+        <div className="text-left">
             <div className="flex items-center justify-between mb-4">
                 <p className="text-lg font-bold">Estado</p>
                 <button

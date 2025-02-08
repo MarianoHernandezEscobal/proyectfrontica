@@ -18,7 +18,6 @@ const PropertyHeader: React.FC<PropertyHeaderProps> = ({ title, price, location,
     <div className="w-full py-6">
       <div className="w-full max-w-7xl mx-auto px-4">
         <div className="flex flex-col space-y-4">
-          {/* Breadcrumb navigation */}
           <nav className="flex flex-wrap items-center space-x-2 text-sm text-primary">
             <Link to="/" className="hover:text-primary-dark transition-colors">
               Inicio
@@ -45,7 +44,6 @@ const PropertyHeader: React.FC<PropertyHeaderProps> = ({ title, price, location,
             )}
           </nav>
 
-          {/* Header content */}
           <div className="flex flex-col sm:flex-row justify-between items-center sm:items-start gap-4">
             <h1 className="text-2xl sm:text-3xl font-bold text-text-primary text-center sm:text-left">{title}</h1>
             <div className="flex flex-col items-center sm:items-end">

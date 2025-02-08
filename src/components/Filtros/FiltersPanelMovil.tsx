@@ -20,13 +20,13 @@ const FiltersPanelMovil: React.FC<FiltersPanelProps> = ({ initialFilters, onFilt
         let updatedFilters: number[] | null;
 
         if (room === "NoAplica") {
-            updatedFilters = null; // "No Aplica"
+            updatedFilters = null;
         } else {
             const currentArray = filters.filterRooms ?? [];
 
             updatedFilters = currentArray.includes(room)
-                ? currentArray.filter((r) => r !== room)  // Desmarcar habitación
-                : [...currentArray, room];  // Marcar habitación
+                ? currentArray.filter((r) => r !== room)
+                : [...currentArray, room];
         }
 
         setFilters(prevFilters => {
@@ -42,7 +42,7 @@ const FiltersPanelMovil: React.FC<FiltersPanelProps> = ({ initialFilters, onFilt
     const handleFilterChange = <T extends keyof Filters>(key: T, value: Filters[T]) => {
         let updatedValue: Filters[T] = value;
 
-        if (key === "filterTypes") { // Manejo especial para "allTypes"
+        if (key === "filterTypes") {
             if (value === "allTypes") {
                 // @ts-expect-error value puede ser Filter[T]
                 updatedValue = [] as Filters[T];
@@ -53,7 +53,7 @@ const FiltersPanelMovil: React.FC<FiltersPanelProps> = ({ initialFilters, onFilt
                     ? currentArray.filter(item => item !== value)
                     : [...currentArray, value]) as Filters[T];
             }
-        } else if (key === "filterStatus") { // Manejo especial para "allStatus"
+        } else if (key === "filterStatus") {
             if (value === "allStatus") {
                 // @ts-expect-error value puede ser Filter[T]
                 updatedValue = [] as Filters[T];
@@ -63,7 +63,7 @@ const FiltersPanelMovil: React.FC<FiltersPanelProps> = ({ initialFilters, onFilt
                     ? currentArray.filter(item => item !== value)
                     : [...currentArray, value]) as Filters[T];
             }
-        } else if (key === "filterHood") {   // Manejo especial para filterHood
+        } else if (key === "filterHood") {
             if (value === "" || value === "Cualquiera") {
                 // @ts-expect-error value puede ser Filter[T]
                 updatedValue = [] as Filters[T];
@@ -80,7 +80,6 @@ const FiltersPanelMovil: React.FC<FiltersPanelProps> = ({ initialFilters, onFilt
         else if (key === "filterPool") {
             updatedValue = value;
         }
-        // Otros filtros que sean arrays
         else if (Array.isArray(filters[key])) {
             const currentArray = (filters[key] ?? []) as string[];
 
@@ -149,10 +148,7 @@ const FiltersPanelMovil: React.FC<FiltersPanelProps> = ({ initialFilters, onFilt
 
             {showFilterMenu && (
                 <div className="p-4 bg-gray-100">
-                    {/* <FilterByType
-                        currentFilters={filters.filterTypes}
-                        onFilterChange={(types) => handleFilterChange('filterTypes', [types])}
-                    /> */}
+
                     <FilterByType
                         currentFilters={filters.filterTypes}
                         onFilterChange={(type) => {
@@ -163,7 +159,6 @@ const FiltersPanelMovil: React.FC<FiltersPanelProps> = ({ initialFilters, onFilt
                                         ? prevFilters.filterTypes.filter(t => t !== type)
                                         : [...prevFilters.filterTypes, type];
                                 const updatedFilters = { ...prevFilters, filterTypes: newFilterTypes };
-                                // Propaga el cambio al componente padre:
                                 onFiltersChange(updatedFilters);
                                 return updatedFilters;
                             });

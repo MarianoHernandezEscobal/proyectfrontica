@@ -6,17 +6,15 @@ import { FaChevronDown, FaChevronUp } from "react-icons/fa";
 type FilterByRoomsProps = {
     currentFilters: number[] | null;
     onFilterChange: (rooms: number[] | string) => void;
-    handleRoomChange: (room: number | "NoAplica") => void;  // Agrega esta prop
+    handleRoomChange: (room: number | "NoAplica") => void;
 };
 
 const FilterByRooms: React.FC<FilterByRoomsProps> = ({ currentFilters, handleRoomChange }) => {
     const roomOptions = [1, 2, 3, 4];
     const [isExpanded, setIsExpanded] = useState(false);
 
-    // Función para verificar si la habitación está activa
     const isActive = (room: number) => currentFilters?.includes(room);
 
-    // Función para alternar la expansión del filtro
     const toggleExpand = () => setIsExpanded((prev) => !prev);
 
     return (
@@ -33,7 +31,7 @@ const FilterByRooms: React.FC<FilterByRoomsProps> = ({ currentFilters, handleRoo
             {isExpanded && (
                 <div className="flex flex-col mb-4">
                     <div
-                        onClick={() => handleRoomChange("NoAplica")} // "No Aplica"
+                        onClick={() => handleRoomChange("NoAplica")}
                         className={`flex items-center gap-2 p-1 cursor-pointer 
                         ${currentFilters === null ? "text-green-600" : "text-gray-600"} 
                         hover:text-green-500`}

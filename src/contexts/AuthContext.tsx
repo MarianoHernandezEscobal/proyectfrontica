@@ -1,4 +1,3 @@
-// AuthProvider.tsx (simplified)
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { getUsers, logoutUser } from "../services/users/userService";
 import { UserData } from "../utils/types";
@@ -66,8 +65,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     </AuthContext.Provider>
   );
 };
-
-// Custom hook
+/* eslint-disable react-refresh/only-export-components */
 export const useAuth = (): AuthContextProps => {
   const context = useContext(AuthContext);
   if (!context) {

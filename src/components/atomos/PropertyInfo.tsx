@@ -9,8 +9,6 @@ interface PropertyInfoProps {
 const PropertyInfo: React.FC<PropertyInfoProps> = ({ property }) => {
 
   const replaceBarrio = (barrio: string | undefined): string => {
-    console.log(">>>", barrio, property);
-
     const found = Barrios.find((b) => b.value === barrio);
     return found ? found.label : "No especificado";
   };
@@ -18,7 +16,6 @@ const PropertyInfo: React.FC<PropertyInfoProps> = ({ property }) => {
   return (
     <article className="w-full rounded-lg p-6 text-text-primary md:w-2/4">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-6">
-        {/* Left Column */}
         <div className="grid gap-4">
           <div>
             <h2 className="text-lg font-bold text-accent-dark mb-2">Estado</h2>
@@ -38,7 +35,6 @@ const PropertyInfo: React.FC<PropertyInfoProps> = ({ property }) => {
           </div>
         </div>
 
-        {/* Right Column */}
         <div className="grid gap-4">
           <div>
             <h2 className="text-lg font-bold text-accent-dark mb-2">Dirección</h2>

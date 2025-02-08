@@ -4,7 +4,6 @@ import Modal from "react-modal";
 import { FaChevronDown } from "react-icons/fa";
 import { PropertyStatus } from "../../utils/types";
 
-// Establecer el elemento raíz para el modal
 Modal.setAppElement("#root");
 
 interface FilterByStatusButtonsProps {
@@ -46,8 +45,8 @@ const FilterByStatusBusqueda: React.FC<FilterByStatusButtonsProps> = ({
             </div>
             <Modal
                 isOpen={isModalOpen}
-                onRequestClose={toggleModal} // Cierra el modal al presionar Esc o hacer clic fuera
-                shouldCloseOnOverlayClick={true} // Cierra el modal al hacer clic en el fondo
+                onRequestClose={toggleModal}
+                shouldCloseOnOverlayClick={true}
                 className="fixed inset-0 flex items-center justify-center z-50"
                 overlayClassName="fixed inset-0 bg-black bg-opacity-50"
                 contentLabel="Seleccionar Estado"

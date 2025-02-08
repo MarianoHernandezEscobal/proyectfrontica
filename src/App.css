@@ -27,34 +27,18 @@ section h2 {
   padding: 1rem;
   margin-bottom: 0.5rem;
 }
-
-/* .nav-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0.5rem;
-}
-
-.nav-container .nav-button {
-  margin-left: 0.5rem;
-} */
-
-/* @media (min-width: 768px) {
-  .nav-container .nav-button {
-    margin-left: 1rem;
-  }
-} */
+ 
 .scrollbar-hidden {
-    overflow-x: hidden; /* Oculta el scrollbar horizontal */
+    overflow-x: hidden;  
 }
 
 .slides {
-    scroll-behavior: smooth; /* Desplazamiento suave */
-    scroll-snap-type: x mandatory; /* Establece el tipo de "snap" en el eje x */
+    scroll-behavior: smooth;  
+    scroll-snap-type: x mandatory;  
 }
 
 .slides li {
-    scroll-snap-align: start; /* Alinea las miniaturas al inicio al hacer scroll */
+    scroll-snap-align: start;  
 }
 
 .react-datepicker__year-wrapper {
@@ -68,7 +52,7 @@ h2 {
 
 .main-content {
   background-color: #F2F2F2;
-  padding-top: 75px; /* Ajusta este valor según la altura de tu navbar */
+  padding-top: 75px;  
 }
 
 /* loader */
@@ -92,7 +76,7 @@ h2 {
 }
 
 .highlighted-date {
-  background-color: #ffebee; /* Fondo rojo claro */
-  color: #d32f2f; /* Texto rojo */
-  border-radius: 15%; /* Hace que las fechas se vean como círculos */
+  background-color: #ffebee;  
+  color: #d32f2f;  
+  border-radius: 15%; 
 }

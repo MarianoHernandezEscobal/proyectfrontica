@@ -23,9 +23,7 @@ const PasswordInput: React.FC<PasswordInputProps> = ({
   return (
     <>
       <div className="relative">
-        {/* Icono de candado */}
         <FaLock className="absolute top-3 left-3 text-gray-400" />
-        {/* Campo de entrada */}
         <input
           type={showPassword ? "text" : "password"}
           name={name}
@@ -33,11 +31,9 @@ const PasswordInput: React.FC<PasswordInputProps> = ({
           onChange={onChange}
           maxLength={maxLength}
           placeholder={placeholder}
-          className={`w-full pl-10 pr-10 py-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500 ${
-            error ? "border-red-500" : "border-gray-300"
-          }`}
+          className={`w-full pl-10 pr-10 py-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500 ${error ? "border-red-500" : "border-gray-300"
+            }`}
         />
-        {/* Botón para alternar visibilidad */}
         <button
           type="button"
           onClick={() => setShowPassword(!showPassword)}
@@ -53,7 +49,6 @@ const PasswordInput: React.FC<PasswordInputProps> = ({
           )}
         </button>
 
-        {/* Mensaje de error */}
       </div>
       <>{error && <p className="text-sm text-red-500 mt-1">{error}</p>}</>
     </>

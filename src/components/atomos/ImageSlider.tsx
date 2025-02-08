@@ -59,6 +59,7 @@ const ImageSlider: React.FC<ImageSliderProps> = ({ images }) => {
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isModalOpen]);
 
   return (
@@ -94,11 +95,10 @@ const ImageSlider: React.FC<ImageSliderProps> = ({ images }) => {
             .map((image, index) => (
               <li
                 key={index + startIndex}
-                className={`flex-none w-20 mr-2 cursor-pointer ${
-                  index + startIndex === currentIndex
-                    ? "border-2 border-secondary-dark"
-                    : ""
-                }`}
+                className={`flex-none w-20 mr-2 cursor-pointer ${index + startIndex === currentIndex
+                  ? "border-2 border-secondary-dark"
+                  : ""
+                  }`}
                 onClick={() => {
                   setCurrentIndex(index + startIndex);
                   openModal(image);
@@ -115,7 +115,6 @@ const ImageSlider: React.FC<ImageSliderProps> = ({ images }) => {
         </ul>
       </div>
 
-      {/* Modal */}
       {isModalOpen && selectedImage && (
         <div className="fixed inset-0 bg-background-dark bg-opacity-80 flex items-center justify-center z-50">
           <div className="relative w-full h-full flex items-center justify-center">

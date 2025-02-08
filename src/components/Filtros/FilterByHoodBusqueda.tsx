@@ -4,7 +4,6 @@ import Modal from "react-modal";
 import { Barrios } from "../../assets/barrios";
 import { FaChevronDown } from "react-icons/fa";
 
-// Establecer el elemento raíz para el modal
 Modal.setAppElement("#root");
 
 interface FilterByHoodProps {
@@ -28,12 +27,11 @@ const FilterByHoodBusqueda: React.FC<FilterByHoodProps> = ({ onFilterChange, cur
 
     const handleItemClick = (neighborhood: string) => {
         if (neighborhood === "Cualquiera" && currentFilters.includes("Cualquiera")) {
-            // Si "Cualquiera" ya está seleccionado, lo deseleccionamos.
             onFilterChange("");
         } else {
             onFilterChange(neighborhood);
         }
-        toggleModal(); // Cierra el modal después de seleccionar
+        toggleModal();
     };
 
     return (
@@ -49,8 +47,8 @@ const FilterByHoodBusqueda: React.FC<FilterByHoodProps> = ({ onFilterChange, cur
             </div>
             <Modal
                 isOpen={isModalOpen}
-                onRequestClose={toggleModal} // Cierra el modal al presionar Esc o hacer clic fuera
-                shouldCloseOnOverlayClick={true} // Cierra el modal al hacer clic en el fondo
+                onRequestClose={toggleModal}
+                shouldCloseOnOverlayClick={true}
                 className="fixed inset-0 flex items-center justify-center z-50"
                 overlayClassName="fixed inset-0 bg-black bg-opacity-50"
                 contentLabel="Seleccionar Barrio"
