@@ -58,7 +58,7 @@ const Nosotros: React.FC = () => {
                                 <p className="text-sm text-gray-600">Propiedades Listadas</p>
                             </div>
                         </div>
-                        <Link to={"/contacto"} rel="noopener noreferrer" className="text-green-300 hover:text-green-500 text-2xl">
+                        <Link to={"/contact"} rel="noopener noreferrer" className="text-green-300 hover:text-green-500 text-2xl">
                             <FaArrowRight />
                         </Link>
                     </article>

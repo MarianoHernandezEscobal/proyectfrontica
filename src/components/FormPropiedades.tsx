@@ -62,7 +62,7 @@ const PropertyForm: React.FC<PropertyFormProps> = ({
   const [isModalOpen, setModalOpen] = useState(false);
   const navigate = useNavigate();
   const [formData, setFormData] = useState<Property>(
-    property || { ...inicializarPropiedad }
+    property || inicializarPropiedad
   );
 
   const [newImages, setNewImages] = useState<File[]>([]);
@@ -89,12 +89,19 @@ const PropertyForm: React.FC<PropertyFormProps> = ({
 
   const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, checked } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: checked }));
+    setFormData((prev) => ({
+      ...prev,
+      [name]: checked,
+    }));
   };
 
   const handleStatusChange = (selectedStatus: PropertyStatus[]) => {
     setFormData((prev) => ({ ...prev, status: selectedStatus }));
   };
+
+  useEffect(() => {
+    console.log("FormData actualizado");
+  }, [formData]);
 
   const onDrop = useCallback((acceptedFiles: File[]) => {
     const newImageSrc = acceptedFiles.map((file) => URL.createObjectURL(file));
@@ -327,7 +334,7 @@ const PropertyForm: React.FC<PropertyFormProps> = ({
             />
           </div>
 
-          <div className="grid grid-cols-2 gap-4  ">
+          <div className="grid grid-cols-2 gap-4">
             <label className="flex items-center justify-center">
               <span className="mr-2 text-lg font-bold">Garajes</span>
               <input

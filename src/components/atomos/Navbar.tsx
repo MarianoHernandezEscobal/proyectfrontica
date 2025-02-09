@@ -86,7 +86,7 @@ const Navbar = () => {
     (path: string) =>
       location.pathname === path
         ? "text-text-light font-extrabold"
-        : " hover: hover:text-accent-light",
+        : " hover: hover:text-text-light",
     [location.pathname]
   );
 
@@ -126,16 +126,16 @@ const Navbar = () => {
           {navLinks.map(({ path, label }) => (
             <Link
               key={path}
-              className={`nav-button text-accent-dark  hover:text-accent-light ${isActive(path)}`}
+              className={`nav-button text-accent-dark  hover:text-text-light ${isActive(path)}`}
               to={path}
             >
               {label}
             </Link>
           ))}
 
-          <div className="relative" ref={userMenuRef}>
+          <div className="relative " ref={userMenuRef}>
             <button
-              className={`nav-button text-accent-dark hover:font-bold transition-text duration-300 flex items-center ${isUserMenuOpen ? "text-accent-dark" : ""
+              className={`nav-button text-accent-dark hover:font-bold hover:text-text-light transition-text duration-300 flex items-center ${isUserMenuOpen ? "text-accent-dark" : ""
                 }`}
               onClick={toggleUserMenu}
               aria-label="Perfil de usuario"
@@ -169,7 +169,7 @@ const Navbar = () => {
                     </Link>
                   ))}
                 <button
-                  className="block w-full text-left px-4 py-2 text-sm text-text-primary hover:bg-accent-dark"
+                  className="block w-full text-left px-4 py-2 text-sm text-text-primary hover:bg-accent-dark hover:text-text-light"
                   onClick={handleLogout}
                 >
                   Cerrar Sesión
@@ -202,7 +202,7 @@ const Navbar = () => {
           ))}
 
           <button
-            className={`nav-button transition-text duration-300 text-right hover:font-bold hover:accent-dark flex items-center ${isUserMenuOpen ? "text-text-light" : ""
+            className={`nav-button transition-text hover:text-text-light duration-300 text-right hover:font-bold hover:accent-dark flex items-center ${isUserMenuOpen ? "text-text-light" : ""
               }`}
             onClick={toggleUserMenu}
             aria-label="Perfil de usuario"
@@ -236,7 +236,7 @@ const Navbar = () => {
                   </Link>
                 ))}
 
-              <button className="nav-button hover:bg-accent-light text-left pl-8" onClick={handleLogout}>
+              <button className="nav-button hover:text-text-light text-left pl-8" onClick={handleLogout}>
                 Cerrar Sesión
               </button>
             </>

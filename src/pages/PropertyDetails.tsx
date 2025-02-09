@@ -31,7 +31,7 @@ const PropertyDetails: React.FC = () => {
     const loadProperty = async () => {
       try {
         if (!id) throw new Error("No se encontró el ID de la propiedad.");
-        if (properties.length > 0 && id) {
+        if (properties.length > 0) {
           const propertyData = properties.find((p) => p.id === parseInt(id));
           if (propertyData) {
             setProperty(propertyData);
