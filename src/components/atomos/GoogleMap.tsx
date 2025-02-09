@@ -62,7 +62,7 @@ const GoogleMapComponent: React.FC<GoogleMapComponentProps> = ({
           >
             <!-- Logo centrado -->
             <img 
-              src="../../assets/imgs/logoColor.png" 
+              src="../../src/assets/imgs/logoColor.png" 
               alt="Inmobiliaria Costa Azul" 
               style="
                 margin-bottom: 10px;
