@@ -14,13 +14,14 @@ const AuthContext = createContext<AuthContextProps | undefined>(undefined);
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<UserData | null>(null);
-  const [hasSession, setHasSession] = useState(false);
+  const [hasSession, setHasSession] = useState<boolean | null>(null); // Cambiado a null para evitar falsos negativos en la primera renderización
 
   const fetchUserProfile = async () => {
     try {
       const userData = await getUsers();
       setHasSession(true);
       setUser(userData);
+      sessionStorage.setItem("userData", JSON.stringify(userData));
     } catch (error) {
       console.warn("Error fetching user profile:", error);
       sessionStorage.removeItem("userData");
@@ -36,27 +37,31 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   };
 
   useEffect(() => {
-    const cookieExists = hasCookie("sessionIndicator");
-    setHasSession(cookieExists);
+    const checkSession = async () => {
+      const cookieExists = await hasCookie("sessionIndicator");
+      setHasSession(cookieExists);
 
-    const storedUser = sessionStorage.getItem("userData");
-    if (cookieExists) {
-      if (storedUser) {
-        setUser(JSON.parse(storedUser));
+      if (cookieExists) {
+        const storedUser = sessionStorage.getItem("userData");
+        if (storedUser) {
+          setUser(JSON.parse(storedUser));
+        } else {
+          await fetchUserProfile();
+        }
       } else {
-        fetchUserProfile();
+        sessionStorage.removeItem("userData");
+        setUser(null);
       }
-    } else {
-      sessionStorage.removeItem("userData");
-      setUser(null);
-    }
+    };
+
+    checkSession();
   }, []);
 
   return (
     <AuthContext.Provider
       value={{
         user,
-        isAuthenticated: hasSession && !!user,
+        isAuthenticated: hasSession === true && !!user,
         logoutUser: handleLogout,
         fetchUserProfile
       }}
@@ -65,6 +70,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     </AuthContext.Provider>
   );
 };
+
 /* eslint-disable react-refresh/only-export-components */
 export const useAuth = (): AuthContextProps => {
   const context = useContext(AuthContext);

@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { DEFAULT_CENTER } from "../../utils/constants";
 import { Property } from "../../utils/types";
+import logo from "../../assets/imgs/logoColor.png";  // Importación directa
 
 interface GoogleMapComponentProps {
   properties?: Property[];
@@ -62,7 +63,7 @@ const GoogleMapComponent: React.FC<GoogleMapComponentProps> = ({
           >
             <!-- Logo centrado -->
             <img 
-              src="../../src/assets/imgs/logoColor.png" 
+              src="${logo}" 
               alt="Inmobiliaria Costa Azul" 
               style="
                 margin-bottom: 10px;
