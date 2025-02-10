@@ -13,25 +13,27 @@ interface AuthContextProps {
 const AuthContext = createContext<AuthContextProps | undefined>(undefined);
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [user, setUser] = useState<UserData | null>(null);
-  const [hasSession, setHasSession] = useState<boolean | null>(null); // Cambiado a null para evitar falsos negativos en la primera renderización
+  const [user, setUser] = useState<UserData | null>(
+    () => JSON.parse(localStorage.getItem("userData") || "null") // Carga el usuario desde localStorage
+  );
+  const [hasSession, setHasSession] = useState<boolean | null>(null);
 
   const fetchUserProfile = async () => {
     try {
       const userData = await getUsers();
       setHasSession(true);
       setUser(userData);
-      sessionStorage.setItem("userData", JSON.stringify(userData));
+      localStorage.setItem("userData", JSON.stringify(userData)); // Guardar en localStorage
     } catch (error) {
       console.warn("Error fetching user profile:", error);
-      sessionStorage.removeItem("userData");
+      localStorage.removeItem("userData");
       setUser(null);
     }
   };
 
   const handleLogout = async () => {
     await logoutUser();
-    sessionStorage.removeItem("userData");
+    localStorage.removeItem("userData"); // Eliminar usuario de localStorage
     setUser(null);
     setHasSession(false);
   };
@@ -42,14 +44,14 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       setHasSession(cookieExists);
 
       if (cookieExists) {
-        const storedUser = sessionStorage.getItem("userData");
+        const storedUser = localStorage.getItem("userData");
         if (storedUser) {
           setUser(JSON.parse(storedUser));
         } else {
           await fetchUserProfile();
         }
       } else {
-        sessionStorage.removeItem("userData");
+        localStorage.removeItem("userData");
         setUser(null);
       }
     };
